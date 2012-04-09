@@ -1,0 +1,49 @@
+{include passport_header 1}
+<div>
+  <table width="100%" border="0" cellspacing="1" cellpadding="3">
+    <tr>
+      <td width="24%" valign="top">{include left 1} </td>
+      <td valign="top"><div class="box">
+        <table width="100%" border="0" cellspacing="1" cellpadding="3">
+          <tr>
+            <td class="h"><a href="jifen.php">查看积分</a> <a href="chongzhi.php"> 积分充值</a>  <strong>查看订单</strong></td>
+          </tr>
+          <tr>
+            <td class="t2"><a href="order.php?state=2">已处理</a> <a href="order.php?state=1">未处理</a> <a href="order.php?state=0">全部</a></td>
+          </tr>
+
+            <tr>
+              <td><table width="100%" border="0" cellspacing="1" cellpadding="3">
+                <tr class="t2">
+                  <td width="30%">订单号</td>
+                  <td width="10%">支付金额</td>
+                  <td width="20%">状态</td>
+                  <td width="20%">生成时间</td>
+                  <td width="10%">操作</td>
+                </tr>
+                {foreach lister_passport_order k v}
+  <tr class="t3">
+    <td>{if}{:v.orderno}{/if}{:v.orderno}{/endif}{else}未生成{/else}</td>
+    <td>{:v.fee}</td>
+    <td>{if}{:v.state}==0{/if}充值中{/endif}{if}{:v.state}==1{/if}支付中{/endif}{if}{:v.state}==2{/if}已充值{/endif}</td>
+    <td>{:v.time|GetMyDate Y-m-d H:i:s,@} </td>
+    <td>{if}{:v.state}==0||{:v.state}==1{/if}{if}{:rtc.passport_onlinepay}{/if}<a href="orderpay.php?id={:v.id}" target="_blank">在线支付</a>{/endif}{else}在线支付已关闭{/else}{/endif}{if}{:v.state}==2{/if}支付成功{/endif}{if}{:v.state}==3{/if}等待支付通知{/endif}</td>
+  </tr>
+                {/foreach}
+  <tr>
+    <td colspan="5">{:pagelink}</td>
+  </tr>
+              </table></td>
+            </tr>
+          <tr>
+            <td> 当前汇率 1 RMB = {:rtc.passport_moneyhuilv} {:rtc.passport_onlinemoney|GetMoneyName @} </td>
+          </tr>
+          <tr>
+            <td> 最低充值 {:rtc.passport_chongzhi_min} RMB </td>
+          </tr>
+        </table>
+      </div></td>
+    </tr>
+  </table>
+</div>
+{include passport_footer 1}

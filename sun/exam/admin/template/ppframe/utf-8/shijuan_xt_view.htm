@@ -1,0 +1,169 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="7" bgcolor="#FFFFFF"><a href="shijuan_xt_main.php?id={:id}">[继续选题]</a> <a href="shijuan_main.php">[试卷管理]</a></td>
+  </tr>
+  <tr>
+    <td width="30" bgcolor="#FFFFFF">选择</td>
+    <td width="20%" height="24" bgcolor="#FFFFFF">标题</td>
+    <td bgcolor="#FFFFFF">类型</td>
+    <td bgcolor="#FFFFFF">排序值(由小到大)</td>
+    <td bgcolor="#FFFFFF">分值</td>
+    <td bgcolor="#FFFFFF"><strong>选中修改</strong></td>
+    <td width="100" bgcolor="#FFFFFF">操作</td>
+  </tr>
+  <form action="shijuan_xt_orderby.php" method="post" name="form_all" id="form_all">
+  {foreach lister_exam_shiti k v}
+  <tr>
+    <td bgcolor="#FFFFFF"><input name="to__checkall__" type="checkbox" id="to__checkall__" onclick="addcheckid(this,{:v.id})" value="{:v.id}"/></td>
+    <td height="24" bgcolor="#FFFFFF">{:v.title|cn_substr @,255}</td>
+    <td height="24" bgcolor="#FFFFFF">{:v.type|GetShitiType @}</td>
+    <td height="24" bgcolor="#FFFFFF"><input name="orderkey[{:v.xtid}]" type="text" id="orderkey[{:v.xtid}]" value="{:v.orderkey}" size="4" onchange="checkxtidbox({:v.xtid});" /></td>
+    <td bgcolor="#FFFFFF">{if}{:v.type|GetTxBaseType @}!=7{/if}分值
+      <input name="fenzhi[{:v.xtid}]" type="text" id="fenzhi[{:v.xtid}]" value="{:v.fenzhi}" size="4"  onchange="checkxtidbox({:v.xtid});" />
+      {/endif}
+      {if}{:v.type|GetTxBaseType @}==1||{:v.type|GetTxBaseType @}==2{/if}答错扣
+      <input name="koufenzhi[{:v.xtid}]" type="text" id="koufenzhi[{:v.xtid}]" value="{:v.koufenzhi}" size="4"  onchange="checkxtidbox({:v.xtid});" />
+      分
+      
+      {/endif}</td>
+    <td bgcolor="#FFFFFF"><input name="modify[{:v.xtid}]" type="checkbox" id="modify[{:v.xtid}]" value="1" />
+修改</td>
+    <td bgcolor="#FFFFFF"><span id="info_{:k}"><a href="javascript:;" onclick="del_shiti({:v.id})">删除</a></span></td>
+  </tr>
+  {/foreach}
+  <tr>
+    <td height="24" colspan="7" bgcolor="#FFFFFF"><input type="checkbox" name="checkbox2" value="checkbox" onclick="check(document.form_all)" />
+全选/反选 <span id="do_refresh"><a href="javascript:;" onclick="deletes();">删除选中试题</a></span></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="7" bgcolor="#FFFFFF"><input type="submit" value="修改" />
+      <input name="sjid" type="hidden" id="sjid" value="{:id}" />
+      分值说明：0 则使用试卷配置里面指定的题型分值，如果也未指定则使用试题录入时的分值。组合题型无法指定分值只能使用试题录入时的分值。</td>
+    </tr>
+  </form>
+  <tr>
+    <td height="24" colspan="7" bgcolor="#FFFFFF">{:pagelink}</td>
+  </tr><form action="" name="formpagesize" id="formpagesize" onsubmit="formaddpagesize(this.pagesize.value);return false;">
+  <tr>
+    <td height="24" colspan="7" bgcolor="#FFFFFF">每页显示
+      <input name="pagesize" type="text" id="pagesize" value="{:pagesize}" size="6" />
+条
+<input type="submit" value="提交" /></td>
+  </tr></form>
+  <form action="{:FormToSelf}" name="form3" id="form3">
+  <tr>
+    <td height="24" colspan="7" bgcolor="#FFFFFF">
+    
+       
+        类型
+        <select name="type" id="type">
+		<option value="">请选择类型</option>
+		{foreach tixing_db k v}
+		{if}
+		({:xinli} && {:k} == 4 )|| ({:xinli}==0 && {:k} != 4)
+		{/if}
+          <option value="{:k}" {if}'{:k}'=='{:type}'{/if}selected{/endif}>{:v|GetMsg @}</option>
+		{/endif}
+		 {/foreach}
+        </select>
+        Tag 
+        <input name="tag" type="text" id="tag" value="{:tag}" size="15">
+              精确匹配
+              <input name="jq" type="checkbox" id="jq" value="1" {if}{:jq}{/if}checked="checked"{/endif} />
+              <input type="submit" value="提交">
+              <input name="id" type="hidden" id="id" value="{:id}"></td>
+  </tr>
+</form>
+<tr>
+    <td height="24" colspan="7" bgcolor="#FFFFFF"><strong>选题并设置完毕后</strong> <a href="shijuan_create.php?id={:id}">生成</a></td>
+  </tr>
+<tr>
+  <td height="24" colspan="7" bgcolor="#FFFFFF"><strong>警告：试卷选定并生成开放后，请勿随意修改，否则再次生成后将迅速影响到使用这份试卷测试的所有考卷。</strong></td>
+</tr>
+</table>
+<script src="{:rtc.sourceurl}ajax.js">
+</script>
+<script language="javascript">
+var done = 0;
+var selnum = 0;
+function del_shiti(id) {
+	var ajax;
+	var container = $('info_'+id);
+	ajax = new Ajax(container);
+	ajax.doOpen('GET','ajax_shijuan_xt_del.php?id='+ id + '&sjid={:id}');
+	ajax.doSend();
+	if(done > 0) {
+		done -= 1;
+		if(done == 0) {
+			$('do_refresh').innerHTML = '操作已完成 <a href=' + window.location + '>点击刷新</a>';
+			setTimeout('window.location.href=window.location;',500);
+		}
+	}
+}
+
+var checkflag = "false";
+var ids = {};
+function check(field) {
+	if (checkflag == "false") {
+		for (i = 0; i < field.length; i++) {
+			if(field[i].name.indexOf('__checkall__')>0) {
+				field[i].checked = true;
+				addid(field[i].value);
+			}
+		}
+		checkflag = "true";
+		return "false";
+	}
+	else {
+		for (i = 0; i < field.length; i++) {
+			if(field[i].name.indexOf('__checkall__')>0) {
+				field[i].checked = false;
+				delid(field[i].value);
+			}
+		}
+		checkflag = "false";
+		return "true"; 
+	}
+}
+
+function addid(id) {
+	eval('ids.id' + id + '=' + id + ';');
+	++ selnum;
+}
+
+function delid(id) {
+	eval('delete(ids.id' + id + ');');
+	-- selnum;
+}
+
+function addcheckid(i,id) {
+	if(i.checked) addid(id);
+	else delid(id);
+}
+
+function deletes() {
+	if(selnum>0) {
+		foreachjson();
+		$('do_refresh').innerHTML = '操作中，请稍后';
+	}else {
+		alert('请选择试题');
+		return false;
+	}
+}
+
+function foreachjson() {
+	var t = 10;
+	for(var e in ids) {
+		var s = "del_shiti(ids." + e + ")";
+		setTimeout(s,t);
+		done += 1;
+		t += 200;	//延迟200毫秒
+	}
+}
+
+function checkxtidbox(xtid) {
+	$('modify[' + xtid + ']').checked = 'checked';
+}
+</script>
+{include footer.htm 1}

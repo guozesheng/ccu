@@ -1,0 +1,54 @@
+{include passport_header 1}
+<div>
+<table width="100%" border="0" cellspacing="1" cellpadding="3">
+  <tr>
+    <td width="24%" valign="top">{include left 1} </td>
+    <td valign="top"><div class="box">
+      <table width="100%" border="0" cellspacing="1" cellpadding="3">
+        <form id="form1" name="form1" method="post" action="{:FormToSelf}">
+		<tr>
+          <td colspan="2" class="h">修改资料</td>
+          </tr>
+        <tr class="t3">
+          <td width="24%"><span class="key">Email</span></td>
+          <td><span class="value">
+            <input name="input[email]" type="text" id="input[email]" value="{:passport-&gt;U.email}" />
+          </span></td>
+        </tr>
+        <tr class="t3">
+          <td>姓名</td>
+          <td><span class="value">
+            <input name="input[u_name]" type="text" id="input[u_name]" value="{:passport-&gt;U.u_name}" />
+          </span></td>
+        </tr>
+        <tr class="t3">
+          <td>证件号码</td>
+          <td><span class="value">
+            <input name="input[u_cardid]" type="text" id="input[u_cardid]" value="{:passport-&gt;U.u_cardid}" />
+            <select name="input[u_cardtype]" id="input[u_cardtype]">
+              <option value="0" {if}{:passport-&gt;U.u_cardtype} == 0{/if}selected="selected"{/endif}>身份证</option>
+              <option value="1" {if}{:passport-&gt;U.u_cardtype} == 1{/if}selected="selected"{/endif}>其他</option>
+            </select>
+          </span></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="t2"><strong>自定义字段</strong></td>
+          </tr>
+		  {foreach selfdef_fields k v}
+        <tr class="t3">
+          <td>{:v.0|GetMsg @}</td>
+          <td><input name="{:v.0}" type="text" id="{:v.0}" value="{:passport-&gt;U.[:v.0]}" {if}'{:v.0|ereg _no_,@}' && '{:passport-&gt;U.[:v.0]}'{/if}disabled="disabled"{/endif}/></td>
+        </tr>
+		{/foreach}
+        <tr>
+          <td>&nbsp;</td>
+          <td><input type="submit" class="button" value="提交"/>
+            <input name="Submit" type="hidden" id="Submit" value="1" /></td>
+        </tr>
+		</form>
+      </table>
+    </div></td>
+  </tr>
+</table>
+</div>
+{include passport_footer 1}

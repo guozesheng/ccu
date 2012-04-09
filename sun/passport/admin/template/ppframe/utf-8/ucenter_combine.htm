@@ -1,0 +1,56 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>UCenter整合设置</strong> <font color="#FF0000">如果你不知道什么是UCenter，请不要发问，直接忽略此项！</font></td>
+  </tr><form name="form1" method="post" action="{:FormToSelf}">
+  
+  <tr>
+    <td width="200" height="24" bgcolor="#FFFFFF">UCenter API地址(后面不要加 / ) </td>
+    <td width="600" bgcolor="#FFFFFF"><input name="input[uc_api]" type="text" id="input[uc_api]" value="{:UC_API}" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">UCenter IP地址</td>
+    <td bgcolor="#FFFFFF"><input name="input[uc_ip]" type="text" id="input[uc_ip]" value="{:UC_IP}" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">UCenter创始人密码</td>
+    <td bgcolor="#FFFFFF"><input name="input[ucfounderpw]" type="text" id="input[ucfounderpw]" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">UCenter版本</td>
+    <td bgcolor="#FFFFFF">
+      <label>
+        <input type="radio" name="input[version]" value="10" {if}{:rtc.uc_version}=='10'{/if}checked{/endif}>
+        UCenter1.0</label>
+      <label>
+        <input name="input[version]" type="radio" value="15" {if}{:rtc.uc_version}=='15'{/if}checked{/endif}>
+        UCenter1.5</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF"><input type="submit" value="UC整合" />
+      <input name="Submit" type="hidden" id="Submit" value="1" /></td>
+  </tr>
+  </form>
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>注意：整合后将以UCenter用户为中心，Ucenter中没有的用户将无法登陆!</strong></td>
+  </tr>
+</table>
+<script language="javascript">
+function loadZhuanye() {
+	if(parseInt($('input[u_cid]').value) > 0) {
+		var url = 'ajax_loadzhuanye.php?cid=' + $('input[u_cid]').value;
+		ajaxLoadUrl(url,$('st_zhuanye'));
+	}
+}
+
+function loadClass() {
+	var cid = parseInt($('input[u_cid]').value);
+	var grade = parseInt($('input[grade]').value);
+	if(cid > 0 || grade) {
+		var url = 'ajax_loadclass.php?cid=' + cid + '&grade=' + grade;
+		ajaxLoadUrl(url,$('st_class'));
+	}
+}
+</script>
+{include footer.htm}

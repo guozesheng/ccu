@@ -1,0 +1,53 @@
+{include passport_header 1}
+<div>
+  <table width="100%" border="0" cellspacing="1" cellpadding="3">
+    <tr>
+      <td width="24%" valign="top">{include message_left 1} </td>
+      <td valign="top"><div class="box">
+        <table width="100%" border="0" cellspacing="1" cellpadding="3">
+          <tr>
+            <td class="h"><span class="msg_guide"><strong>发送短消息</strong></span><span class="boxname"> {:boxname} </span></td>
+          </tr>
+          <tr>
+            <td><table width="100%" border="0" cellspacing="1" cellpadding="3">
+              <form id="form1" name="form1" method="post" action="{:FormToSelf}">
+                
+                <tr class="t2">
+                  <td width="24%"><span class="key">收件人</span></td>
+                  <td><span class="value2">
+                    <input name="to" type="text" id="to" value="{:to}" />
+                  </span></td>
+                </tr>
+                <tr class="t2">
+                  <td><span class="key">标题</span></td>
+                  <td><span class="value2">
+                    <input name="subject" type="text" id="subject" value="{:subject}" />
+                  </span></td>
+                </tr>
+                <tr class="t2">
+                  <td><span class="key">内容</span></td>
+                  <td><span class="value2">
+                    <textarea name="body" cols="40" rows="5" id="body"></textarea>
+                  </span></td>
+                </tr>
+                <tr>
+                  <td><span class="key">保存到发件箱</span></td>
+                  <td><span class="value2">
+                    <input name="store" type="checkbox" value="1" checked="checked" />
+                  </span></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td><input type="submit" value="提交" class="button"/>
+                    <input name="Submit" type="hidden" id="Submit" value="1" />
+                    <input name="action" type="hidden" id="action" value="{:action}" /></td>
+                </tr>
+              </form>
+            </table></td>
+          </tr>
+        </table>
+      </div></td>
+    </tr>
+  </table>
+</div>
+{include passport_footer 1}

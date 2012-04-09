@@ -1,0 +1,227 @@
+-- 
+-- 表的结构 `##__exam_admin`
+-- 
+
+DROP TABLE IF EXISTS `##__exam_admin`;
+CREATE TABLE `##__exam_admin` (
+  `uid` int(11) unsigned NOT NULL auto_increment,
+  `userid` varchar(20) NOT NULL default '',
+  `name` varchar(40) NOT NULL default '',
+  `privkey` text NOT NULL,
+  `tikus` varchar(255) NOT NULL default '',
+  `loginban` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`uid`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=gbk;
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `##__exam_class`
+-- 
+
+DROP TABLE IF EXISTS `##__exam_class`;
+CREATE TABLE `##__exam_class` (
+  `id` smallint(6) NOT NULL auto_increment,
+  `name` varchar(60) NOT NULL default '',
+  `cktimes` int(10) unsigned NOT NULL default '0',
+  `oknum` int(10) unsigned NOT NULL default '0',
+  `okban` tinyint(1) unsigned NOT NULL default '0',
+  `descrip` varchar(250) NOT NULL default '',
+  `istop` tinyint(4) NOT NULL default '0',
+  `upid` smallint(6) NOT NULL default '0',
+  `ids` varchar(250) NOT NULL default '',
+  `orderkey` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=gbk;
+
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `##__exam_errorreport`
+-- 
+
+DROP TABLE IF EXISTS `##__exam_errorreport`;
+CREATE TABLE `##__exam_errorreport` (
+  `id` int(11) NOT NULL auto_increment,
+  `tiku` int(11) NOT NULL default '0',
+  `stid` int(11) NOT NULL default '0',
+  `author` int(11) NOT NULL default '0',
+  `title` varchar(255) NOT NULL default '',
+  `why` text NOT NULL,
+  `time` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=gbk;
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `##__exam_filehash`
+-- 
+
+DROP TABLE IF EXISTS `##__exam_filehash`;
+CREATE TABLE `##__exam_filehash` (
+  `hash` varchar(32) NOT NULL default '',
+  `time` int(11) NOT NULL default '0',
+  UNIQUE KEY `hash` (`hash`)
+) ENGINE=MyISAM DEFAULT CHARSET=gbk;
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `##__exam_kaojuan`
+-- 
+
+DROP TABLE IF EXISTS `##__exam_kaojuan`;
+CREATE TABLE `##__exam_kaojuan` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `name` varchar(60) NOT NULL default '',
+  `shijuan` int(11) unsigned NOT NULL default '0',
+  `author` int(11) unsigned NOT NULL default '0',
+  `start` int(11) unsigned NOT NULL default '0',
+  `end` int(11) unsigned NOT NULL default '0',
+  `content` mediumtext NOT NULL,
+  `damix` text NOT NULL,
+  `totalsorce` smallint(6) NOT NULL default '0',
+  `sorce` smallint(6) NOT NULL default '0',
+  `plusorce` smallint(6) NOT NULL default '0',
+  `close` tinyint(4) NOT NULL default '0',
+  `ip` varchar(30) NOT NULL default '',
+  `time` int(11) unsigned NOT NULL default '0',
+  `lastupdate` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=137 DEFAULT CHARSET=gbk;
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `##__exam_shijuan`
+-- 
+
+DROP TABLE IF EXISTS `##__exam_shijuan`;
+CREATE TABLE `##__exam_shijuan` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `title` varchar(100) NOT NULL default '',
+  `descrip` varchar(250) NOT NULL default '',
+  `overdescrip` text NOT NULL,
+  `dotime` smallint(6) NOT NULL default '0',
+  `limitime` smallint(6) NOT NULL default '0',
+  `start` int(11) unsigned NOT NULL default '0',
+  `end` int(11) unsigned NOT NULL default '0',
+  `shitimix` text NOT NULL,
+  `fenmix` text NOT NULL,
+  `timemix` text NOT NULL,
+  `descripmix` text NOT NULL,
+  `lvlmin` smallint(6) NOT NULL default '0',
+  `lvlmix` text NOT NULL,
+  `kfmix` text NOT NULL,
+  `fensize` smallint(6) NOT NULL default '1',
+  `money` int(11) unsigned NOT NULL default '0',
+  `mtype` tinyint(4) unsigned NOT NULL default '0',
+  `tiku` int(11) unsigned NOT NULL default '0',
+  `class` int(11) unsigned NOT NULL default '0',
+  `fix` tinyint(1) NOT NULL default '0',
+  `xinli` tinyint(1) NOT NULL default '0',
+  `random` tinyint(1) NOT NULL default '0',
+  `selfpf` tinyint(1) NOT NULL default '0',
+  `open` tinyint(1) NOT NULL default '0',
+  `protect` tinyint(1) NOT NULL default '0',
+  `cjbm` tinyint(1) NOT NULL default '0',
+  `kjdata` mediumtext NOT NULL,
+  `protecttime` smallint(6) NOT NULL default '0',
+  `ktimes` smallint(6) NOT NULL default '0',
+  `ltime` smallint(6) NOT NULL default '0',
+  `jrate` smallint(6) NOT NULL default '0',
+  `jnum` smallint(6) NOT NULL default '0',
+  `jmtype` smallint(6) NOT NULL default '0',
+  `adminid` int(10) unsigned NOT NULL default '1',
+  `okrate` smallint(6) unsigned NOT NULL default '60',
+  `okban` tinyint(1) unsigned NOT NULL default '0',
+  `helplink` varchar(255) NOT NULL default '',
+  `dotimes` int(10) unsigned NOT NULL default '0',
+  `dtuptime` int(10) unsigned NOT NULL default '0',
+  `totals` smallint(6) unsigned NOT NULL default '0',
+  `showadmin` tinyint(1) unsigned NOT NULL default '0',
+  `dostyle` varchar(20) NOT NULL default 'ppframe',
+  `allowcolleges` varchar(255) NOT NULL default '',
+  `allowpros` varchar(255) NOT NULL default '',
+  `allowgrades` varchar(255) NOT NULL default '',
+  `allowgroups` varchar(255) NOT NULL default '',
+  `allowclass` varchar(255) NOT NULL default '',
+  `allowclasses` varchar(255) NOT NULL default '',
+  `allowbids` VARCHAR( 255 ) NOT NULL DEFAULT '',
+  `andor` tinyint(1) NOT NULL default '0',
+  `del` tinyint(1) unsigned NOT NULL default '0',
+  `time` int(11) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=gbk;
+
+
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `##__exam_shiti`
+-- 
+
+DROP TABLE IF EXISTS `##__exam_shiti`;
+CREATE TABLE `##__exam_shiti` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `title` text NOT NULL,
+  `type` smallint(6) NOT NULL default '0',
+  `upid` int(11) NOT NULL default '0',
+  `xuanxiang` text NOT NULL,
+  `daan` text NOT NULL,
+  `jieda` text NOT NULL,
+  `fen` smallint(6) NOT NULL default '0',
+  `kf` smallint(6) NOT NULL default '0',
+  `unuse` tinyint(1) NOT NULL default '0',
+  `author` INT( 11 ) NOT NULL DEFAULT '0',
+  `adminid` INT( 10 ) UNSIGNED NOT NULL DEFAULT '1',
+  `tikus` varchar(255) NOT NULL default '',
+  `level` smallint(6) NOT NULL default '0',
+  `tag` varchar(250) NOT NULL default '',
+  `time` int(11) unsigned NOT NULL default '0',
+  `orderkey` int(11) NOT NULL default '0',
+  `ext1` tinyint(1) NOT NULL default '0',
+  `ext2` varchar(250) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=166 DEFAULT CHARSET=gbk;
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `##__exam_tiku`
+-- 
+
+DROP TABLE IF EXISTS `##__exam_tiku`;
+CREATE TABLE `##__exam_tiku` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(60) NOT NULL default '',
+  `descrip` varchar(250) NOT NULL default '',
+  `istop` tinyint(4) NOT NULL default '0',
+  `upid` int(11) NOT NULL default '0',
+  `storetable` varchar(60) NOT NULL default '',
+  `allowpush` tinyint(1) NOT NULL default '0',
+  `orderkey` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=gbk;
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `##__exam_xt`
+-- 
+
+DROP TABLE IF EXISTS `##__exam_xt`;
+CREATE TABLE `##__exam_xt` (
+  `id` int(11) NOT NULL auto_increment,
+  `sjid` int(11) unsigned NOT NULL default '0',
+  `tiku` int(11) unsigned NOT NULL default '0',
+  `stid` int(11) unsigned NOT NULL default '0',
+  `type` smallint(6) NOT NULL default '0',
+  `orderkey` int(11) NOT NULL default '0',
+  `fenzhi` smallint(6) NOT NULL default '0',
+  `koufenzhi` smallint(6) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=gbk;

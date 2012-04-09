@@ -1,0 +1,49 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="7" bgcolor="#FFFFFF"><strong>订单管理</strong></td>
+  </tr>
+  <tr>
+    <td width="200" height="24" bgcolor="#FFFFFF">订单号</td>
+    <td width="50" bgcolor="#FFFFFF">UID</td>
+    <td width="100" bgcolor="#FFFFFF">支付金额</td>
+    <td width="50" bgcolor="#FFFFFF">状态</td>
+    <td width="100" bgcolor="#FFFFFF">创建时间</td>
+    <td width="100" bgcolor="#FFFFFF">充值时间</td>
+    <td width="100" bgcolor="#FFFFFF">操作</td>
+  </tr>
+ {foreach list_passport_order k v}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">{if}{:v.orderno}{/if}{:v.orderno}{/endif}{else}未生成{/else}</td>
+    <td bgcolor="#FFFFFF"><a href="user_view.php?id={:v.uid}">{:v.uid}</a></td>
+    <td bgcolor="#FFFFFF">{:v.fee}</td>
+    <td bgcolor="#FFFFFF">{if}{:v.state}==0{/if}充值中{/endif}{if}{:v.state}==1{/if}支付中{/endif}{if}{:v.state}==2{/if}已充值{/endif}{if}{:v.state}==3{/if}充值异常{/endif}</td>
+    <td bgcolor="#FFFFFF">{:v.time|GetMyDate Y-m-d H:i:s,@} </td>
+    <td bgcolor="#FFFFFF">{if}{:v.paytime}{/if}{:v.paytime|GetMyDate Y-m-d H:i:s,@} {/endif}{else}未充值{/else}</td>
+    <td bgcolor="#FFFFFF"><a href="money_order_do.php?id={:v.id}">操作</a></td>
+  </tr>{/foreach}
+  <tr>
+    <td height="24" colspan="7" bgcolor="#FFFFFF">{:pagelink}</td>
+  </tr>
+  
+  <tr>
+    <td height="24" colspan="7" bgcolor="#FFFFFF">搜索</td>
+  </tr><form name="form1" action="{:FormToSelf}">
+  <tr>
+    <td height="24" colspan="7" bgcolor="#FFFFFF">订单号：
+      <input name="orderno" type="text" id="orderno" value="{:orderno}">
+      <input name="jq" type="checkbox" id="jq" value="1">
+      精确匹配 状态 
+      <select name="state" id="state">
+        <option value="0">全部</option>
+        <option value="1">充值中</option>
+        <option value="2">充值完成</option>
+        <option value="3">充值异常</option>
+      </select>      </td>
+  </tr>
+  <tr>
+    <td height="24" colspan="7" bgcolor="#FFFFFF"><input type="submit" value="搜索"></td>
+  </tr>
+  </form>
+</table>
+{include footer.htm}

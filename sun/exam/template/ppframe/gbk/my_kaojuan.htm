@@ -1,0 +1,38 @@
+{include exam_header.htm 1}
+<table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+  <tr>
+    <td width="24%" valign="top"><div class="box">{include my_left 1} </div></td>
+    <td valign="top">      <div class="box">
+        <table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+          <tr class="h">
+            <td colspan="4">我的考卷</td>
+          </tr>
+          <tr class="t2">
+            <td width="20%">考卷名</td>
+            <td width="50%">试卷</td>
+            <td width="20%">状态</td>
+            <td width="10%">操作</td>
+          </tr>
+          {foreach lister_exam_kaojuan k v}
+          <tr class="t3">
+            <td>{if}{:v.name}{/if}{:v.name}{/endif}{else}Create {:v.time|GetMyDate Y-m-d H:i,@}{/else}</td>
+            <td>{if}{:v.del}{/if}{:v.title}(已删除){/endif}{else}<a href="shijuan_view.php?id={:v.shijuan}">{:v.title}</a>{/else}</td>
+            <td>{if}{:v.state}==1{/if}未开始 <a href="exam_do.php?id={:v.id}">立即开始测试</a>{/endif}{if}{:v.state}==2{/if}<font color="#FF0000">考试中</font> <a href="exam_do.php?id={:v.id}">立即开始测试</a>{/endif}{if}{:v.state}==3{/if}已结束{/endif}{if}{:v.state}==4{/if}已评分 {:v.sorce|UseFenSize @,[:v.fensize],2}/{:v.totalsorce|UseFenSize @,[:v.fensize],2} {if}{:v.ok}==1{/if}<font color="#008000">合格</font>{/endif} {if}{:v.ok}==2{/if}<font color="#FF0000">不及格</font>{/endif}{/endif}{if}{:v.state}==5{/if}过期废卷{/endif}{if}{:v.state}==6{/if}已清空废卷{/endif}</td>
+            <td><a href="kaojuan_preview.php?id={:v.id}">查看</a></td>
+          </tr>
+          {/foreach}
+          <tr>
+            <td colspan="4">{:pagelink}</td>
+          </tr>
+          <form action="{:FormToSelf}">
+            <tr>
+              <td colspan="4">分类
+                {:a|GetClassLister|GetTreeSelect @,class,[:class],id,name,请选择分类} 题库
+                {:a|GetTiKuLister|GetTreeSelect @,tiku,[:tiku],id,name,请选择题库}
+              <input name="submit" type="submit" value="检索" /></td>
+            </tr>
+          </form>
+        </table>
+      </div></td></tr>
+</table>
+{include exam_footer.htm 1}

@@ -1,0 +1,75 @@
+{include passport_header 1}
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+// show login form in top frame
+if (top != self) {
+    window.top.location.href=location;
+}
+//]]>
+</script>
+<style type="text/css">
+#main{padding-top:10px;}
+#loginleft{float:left;width:70%;}
+#loginright{float:left;margin:-22px 0 10px 0;width:262px}
+.l1,.l2{padding:10px;line-height:22px;font-size:14px}
+.l2{margin-bottom:12px;border:1px solid #AAAAAA;background:#F9F9F9; margin-top:20px;}
+</style>
+<div>
+<div id="loginleft">
+      <div id="haha" class="l1">
+	 
+	 访问 <a href="http://bbs.ppframe.com" target="_blank"> PPFrame交流论坛 </a> 获得帮助信息
+	 
+	 </div>
+	 
+	 <div class="l1">
+	 <font color="#FF0000">提示：要登录本站 必须启用浏览器Cookies！</font>	 </div>
+</div>
+<div id="loginright">
+<div class="l2">
+  <table width="240" border="0" cellspacing="0" cellpadding="4" style="padding-top:10px;">
+<form action="{:rtc.passport_login}" method="POST">
+<tr><td id="errortd" colspan=2 align=left style="color: red ;"></td></tr>
+        <tr>
+          <td colspan="2" class="f14">{:msg}</td>
+        </tr>
+        <tr> 
+                <td width="240" class="f14">用户名</td>
+                <td width="240">                  <input name="username" type="text" id="username" />                </td>
+        </tr>
+        <tr> 
+                <td class="f14">密　码</td>
+                <td>                  <input name="password" type="password" id="password" />                </td>
+        </tr>
+{if}
+{:rtc.login_gdcode}
+{/if}
+        <tr>
+          <td class="f14">验证码</td>
+          <td>
+          <input name="gdcode" type="text" id="gdcode" size="8" />
+          <img src="{:rtc.passport_root}ck.php{:checknum_no_cookie}" alt="" width="80" height="22" align="absmiddle" style="cursor:pointer" onclick="this.src='{:rtc.passport_root}ck.php{:checknum_no_cookie}'" />
+          <input name="{$ckecknum_ckckey}" type="hidden" id="{$ckecknum_ckckey}" value="{$checknum_key}" /></td>
+        </tr>
+		{/endif}
+
+
+        <tr> 
+            <td ><input name="Submit" type="hidden" id="Submit" value="1" />
+                  <input name="return" type="hidden" id="return" value="{:return}" />
+                  <input name="forward" type="hidden" id="forward" value="{:return}" /></td>
+            <td> <input type="submit" value=" 登录 "/>&nbsp;&nbsp;<a href="#">忘记密码？</a></td>
+          </tr>
+</form>
+<script language="javascript">
+        document.getElementById("username").focus();
+</script>
+</table>
+<hr size="0" style="border-top:1px solid #AAAAAA">
+<strong class="f12">没有PPF帐号？</strong>
+<div align="center"><input type="button" value="立即注册PPF帐号" style="margin:10px 0 6px 0;width:140px" onclick="window.location.href='{:r|GetRegurl}'">
+</div>
+</div>
+</div>
+</div>
+{include passport_footer 1}

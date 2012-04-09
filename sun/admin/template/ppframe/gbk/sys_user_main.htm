@@ -1,0 +1,26 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">PPFrame 后台管理员管理 ID为1的是超级管理员 </td>
+  </tr>
+  <tr>
+    <td width="180" height="24" bgcolor="#FFFFFF">用户名</td>
+    <td width="180" bgcolor="#FFFFFF">姓名</td>
+    <td width="220" bgcolor="#FFFFFF">Email</td>
+    <td width="220" bgcolor="#FFFFFF">电话</td>
+  </tr>
+ {foreach lister_adminuser fk fv}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><a href="sys_user_view.php?id={:fv.uid}">{:fv.userid}</a> (ID:{:fv.uid})</td>
+    <td bgcolor="#FFFFFF">{:fv.name}</td>
+    <td bgcolor="#FFFFFF">{:fv.email}</td>
+    <td bgcolor="#FFFFFF">{:fv.telphone}</td>
+  </tr>{/foreach}
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">{:pagelink}</td>
+  </tr>
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><a href="sys_user_add.php">添加管理员</a></td>
+  </tr>
+</table>
+{include footer.htm}

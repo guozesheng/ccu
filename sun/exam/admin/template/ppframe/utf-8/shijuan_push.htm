@@ -1,0 +1,89 @@
+{include header.htm 1}
+  <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+<form action="{:FormToSelf}" name="form1" target="PushIframe" id="form1">
+	<tr>
+      <td height="24" bgcolor="#FFFFFF"><strong>{:element_exam_shijuan-&gt;E.title} </strong> 分发 <a href="shijuan_main.php">试卷管理</a></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">每次分发人数
+        <input name="input[pagesize]" type="text" id="input[pagesize]" value="10" size="6" />
+        不要太大 
+        
+         </td>
+    </tr>
+	{if}{:element_exam_shijuan->E.fix} && {:element_exam_shijuan->E.random}{/if}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">给每人分发的考卷选项打乱
+        <input name="random" type="checkbox" id="random" value="1" /> 
+        （这个选项只在固定选题有意义，如果你配置试卷时，选择了打乱选项，可以给每个人分发的考卷都不一样，比AB卷要强得多！） </td>
+    </tr>
+	{/endif}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">用户名 
+      <input name="input[username]" type="text" id="input[username]" />
+      模糊匹配</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">用户组  {:_usergroup|GetRadioLister @,input[group],,id,name} </td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">院系 {:a|GetCollegesLister|GetTreeSelect @,input[u_cid],,id,name,请选择院系,onchange=&quot;loadZhuanye();loadClass();&quot;} <a href="college_main.php">院系管理</a></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">专业 <span id="st_zhuanye">{:a|GetProfessionalLister|GetTreeSelect @,input[u_pid],,id,pname,请选择专业}</span> <a href="professional_main.php">专业管理</a></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">年级 
+      {:a|GetGrades|GetEasyCheckBoxLister @,input[grade]}</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">自然班级 
+        <span id="st_class">{:a|GetStudentClassList 0|GetTreeSelect @,input[class],,id,classname,请选择班级} </span></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">附加班级
+        {:a|GetStudentClassList 1|GetTreeSelect @,input[classes],,id,classname,请选择班级}</td>
+    </tr>
+	{foreach selfdef_fields k v}
+    <tr>
+    <td height="24" bgcolor="#FFFFFF">{:v.0|GetMsg @} 
+      <input name="morefields[{:v.0}]" type="text" id="morefields[{:v.0}]"/> 
+      模糊匹配</td>
+  </tr>
+  {/foreach}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><strong>注意：考卷分发功能，只能给每个用户分发一份考卷，不能重复分发。 </strong></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><strong>注意：就算分发不成功，也可以前台自己选题。分发只是解决集中选题可能带来的高并发性能瓶颈。如非集中性考试，一般不需要。</strong></td>
+    </tr>
+
+	<tr>
+      <td height="24" bgcolor="#FFFFFF"><input type="submit" value="提交" />
+        <input name="Submit" type="hidden" id="Submit" value="1" />
+        <input name="id" type="hidden" id="id" value="{:id}" /></td>
+    </tr>
+</form>
+<tr>
+      <td height="24" bgcolor="#FFFFFF"><iframe src="" name="PushIframe" width="100%" marginwidth="0" height="500" marginheight="0" align="top" scrolling="auto" frameborder="0"></iframe></td>
+    </tr>
+  </table>
+ <script language="javascript">
+function loadZhuanye() {
+	if(parseInt($('input[u_cid]').value) > 0) {
+		var url = 'ajax_loadzhuanye.php?cid=' + $('input[u_cid]').value;
+		ajaxLoadUrl(url,$('st_zhuanye'));
+	}
+}
+
+function loadClass() {
+	var cid = parseInt($('input[u_cid]').value);
+	var grade = parseInt($('input[grade]').value);
+	if(cid > 0 || grade) {
+		var url = 'ajax_loadclass.php?cid=' + cid + '&grade=' + grade;
+		ajaxLoadUrl(url,$('st_class'));
+	}
+}
+</script>
+
+{include footer.htm 1}

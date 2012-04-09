@@ -1,0 +1,82 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><a href="shijuan_main.php">试卷管理</a> <a href="shijuan_add.php">配置一份试卷</a></td>
+  </tr>
+  <tr>
+    <td width="300" height="24" bgcolor="#FFFFFF">标题</td>
+    <td width="300" bgcolor="#FFFFFF">试题组合</td>
+    <td width="100" bgcolor="#FFFFFF">固定选题</td>
+    <td width="100" bgcolor="#FFFFFF">操作</td>
+  </tr>
+  {foreach lister_exam_shijuan k v}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">{:v.title}</td>
+    <td height="24" bgcolor="#FFFFFF">
+	{if}
+	{:v.fix}
+	{/if}
+	固定选题，无需配置
+	{/endif}
+	{else}
+	<table width="100%" border="0" cellspacing="1" cellpadding="3">
+       {foreach tixing_db kk vv} 
+           {if}
+		   '{:v.shitimix.[:kk]}' || '{:v.fenmix.[:kk]}'
+		   {/if}
+		   <tr>
+          <td>{:vv|GetMsg @}:</td>
+          <td> 
+            {:v.shitimix.[:kk]} (每题{:v.fenmix.[:kk]|UseFenSize @,[:v.fensize]}
+             
+            分)</td>
+           </tr> 
+		   {/endif}
+		   {/foreach}
+      </table>
+	  {/else}	</td>
+    <td height="24" bgcolor="#FFFFFF">
+	{if}
+	 {:v.fix}
+	 {/if} 是<br />
+	  <a href="shijuan_xt_main.php?id={:v.id}">选题</a> <a href="shijuan_xt_view.php?id={:v.id}">查看</a><br />
+  	  <a href="shijuan_create.php?id={:v.id}">生成</a>{/endif}
+	  {else} 否 {/else}
+	   <a href="shijuan_push.php?id={:v.id}">分发</a>
+	  </td>
+    <td bgcolor="#FFFFFF"><a href="shijuan_view.php?id={:v.id}">查看</a> <a href="shijuan_del.php?id={:v.id}"  onclick="if(!confirm('确定删除?')) return false; else return true;">删除</a> {if}!{:v.fix}{/if}<a href="shijuan_test.php?id={:v.id}">测试</a> {/endif}   <br />
+    <a href="shijuan_chengji_export.php?id={:v.id}">成绩导出</a> <!--<a href="shijuan_push.php?id={:v.id}" onclick="return false;">推送</a>--></td>
+  </tr>
+  {/foreach}
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">{:pagelink}</td>
+  </tr><form action="" name="formpagesize" id="formpagesize" onsubmit="formaddpagesize(this.pagesize.value);return false;">
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">每页显示
+      <input name="pagesize" type="text" id="pagesize" value="{:pagesize}" size="6" />
+条
+<input type="submit" value="提交" /></td>
+  </tr></form>
+  <form name="form1" action="{:FormToSelf}">
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">
+    
+      题库 
+        <select name="tiku" id="tiku">
+		<option value="">请选择题库</option>
+		{foreach tiku_lister k v}
+		<option value="{:k}" {if}'{:k}'=='{:tiku}'{/if}selected{/endif}>{:v.name}</option>
+		{foreach v.sun kk vv}
+		<option value="{:kk}" {if}'{:kk}'=='{:tiku}'{/if}selected{/endif}>|- {:vv.name}</option>
+		{/foreach}
+		{/foreach}
+        </select>
+        分类
+        {:a|GetClassLister|GetTreeSelect @,class,[:class],id,name,请选择分类}
+        <input type="submit" value="提交">    </td>
+  </tr> </form>
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><a href="shijuan_add.php">配置一份试卷</a></td>
+  </tr>
+</table>
+{include footer.htm 1}

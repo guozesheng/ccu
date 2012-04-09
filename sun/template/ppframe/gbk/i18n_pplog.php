@@ -1,0 +1,9 @@
+<?php
+ $__lang_array = array (
+  'liuyan' => 'ÁôÑÔ',
+  'rply' => 'ÆÀÂÛ',
+  'guestbook' => 'ÁôÑÔ°å',
+  'post' => '·¢±í',
+  'reply' => 'ÆÀÂÛ',
+)
+?>

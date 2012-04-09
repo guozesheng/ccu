@@ -1,0 +1,217 @@
+-- --------------------------------------------------------
+-- 
+-- 表的结构 `##__message`
+-- 
+
+DROP TABLE IF EXISTS `##__message`;
+CREATE TABLE `##__message` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `fromid` int(11) NOT NULL default '0',
+  `toid` int(11) NOT NULL default '0',
+  `read` int(11) unsigned NOT NULL default '0',
+  `del` tinyint(4) NOT NULL default '0',
+  `store` tinyint(4) NOT NULL default '0',
+  `time` int(11) unsigned NOT NULL default '0',
+  `subject` varchar(100) NOT NULL default '',
+  `body` text NOT NULL,
+  `system` tinyint(4) NOT NULL default '0',
+  `ip` varchar(24) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=gbk;
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `##__passport`
+-- 
+
+DROP TABLE IF EXISTS `##__passport`;
+CREATE TABLE `##__passport` (
+  `uid` int(11) unsigned NOT NULL auto_increment,
+  `username` varchar(20) NOT NULL default '',
+  `password` varchar(40) NOT NULL default '',
+  `safekey` varchar(10) NOT NULL default '',
+  `email` varchar(60) NOT NULL default '',
+  `u_name` varchar(20) NOT NULL default '',
+  `u_cardid` varchar(30) NOT NULL default '',
+  `u_cardtype` tinyint(4) unsigned NOT NULL default '0',
+  `u_namecheck` int(10) unsigned NOT NULL default '0',
+  `group` int(10) unsigned NOT NULL default '0',
+  `groups` varchar(255) NOT NULL default '',
+  `grade` smallint(6) NOT NULL default '0',
+  `u_cid` int(10) unsigned NOT NULL default '0',
+  `u_pid` int(10) unsigned NOT NULL default '0',
+  `u_bid` SMALLINT( 6 ) NOT NULL DEFAULT '0',
+  `u_position` VARCHAR( 100 ) NOT NULL DEFAULT '',
+  `class` int(11) NOT NULL default '0',
+  `classes` varchar(255) NOT NULL default '',
+  `money0` int(10) NOT NULL default '0',
+  `money1` int(10) NOT NULL default '0',
+  `money2` int(10) NOT NULL default '0',
+  `money3` int(10) NOT NULL default '0',
+  `money4` int(10) NOT NULL default '0',
+  `money5` int(10) NOT NULL default '0',
+  `money6` int(10) NOT NULL default '0',
+  `money7` int(10) NOT NULL default '0',
+  `money8` int(10) NOT NULL default '0',
+  `money9` int(10) NOT NULL default '0',
+  `regtime` int(11) unsigned NOT NULL default '0',
+  `u_expired` int(10) unsigned NOT NULL default '0',
+  `u_loginban` tinyint(1) unsigned NOT NULL default '0',
+  `regip` varchar(20) NOT NULL default '',
+  `u_lastlogin` int(10) unsigned NOT NULL default '0',
+  `u_lastlogip` varchar(32) NOT NULL,
+  `selfdef_no_aaa` varchar(10) NOT NULL default '',
+  `selfdef_yes_abc` varchar(10) NOT NULL default '',
+  PRIMARY KEY  (`uid`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=MyISAM  DEFAULT CHARSET=gbk;
+-- --------------------------------------------------------
+-- 
+-- 表的结构 `##__passport_college`
+-- 
+DROP TABLE IF EXISTS `##__passport_college`;
+CREATE TABLE `##__passport_college` (
+		  `id` int(10) unsigned NOT NULL auto_increment,
+		  `name` varchar(60) NOT NULL DEFAULT '',
+		  `code` varchar(20) NOT NULL DEFAULT '',
+		  `discript` text NOT NULL,
+		  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=gbk;
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `##__passport_professional`
+-- 
+
+DROP TABLE IF EXISTS `##__passport_professional`;
+CREATE TABLE `##__passport_professional` (
+		  `id` int(10) unsigned NOT NULL auto_increment,
+		  `pname` varchar(60) NOT NULL DEFAULT '',
+		  `cid` int(10) unsigned NOT NULL DEFAULT '0',
+		  `pcode` varchar(20) NOT NULL DEFAULT '',
+		  `xuezhi` varchar(20) NOT NULL DEFAULT '',
+		  `discript` text NOT NULL,
+		  PRIMARY KEY  (`id`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=gbk;
+
+-- --------------------------------------------------------
+-- 
+-- 表的结构 `##__passport_admin`
+-- 
+
+DROP TABLE IF EXISTS `##__passport_admin`;
+CREATE TABLE `##__passport_admin` (
+  `uid` int(11) NOT NULL auto_increment,
+  `userid` varchar(20) NOT NULL default '',
+  `name` varchar(40) NOT NULL default '',
+  `privkey` text NOT NULL,
+  `loginban` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`uid`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=gbk;
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `##__passport_moneylog`
+-- 
+
+DROP TABLE IF EXISTS `##__passport_moneylog`;
+CREATE TABLE `##__passport_moneylog` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) unsigned NOT NULL default '0',
+  `num` int(11) NOT NULL,
+  `yue` int(11) NOT NULL,
+  `mtype` tinyint(4) NOT NULL default '0',
+  `time` int(11) unsigned NOT NULL,
+  `descrip` varchar(255) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=gbk;
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `##__passport_order`
+-- 
+
+DROP TABLE IF EXISTS `##__passport_order`;
+CREATE TABLE `##__passport_order` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `orderno` varchar(32) NOT NULL,
+  `uid` int(11) unsigned NOT NULL default '0',
+  `mtype` smallint(6) NOT NULL default '0',
+  `num` int(11) unsigned NOT NULL default '0',
+  `fee` int(11) unsigned NOT NULL default '0',
+  `time` int(11) unsigned NOT NULL default '0',
+  `paytime` int(11) unsigned NOT NULL default '0',
+  `state` tinyint(1) NOT NULL default '0',
+  `descrip` varchar(255) NOT NULL default '',
+  `title` varchar(100) NOT NULL default '',
+  `payer` varchar(100) NOT NULL default '',
+  `tool` varchar(20) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=gbk;
+
+-- 
+-- 表的结构 `##__passport_class`
+-- 
+DROP TABLE IF EXISTS `##__passport_class`;
+CREATE TABLE `##__passport_class` (
+  `id` int(11) NOT NULL auto_increment,
+  `classname` varchar(60) NOT NULL default '',
+  `grade` smallint(6) NOT NULL default '0',
+  `cid` INT( 10 ) NOT NULL DEFAULT '0',
+  `ctype` tinyint(1) NOT NULL default '0',
+  `allowapply` tinyint(1) NOT NULL default '0',
+  `apmtype` smallint(6) NOT NULL default '0',
+  `apmoney` int(11) NOT NULL default '0',
+  `applysh` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=gbk;
+
+
+-- 
+-- 表的结构 `##__passport_classsh`
+-- 
+
+DROP TABLE IF EXISTS `##__passport_classsh`;
+CREATE TABLE `##__passport_classsh` (
+  `id` int(11) NOT NULL auto_increment,
+  `uid` int(11) NOT NULL default '0',
+  `classid` int(11) NOT NULL default '0',
+  `time` int(11) NOT NULL default '0',
+  `sh` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=gbk;
+
+-- 
+-- 表的结构 `##__passport_moneycard`
+--
+
+DROP TABLE IF EXISTS `##__passport_moneycard`;
+CREATE TABLE `##__passport_moneycard` (
+  `cardno` varchar(15) NOT NULL,
+  `password` varchar(18) NOT NULL,
+  `createtime` int(10) NOT NULL default '0',
+  `date` varchar(8) NOT NULL,
+  `timeout` int(10) NOT NULL default '0',
+  `mnum` smallint(8) NOT NULL default '1',
+  `mtype` smallint(8) NOT NULL default '0',
+  `state` tinyint(4) NOT NULL default '0',
+  `useruse` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`cardno`),
+  UNIQUE KEY `password` (`password`)
+) ENGINE=MyISAM DEFAULT CHARSET=gbk;
+
+DROP TABLE IF EXISTS `##__passport_buss`;
+CREATE TABLE `##__passport_buss` (
+  `id` SMALLINT( 6 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  `name` VARCHAR( 100 ) NOT NULL DEFAULT ' ',
+  `descrip` VARCHAR( 255 ) NOT NULL DEFAULT ' ',
+  `istop` TINYINT( 1 ) UNSIGNED NOT NULL DEFAULT '0',
+  `upid` SMALLINT( 6 ) UNSIGNED NOT NULL DEFAULT '0',
+  `ids` VARCHAR( 255 ) NOT NULL DEFAULT ' ',
+  `orderkey` INT( 0 ) NOT NULL DEFAULT '0'
+) ENGINE = MYISAM;
+

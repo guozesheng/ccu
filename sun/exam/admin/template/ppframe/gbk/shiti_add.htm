@@ -1,0 +1,200 @@
+{include header.htm 1}
+<form action="{:FormToSelf}" method="post" name="form1" id="form1">
+  <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF">添加试题 <a href="shiti_main.php">试题管理</a></td>
+    </tr>
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF">{foreach tixing_db k v}
+	   {if}'{:type}'=='{:k}'{/if}
+	   [{:v|GetMsg @}] &nbsp;
+	   {/endif}{else}<a href="shiti_add.php?type={:k}&amp;upid={:upid}&amp;tiku={:tiku}">[{:v|GetMsg @}]</a> &nbsp;
+	   {/else}{/foreach}</td>
+    </tr>
+	{if}
+	{:upid}>0
+	{/if}
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF">添加 <strong><a href="shiti_view.php?id={:up_shiti.id}&amp;tiku={:up_shiti.tikus|GetTopTikuFromS @}" target="_blank">{:up_shiti.title|strip_tags @|cn_substr @,250}</a></strong> 的子题目 </td>
+    </tr>
+	{/endif}
+    <tr>
+      <td width="180" height="24" bgcolor="#FFFFFF">命题:</td>
+      <td width="620" bgcolor="#FFFFFF">{if}{:base_config.exam_use_editor}{/if}{:element_exam_shiti.title|CreateExamFCKEditor shiti[title],@,[:editor_higth],[:editor_width],[:editor_toolbar]}{/endif}{else}
+      <textarea name="shiti[title]" cols="40" rows="4" id="shiti[title]"></textarea>{/else}</td>
+    </tr>
+	{if}
+	{:type|GetTxBaseType @} != 3 && {:type|GetTxBaseType @} != 7
+	{/if}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">选项:</td>
+      <td bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+        <tr>
+          <td><textarea name="shiti[xx][1][xx]" cols="40" id="shiti[xx][1][xx]"></textarea>
+            {if}{:type|GetTxBaseType @}==4{/if}
+分值:
+<input name="shiti[xx][1][fen]" type="text" id="shiti[xx][1][fen]" size="6">
+{/endif}
+{if}{:type|GetTxBaseType @}==2{/if}设为答案
+<input name="shiti[da][]" type="checkbox" id="shiti[da][]" value="1">
+{/endif}
+            {if}{:type|GetTxBaseType @}==1{/if}设为答案
+<input type="radio" name="shiti[da]" value="1">
+{/endif}</td>
+        </tr>
+        <tr>
+          <td><textarea name="shiti[xx][2][xx]" cols="40" id="shiti[xx][2][xx]"></textarea>
+{if}{:type|GetTxBaseType @}==4{/if}分值:
+<input name="shiti[xx][2][fen]" type="text" id="shiti[xx][2][fen]" size="6">
+{/endif}
+{if}{:type|GetTxBaseType @}==2{/if}设为答案
+<input name="shiti[da][]" type="checkbox" id="shiti[da][]" value="2">
+{/endif}
+            {if}{:type|GetTxBaseType @}==1{/if}设为答案
+<input type="radio" name="shiti[da]" value="2">
+{/endif}</td>
+        </tr>
+        <tr>
+          <td><textarea name="shiti[xx][3][xx]" cols="40" id="shiti[xx][3][xx]"></textarea>
+{if}{:type|GetTxBaseType @}==4{/if}分值:
+<input name="shiti[xx][3][fen]" type="text" id="shiti[xx][3][fen]" size="6">
+{/endif}
+{if}{:type|GetTxBaseType @}==2{/if}设为答案
+<input name="shiti[da][]" type="checkbox" id="shiti[da][]" value="3">
+{/endif}
+            {if}{:type|GetTxBaseType @}==1{/if}设为答案
+<input type="radio" name="shiti[da]" value="3">
+{/endif}</td>
+        </tr>
+        <tr>
+          <td><textarea name="shiti[xx][4][xx]" cols="40" id="shiti[xx][4][xx]"></textarea>
+{if}{:type|GetTxBaseType @}==4{/if}分值:
+<input name="shiti[xx][4][fen]" type="text" id="shiti[xx][4][fen]" size="6">
+{/endif}
+{if}{:type|GetTxBaseType @}==2{/if}设为答案
+<input name="shiti[da][]" type="checkbox" id="shiti[da][]" value="4">
+{/endif}
+            {if}{:type|GetTxBaseType @}==1{/if}设为答案
+<input type="radio" name="shiti[da]" value="4">
+{/endif}</td>
+        </tr>
+        <tr>
+          <td><textarea name="shiti[xx][5][xx]" cols="40" id="shiti[xx][5][xx]"></textarea>
+{if}{:type|GetTxBaseType @}==4{/if}分值:
+<input name="shiti[xx][5][fen]" type="text" id="shiti[xx][5][fen]" size="6">
+{/endif}
+{if}{:type|GetTxBaseType @}==2{/if}设为答案
+<input name="shiti[da][]" type="checkbox" id="shiti[da][]" value="5">
+{/endif}
+            {if}{:type|GetTxBaseType @}==1{/if}设为答案
+<input type="radio" name="shiti[da]" value="5">
+{/endif}</td>
+        </tr>
+        <tr>
+          <td><textarea name="shiti[xx][6][xx]" cols="40" id="shiti[xx][6][xx]"></textarea>
+{if}{:type|GetTxBaseType @}==4{/if}分值:
+<input name="shiti[xx][6][fen]" type="text" id="shiti[xx][6][fen]" size="6">
+{/endif}
+{if}{:type|GetTxBaseType @}==2{/if}设为答案
+<input name="shiti[da][]" type="checkbox" id="shiti[da][]" value="6">
+{/endif}
+            {if}{:type|GetTxBaseType @}==1{/if}设为答案
+<input type="radio" name="shiti[da]" value="6">
+{/endif}</td>
+        </tr>
+        <tr>
+          <td><textarea name="shiti[xx][7][xx]" cols="40" id="shiti[xx][7][xx]"></textarea>
+{if}{:type|GetTxBaseType @}==4{/if}分值:
+<input name="shiti[xx][7][fen]" type="text" id="shiti[xx][7][fen]" size="6">
+{/endif}
+{if}{:type|GetTxBaseType @}==2{/if}设为答案
+<input name="shiti[da][]" type="checkbox" id="shiti[da][]" value="7">
+{/endif}
+            {if}{:type|GetTxBaseType @}==1{/if}设为答案
+<input type="radio" name="shiti[da]" value="7">
+{/endif}</td>
+        </tr>
+        <tr>
+          <td><textarea name="shiti[xx][8][xx]" cols="40" id="shiti[xx][8][xx]"></textarea>
+            {if}{:type|GetTxBaseType @}==4{/if}分值:
+            <input name="shiti[xx][8][fen]" type="text" id="shiti[xx][8][fen]" size="6" />
+            {/endif}
+            {if}{:type|GetTxBaseType @}==2{/if}设为答案
+            <input name="shiti[da][]" type="checkbox" id="shiti[da][]" value="8" />
+            {/endif}
+            {if}{:type|GetTxBaseType @}==1{/if}设为答案
+            <input type="radio" name="shiti[da]" value="8" />
+            {/endif}</td>
+        </tr>
+      </table>      </td>
+    </tr>
+	{/endif}
+	{if}
+	{:type|GetTxBaseType @}==3
+	{/if}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">答案:</td>
+      <td bgcolor="#FFFFFF"><textarea name="shiti[daan]" cols="40" rows="4" id="shiti[daan]"></textarea></td>
+    </tr>
+	{/endif}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">解答:</td>
+      <td bgcolor="#FFFFFF"><textarea name="shiti[jieda]" cols="40" rows="4" id="shiti[jieda]"></textarea></td>
+    </tr>
+	{if}
+	{:type|GetTxBaseType @} != 7
+	{/if}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">分值:</td>
+      <td bgcolor="#FFFFFF"><input name="shiti[fen]" type="text" id="shiti[fen]" value="{if}{:type}==3{/if}10{/endif}{else}2{/else}"></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">答错扣分</td>
+      <td bgcolor="#FFFFFF"><input name="shiti[kf]" type="text" id="shiti[kf]" value="0" /></td>
+    </tr>
+	{/endif}
+	{if}
+	{:upid}==0
+	{/if}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">加入题库:</td>
+      <td align="center" bgcolor="#FFFFFF"><table width="98%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+		{foreach tiku_lister k v}
+          <tr>
+            <td align="left" bgcolor="#FFFFFF"><input name="shiti[tiku][top]" type="radio" id="shiti[tiku][top]" value="{:k}">
+              {:v.name}<br>
+             {foreach v.sun kk vv}
+			  <input name="shiti[tiku][{:k}][]" type="checkbox" id="shiti[tiku][{:k}][]" value="{:vv.id}">
+			  {:vv.name}
+              
+			  {/foreach}			  </td>
+          </tr>
+		  {/foreach}
+      </table></td>
+    </tr>
+	{/endif}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">试题分级:</td>
+      <td bgcolor="#FFFFFF"><input name="shiti[level]" type="text" id="shiti[level]" value="1"></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">标签:</td>
+      <td bgcolor="#FFFFFF"><input name="shiti[tag]" type="text" id="shiti[tag]"></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">排序值：</td>
+      <td bgcolor="#FFFFFF"><input name="shiti[orderkey]" type="text" id="shiti[orderkey]" value="0" />
+        越大越排前</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+      <td bgcolor="#FFFFFF"><input type="submit" name="Submit" value="提交" />
+        <input name="Submit" type="hidden" id="Submit" value="1" />
+        <input name="shiti[type]" type="hidden" id="shiti[type]" value="{:type}" />
+        <input name="type" type="hidden" id="type" value="{:type}" />
+        <input name="upid" type="hidden" id="upid" value="{:upid}" />
+      <input name="tiku" type="hidden" id="tiku" value="{:tiku}" /></td>
+    </tr>
+  </table>
+</form>
+{include footer.htm 1}

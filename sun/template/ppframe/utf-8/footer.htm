@@ -1,0 +1,122 @@
+<!-- 后台尾文件 -->
+<script language="javascript">
+function $(id) {
+	return document.getElementById(id);
+}
+function show(id) {
+	$(id).style.display='block';
+}
+function hidden(id) {
+	$(id).style.display='none';
+}
+
+function warn(o,msg) {
+	if(o.checked) {
+		alert(msg);
+	}
+}
+
+function rwarn(o,msg) {
+	if(!o.checked) {
+		alert(msg);
+	}
+}
+function formaddpagesize(p) {
+	if(window.location.href.indexOf('?') == -1) {
+		window.location.href = window.location + '?pagesize=' + p;
+	}else {
+		window.location.href = window.location + '&pagesize=' + p;
+	}
+}
+
+function ajaxLoadUrl(url,container) {
+	var ajax = new Ajax(container);
+	ajax.doOpen('GET',url);
+	ajax.doSend();
+}
+
+
+        <!--右下脚弹出窗口开始-->
+        window.onresize = resizeDiv;
+		window.onscroll = resizeDiv;
+        window.onerror = function(){}
+        var divTop,divLeft,divWidth,divHeight,docHeight,docWidth,objTimer,i = 0;
+//帮助信息
+function help(h) {
+		var mp = mouseCoords();
+		try
+           {
+                    window.document.getElementById("loft_win").style.top = mp.y + 'px';
+                    window.document.getElementById("loft_win").style.left = mp.x +'px';
+                   
+					window.document.getElementById("loft_win").style.visibility="visible";
+						
+                    window.document.getElementById('msg_show').innerHTML = h;
+					//10s 自动关闭
+					//setTimeout("closeDiv();",10000);
+          }
+        catch(e){}
+}		 
+        //初始化位置
+        function resizeDiv()
+        {
+                var mp = mouseCoords();
+				try
+                {
+                        document.getElementById("loft_win").style.top = mp.y + 'px';
+                        document.getElementById("loft_win").style.left = mp.x + 'px';
+                }
+                catch(e){}
+        }
+       
+        function closeDiv()
+        {
+                document.getElementById('loft_win').style.visibility='hidden';
+                if(objTimer) window.clearInterval(objTimer);
+        }
+		
+function mouseCoords() {
+	var ev = ev || window.event;
+	if(ev.pageX || ev.pageY){ 
+		return {x:ev.pageX, y:ev.pageY}; 
+	}
+	return { 
+		x:ev.clientX + window.document.documentElement.scrollLeft - window.document.documentElement.clientLeft, 
+		y:ev.clientY + window.document.documentElement.scrollTop - window.document.documentElement.clientTop 
+	};
+}
+</script>
+<style type="text/css">
+<!--
+       #loft_win {border:#59CCC4 1px solid;}
+		#loft_win #msg_show{border:#FFFFFF 0px;}
+        .loft_win_head {color: #FFFFFF; font-size:13px; background-color:#666666; height:20px; padding:0 5 0 5;}
+        #contentDiv {background-color:#FFFFFF; border:#0px; border-left-style:none; border-right-style:none;padding:10px,10px,10px,10px}
+-->
+</style>
+
+        <!--帮助窗开始-->
+        <!--初状态-->
+        <DIV id="loft_win" style="Z-INDEX:99999; LEFT: 0px; VISIBILITY: hidden;WIDTH: 250px; POSITION: absolute; TOP: 0px;">
+                <TABLE cellSpacing=0 cellPadding=0 width="100%" bgcolor="#FFFFFF" border=0>
+                        <TR>
+                                <td width="100%" valign="top" align="center">
+                                        <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                        <td align="center" class="loft_win_head">帮助信息 </td>
+                                                </tr>
+                                        </table>
+                                </td>
+                        </TR>
+                        <TR>
+                                <TD align="center" valign="middle" colSpan=3>                                        <table width="100%" height="100%" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                                <td align="center" height="100%">
+                                <span id="msg_show" style="color:red; border:0px; margin-left:5px; margin-top:5px; margin-right:5px; margin-bottom:5px;"></span>                                                </td>
+                                        </tr>
+                          </table></TD>
+                        </TR>
+          </TABLE>
+        </DIV>
+</body>
+</html>

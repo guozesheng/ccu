@@ -1,0 +1,57 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+<form action="{:FormToSelf}" method="post">
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF"><strong>修改{:tb}自定义字段</strong> <a href="user_selfdef_main.php">用户自定义字段管理</a></td>
+  </tr>
+  <tr>
+    <td width="100" bgcolor="#FFFFFF">字段名</td>
+    <td bgcolor="#FFFFFF">selfdef_|mydef_
+      <input name="input[field]" type="text" id="input[field]" value="{:edit.field}" size="10"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">属性</td>
+    <td bgcolor="#FFFFFF"><input name="input[editonce]" type="checkbox" id="input[editonce]" value="1" {if}{:edit.no}{/if}checked{/endif}>
+      只允许修改一次
+      
+        <input name="input[autocreate]" type="checkbox" id="input[autocreate]" value="1" {if}{:edit.auto}{/if}checked{/endif}>
+        自动创建表单
+      
+自动创建的表单总是 text 文本框 </td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">类型</td>
+    <td bgcolor="#FFFFFF"><select name="input[type]" id="input[type]">
+      <option value="varchar" {if}'{:edit.type}'=='varchar'{/if} selected{/endif}>varchar</option>
+      <option value="char" {if}'{:edit.type}'=='char'{/if} selected{/endif}>char</option>
+      <option value="int" {if}'{:edit.type}'=='int'{/if} selected{/endif}>int</option>
+      <option value="smallint" {if}'{:edit.type}'=='smallint'{/if} selected{/endif}>smallint</option>
+      <option value="tinyint" {if}'{:edit.type}'=='tinyint'{/if} selected{/endif}>tinyint</option>
+      <option value="text" {if}'{:edit.type}'=='text'{/if} selected{/endif}>text</option>
+      <option value="mediumtext" {if}'{:edit.type}'=='mediumtext'{/if} selected{/endif}>mediumtext</option>
+    </select></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">长度</td>
+    <td bgcolor="#FFFFFF"><input name="input[length]" type="text" id="input[length]" value="{:edit.length}"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">是否空</td>
+    <td bgcolor="#FFFFFF"><input type="radio" name="input[null]" value="1" {if}{:edit.null}==1{/if}checked{/endif}>
+      是
+      <input name="input[null]" type="radio" value="0" {if}{:edit.null}==0{/if}checked{/endif}>
+      否</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">默认值</td>
+    <td bgcolor="#FFFFFF"><input name="input[default]" type="text" id="input[default]" value="{:edit.default}"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF"><input name="submit" type="submit" value="修改">
+        <input name="Submit" type="hidden" id="Submit" value="1">
+        <input name="field" type="hidden" id="field" value="{:field}"></td>
+  </tr>
+  </form>
+</table>
+{include footer.htm 1}

@@ -1,0 +1,46 @@
+<div class="box">
+<table width="100%" border="0" cellspacing="1" cellpadding="3">
+  <tr class="h">
+    <td>我的通行证</td>
+  </tr>
+  <tr class="t2">
+    <td>{:passport->U_Uname},欢迎登录</td>
+  </tr>
+  <tr class="t3">
+    <td><a href="logout.php">退出</a></td>
+  </tr>
+  <tr class="t3">
+    <td><a href="index.php">我的通行证</a></td>
+  </tr>
+  {if}
+{:base_config.passport_modify} && {:base_config.passport_method} != 1
+{/if}
+  <tr class="t3">
+    <td><a href="update.php">修改资料</a></td>
+  </tr>
+  {/endif}
+  
+  <tr class="t3">
+    <td><a href="jifen.php">查看积分</a> <a href="chongzhi.php">积分充值</a></td>
+  </tr> 
+  <tr class="t3">
+    <td><a href="jifen_change.php">积分转换</a></td>
+  </tr>
+ 
+  <tr class="t3">
+    <td><span class="mitem"><a href="update_password.php">修改密码</a></span></td>
+  </tr>
+  {if}
+{:base_config.passport_message}
+{/if}
+  <tr class="t3">
+    <td><a href="message.php">短消息</a></td>
+  </tr>
+
+  {/endif} 
+   <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+</div>

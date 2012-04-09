@@ -1,0 +1,29 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td bgcolor="#FFFFFF"><a href="tiku_main.php">返回题库管理</a></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">删除题库 <strong>{:element_tiku.name}</strong> </td>
+  </tr><form name="form1" method="post" action="{:FormToSelf}">
+  {if}
+  {:element_tiku.istop}
+  {/if}
+  <tr>
+    <td bgcolor="#FFFFFF">
+	<input name="sundel" type="checkbox" id="sundel" value="1">
+	删除下级题库 	  </td>
+  </tr>
+  {/endif}
+  <tr>
+    <td bgcolor="#FFFFFF"><input name="shitidel" type="checkbox" id="shitidel" value="1">
+      删除该题库中试题 (请谨慎选择)      </td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><input type="submit" value="确认删除">
+      <input name="Submit" type="hidden" id="Submit" value="1">
+      <input name="id" type="hidden" id="id" value="{:id}"></td>
+  </tr>
+  </form>
+</table>
+{include footer.htm 1}

@@ -1,0 +1,1 @@
+gbk 和utf-8 是语言版本目录 utf-8 版本可以copy gbk的模板，并转码。迅速支持utf-8

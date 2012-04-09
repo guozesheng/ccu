@@ -1,0 +1,25 @@
+{include exam_header.htm 1}
+<table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+  <tr>
+    <td valign="top"><form action="shijuan_list.php" name="form1" id="form1">
+	<div class="box">
+      <table width="100%" border="0" cellspacing="1" cellpadding="3">
+        <tr class="h">
+          <td>试卷高级搜索</td>
+        </tr>
+        <tr class="t3">
+          <td>标题
+            <input name="sjtitle" type="text" id="sjtitle" value="{:sjtitle}" />
+            题库
+            {:a|GetTiKuLister|GetTreeSelect @,tiku,[:tiku],id,name,请选择题库}分类
+            {:a|GetClassLister|GetTreeSelect @,class,[:class],id,name,请选择分类}            </td>
+        </tr>
+        <tr>
+          <td><input name="submit" type="submit" value="搜索" /></td>
+        </tr>
+      </table>
+	  </div>
+    </form>    </td>
+  </tr>
+</table>
+{include exam_footer.htm 1}

@@ -1,0 +1,14 @@
+install-sql.txt		安装时自动运行SQL文件
+update-sql.php		升级时自动运行的SQL文件
+
+
+install-sql.txt 约定:
+
+sql语句会一句一句运行,程序会查找 “;” 来分割 SQL 语句，请确保SQL 里没有非分隔符的 “;” ，这常见于序列化数据的插入操作。
+不能运行 DROP 语句.
+
+update-sql.php
+
+以版本号为Key ,SQL 为 value 的数组.变量名约定为
+$_update_sql;
+系统会自动判断当前版本号和升级用SQL语句版本号全自动升级

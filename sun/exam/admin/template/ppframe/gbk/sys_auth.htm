@@ -1,0 +1,31 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td bgcolor="#FFFFFF"><a href="index_body.php"><strong>系统信息</strong></a></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">顶级题库数目限制：{:limit_limit1}</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">下级题库数目限制：{:limit_limit2}</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">批量导入次数限制：{if}{:limit_limit3}{/if}{:limit_limit3}{/endif}{else}无限制{/else}</td>
+  </tr><form name="form1" method="post" action="{:FormToSelf}">
+  {if}
+  !{:writeable}
+  {/if}
+  <tr>
+    <td bgcolor="#FFFFFF">授权文件<font color="#FF0000">{:file}</font>必须写，请保证其存在并可写以完成授权</td>
+  </tr>
+  {/endif}
+  <tr>
+    <td bgcolor="#FFFFFF">
+      <textarea name="auth_code" cols="60" rows="5" id="auth_code">{:str}</textarea></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><input type="submit" value="授权">
+      <input name="Submit" type="hidden" id="Submit" value="1"></td>
+  </tr></form>
+</table>
+{include footer.htm 1}

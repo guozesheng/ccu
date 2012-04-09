@@ -1,0 +1,447 @@
+{include header.htm 1}
+<form id="form1" name="form1" method="post" action="?">
+  <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+   	  <tr>
+	    <td height="24" colspan="2" bgcolor="#FFFFFF"><a href="?do=basic">[基本配置]</a> <a href="?do=admin">[后台管理]</a> <a href="?do=passport">[通行证设置]</a> <a href="?do=page">[分页风格]</a> <a href="?do=seo">[SEO设置]</a> <a href="?do=money">[货币设置]</a> <a href="?">[所有设置]</a></td>
+    </tr>
+    {if}
+	'{:do}' == 'basic' || '{:do}' == ''
+	{/if}
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>基本配置</strong></td>
+    </tr>
+    <tr>
+      <td width="180" height="24" bgcolor="#FFFFFF">Cookie域</td>
+      <td width="620" bgcolor="#FFFFFF"><input name="rtconfig[domain]" type="text" id="rtconfig[domain]" value="{:rtc.domain}" />
+      如果启用了子域名，请设置成根域名! 比如 <strong>.pprame.com</strong> </td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">网站名</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[site_name]" type="text" id="rtconfig[site_name]" value="{:rtc.site_name}" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">语言</td>
+      <td bgcolor="#FFFFFF">{:rtc.language}</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">资源目录</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[sourceurl]" type="text" id="rtconfig[sourceurl]" value="{:rtc.sourceurl}" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">网站目录</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[host]" type="text" id="rtconfig[host]" value="{:rtc.host}" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">风格</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[style]" type="text" id="rtconfig[style]" value="{:rtc.style}" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">提示信息时间</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[showtime]" type="text" id="rtconfig[showtime]" value="{:rtc.showtime}" />
+        秒</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">时区</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[timezone]" type="text" id="rtconfig[timezone]" value="{:rtc.timezone}" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">时间修正</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[timeadd]" type="text" id="rtconfig[timeadd]" value="{:rtc.timeadd}" />
+        修正后服务器时间{:timestamp|GetMyDate Y-m-d H:i:s,@} </td>
+    </tr>
+	{/endif}
+	{if}
+	'{:do}' == 'admin' || '{:do}' == ''
+	{/if}
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>后台管理</strong></td>
+    </tr>
+    <tr>
+      <td width="180" height="24" bgcolor="#FFFFFF">后台管理根地址</td>
+      <td width="620" bgcolor="#FFFFFF"><input name="rtconfig[admin_host]" type="text" id="rtconfig[admin_host]" value="{:rtc.admin_host}" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">后台API根地址</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[admin_host_api]" type="text" id="rtconfig[admin_host_api]" value="{:rtc.admin_host_api}" />
+      通常可以根上面一样，如果可以设置局域网访问地址更好。但必须是绝对地址！</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">自动判断后台根地址</td>
+      <td bgcolor="#FFFFFF"><label>
+        <input type="radio" name="rtconfig[admin_host_auto]" value="1" {if}{:rtc.admin_host_auto}==1{/if}checked{/endif}/>
+开启</label>
+        <label>
+        <input type="radio" name="rtconfig[admin_host_auto]" value="0" {if}{:rtc.admin_host_auto}==0{/if}checked{/endif} />
+关闭 (如果修改了模块后台根地址出错了，开启)</label></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">后台登陆验证码</td>
+      <td bgcolor="#FFFFFF"><label>
+        <input type="radio" name="rtconfig[admin_gdcheck]" value="1" {if}{:rtc.admin_gdcheck}==1{/if}checked{/endif}/>
+开启</label>
+        <label>
+        <input type="radio" name="rtconfig[admin_gdcheck]" value="0" {if}{:rtc.admin_gdcheck}==0{/if}checked{/endif} />
+关闭</label></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">调试选项</td>
+      <td bgcolor="#FFFFFF"><label>
+      <input type="radio" name="rtconfig[debug_open]" value="1" {if}{:rtc.debug_open}==1{/if}checked{/endif}/>
+开启DeBug</label>
+        <label>
+        <input type="radio" name="rtconfig[debug_open]" value="0" {if}{:rtc.debug_open}==0{/if}checked{/endif} />
+正常运行（屏蔽所有错误）</label></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">IP限制</td>
+      <td bgcolor="#FFFFFF"><label>
+      <input type="radio" name="rtconfig[ip_ban]" value="0" {if}{:rtc.ip_ban}==0{/if}checked{/endif}/> 
+      无限制
+</label>
+        <label>
+        <input type="radio" name="rtconfig[ip_ban]" value="1" {if}'{:rtc.ip_ban}'==1{/if}checked{/endif} />
+禁止所有除了允许的 
+<input type="radio" name="rtconfig[ip_ban]" value="2" {if}'{:rtc.ip_ban}'==2{/if}checked{/endif} />
+允许所有除了禁止的 </label></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">允许IP</td>
+      <td bgcolor="#FFFFFF"><textarea name="rtconfig[ip_ban_allow]" cols="40" rows="5" id="rtconfig[ip_ban_allow]">{:rtc.ip_ban_allow}</textarea>
+        <br />
+        简单格式限制采用前缀比较比如192.168.1将限制所有以此开头的IP。<br />
+        子网掩码格式限制如 <strong>192.168.1.1/24</strong> 将限制一个网段,如果看不懂，百度查询子网掩码或者咨询网管。<br />
+        下同，一行一条。<br />
+        尽量的使用子网掩码格式，这种格式检测更加高效！</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">禁止IP</td>
+      <td bgcolor="#FFFFFF"><textarea name="rtconfig[ip_ban_ban]" cols="40" rows="5" id="rtconfig[ip_ban_ban]">{:rtc.ip_ban_ban}</textarea>
+      其它模块的IP限制也使用这里的规则。</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">全站使用IP限制</td>
+      <td bgcolor="#FFFFFF"><label>
+        <input type="radio" name="rtconfig[ip_ban_allsite]" value="0" {if}'{:rtc.ip_ban_allsite}'==0{/if}checked{/endif}/>
+否 </label>
+        <label>
+        <input type="radio" name="rtconfig[ip_ban_allsite]" value="1" {if}'{:rtc.ip_ban_allsite}'==1{/if}checked{/endif} /> 
+        是
+注意：启用此项，全站所有地方都将使用上面的IP限制，各个模块都有可选的IP限制的选项，如非必要，不要使用。<br />
+<strong> 不当的设置甚至可能导致你登陆后台也被限制。</strong></label></td>
+    </tr>
+	{/endif}
+	{if}
+	'{:do}' == 'passport' || '{:do}' == ''
+	{/if}
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>通行证设置</strong></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">通行证根地址</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_root]" type="text" id="rtconfig[passport_root]" value="{:rtc.passport_root}" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">通行证API根地址</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_root_api]" type="text" id="rtconfig[passport_root_api]" value="{:rtc.passport_root_api}" /> 
+        通常可以跟上面一样，如果可以设置局域网访问地址更好。但必须是绝对地址！</td>
+    </tr>
+    <tr>
+      <td width="180" height="24" bgcolor="#FFFFFF">登录地址</td>
+      <td width="620" bgcolor="#FFFFFF"><input name="rtconfig[passport_login]" type="text" id="rtconfig[passport_login]" value="{:rtc.passport_login}" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">退出地址</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_logout]" type="text" id="rtconfig[passport_logout]" value="{:rtc.passport_logout}" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">注册地址</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_reg]" type="text" id="rtconfig[passport_reg]" value="{:rtc.passport_reg}" /></td>
+    </tr>
+	<tr>
+    <td height="24" bgcolor="#FFFFFF">是否开启登录验证码</td>
+    <td bgcolor="#FFFFFF"><label>
+      <input type="radio" name="rtconfig[login_gdcode]" value="1" {if}{:rtc.login_gdcode}==1{/if}checked{/endif}/>
+是</label>
+      <label>
+      <input type="radio" name="rtconfig[login_gdcode]" value="0" {if}{:rtc.login_gdcode}==0{/if}checked{/endif} />
+否</label></td>
+  </tr>
+	<tr>
+	  <td height="24" bgcolor="#FFFFFF">是否开启短消息模块</td>
+	  <td bgcolor="#FFFFFF"><label>
+	    <input type="radio" name="rtconfig[passport_message]" value="1" {if}{:rtc.passport_message}==1{/if}checked{/endif}/>
+是</label>
+        <label>
+        <input type="radio" name="rtconfig[passport_message]" value="0" {if}{:rtc.passport_message}==0{/if}checked{/endif} />
+否</label></td>
+    </tr>
+	<tr>
+	  <td height="24" bgcolor="#FFFFFF">禁用院校模型</td>
+	  <td bgcolor="#FFFFFF"><label>
+      <input type="radio" name="rtconfig[pass_school_ban]" value="1" {if}{:rtc.pass_school_ban}==1{/if}checked{/endif}/>
+是</label>
+        <label>
+        <input type="radio" name="rtconfig[pass_school_ban]" value="0" {if}{:rtc.pass_school_ban}==0{/if}checked{/endif} />
+否</label></td>
+    </tr>
+	<tr>
+	  <td height="24" bgcolor="#FFFFFF">禁用部门模型</td>
+	  <td bgcolor="#FFFFFF"><label>
+      <input type="radio" name="rtconfig[pass_buss_ban]" value="1" {if}{:rtc.pass_buss_ban}==1{/if}checked{/endif}/>
+是</label>
+        <label>
+        <input type="radio" name="rtconfig[pass_buss_ban]" value="0" {if}{:rtc.pass_buss_ban}==0{/if}checked{/endif} />
+否</label></td>
+    </tr>
+	<tr>
+	  <td height="24" bgcolor="#FFFFFF">禁用积分对账单</td>
+	  <td bgcolor="#FFFFFF"><label>
+	    <input type="radio" name="rtconfig[pass_moneylog_ban]" value="1" {if}{:rtc.pass_moneylog_ban}==1{/if}checked{/endif}/>
+是</label>
+        <label>
+        <input type="radio" name="rtconfig[pass_moneylog_ban]" value="0" {if}{:rtc.pass_moneylog_ban}==0{/if}checked{/endif} />
+否</label></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">安全密钥</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_hash]" type="text" id="rtconfig[passport_hash]" value="{:rtc.passport_hash}" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">会话保持标志</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_ucpp]" type="text" id="rtconfig[passport_ucpp]" value="{:rtc.passport_ucpp}"/></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">会话保持时间</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_uctime]" type="text" id="rtconfig[passport_uctime]" value="{:rtc.passport_uctime}" />
+      分钟</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">密码加密方式</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_psmethod]" type="text" id="rtconfig[passport_psmethod]" value="{:rtc.passport_psmethod}" disabled="disabled" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">会话检测方法</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_psckmethod]" type="text" id="rtconfig[passport_psckmethod]" value="{:rtc.passport_psckmethod}" disabled="disabled" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">用户存储表</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_table]" type="text" id="rtconfig[passport_table]" value="{:rtc.passport_table}" disabled="disabled" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">主键</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_prikey]" type="text" id="rtconfig[passport_prikey]" value="{:rtc.passport_prikey}" disabled="disabled" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">密码键</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_passkey]" type="text" id="rtconfig[passport_passkey]" value="{:rtc.passport_passkey}" disabled="disabled" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">唯一键</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_uniqueid]" type="text" id="rtconfig[passport_uniqueid]" value="{:rtc.passport_uniqueid}" disabled="disabled" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">安全问题键</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_safekey]" type="text" id="rtconfig[passport_safekey]" value="{:rtc.passport_safekey}" disabled="disabled" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">Cookie前缀</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_ucpre]" type="text" id="rtconfig[passport_ucpre]" value="{:rtc.passport_ucpre}" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">PW唯一识别码</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_ucpre_pw]" type="text" id="rtconfig[passport_ucpre_pw]" value="{:rtc.passport_ucpre_pw}" /> 
+        鄙视PW用这个编码获得Cookie 前缀!(在论坛营销里找吧)</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">通信密钥</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_api_hash]" type="text" id="rtconfig[passport_api_hash]" value="{:rtc.passport_api_hash}" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">通信有效期</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[passport_api_time]" type="text" id="rtconfig[passport_api_time]" value="{:rtc.passport_api_time}" /> 
+        通信过期时间（单位：秒）注意不同服务器时间可能不同步</td>
+    </tr>
+	<tr>
+    <td height="24" bgcolor="#FFFFFF">UCenter整合</td>
+    <td bgcolor="#FFFFFF"><label>
+      <input type="radio" name="rtconfig[uc_use]" value="1"  {if}{:rtc.uc_use}==1{/if}checked{/endif} disabled="disabled"/>
+是</label>
+      <label>
+      <input name="rtconfig[uc_use]" type="radio" value="0"  {if}{:rtc.uc_use}==0{/if}checked{/endif} disabled="disabled"/>
+否</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">第三方系统返回变量</td>
+    <td bgcolor="#FFFFFF"><input name="rtconfig[passport_uc_return]" type="text" id="base_config[passport_uc_return]" value="{:rtc.passport_uc_return}" />
+      第三方程登陆、退出后序根据这个变量返回的URL、一般为forward，DZ为referer，PPF为return</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">年级起始年限</td>
+    <td bgcolor="#FFFFFF"><input name="rtconfig[passport_grade_start]" type="text" id="rtconfig[passport_grade_start]" value="{:rtc.passport_grade_start}" />
+      用于班级管理，年级使用自然年(YYYY)！</td>
+  </tr>
+	{/endif}
+	{if}
+	'{:do}' == 'page' || '{:do}' == ''
+	{/if}
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>分页风格设置</strong></td>
+    </tr>
+    <tr>
+      <td width="180" height="24" bgcolor="#FFFFFF">分页链接模式</td>
+      <td width="620" bgcolor="#FFFFFF"><textarea name="rtconfig[page_pattern]" cols="40" rows="3" id="rtconfig[page_pattern]">{:rtc.page_pattern}</textarea></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">分页当前页模式</td>
+      <td bgcolor="#FFFFFF"><textarea name="rtconfig[page_stpattern]" cols="40" rows="3" id="rtconfig[page_stpattern]">{:rtc.page_stpattern}</textarea></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">分页首页模式</td>
+      <td bgcolor="#FFFFFF"><textarea name="rtconfig[page_fppattern]" cols="40" rows="3" id="rtconfig[page_fppattern]">{:rtc.page_fppattern}</textarea></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">分页末页模式</td>
+      <td bgcolor="#FFFFFF"><textarea name="rtconfig[page_lppattern]" cols="40" rows="3" id="rtconfig[page_lppattern]">{:rtc.page_lppattern}</textarea></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">分页首部提示模式</td>
+      <td bgcolor="#FFFFFF"><textarea name="rtconfig[page_pageprepattern]" cols="40" rows="3" id="rtconfig[page_pageprepattern]">{:rtc.page_pageprepattern}</textarea></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">分页尾部提示模式</td>
+      <td bgcolor="#FFFFFF"><textarea name="rtconfig[page_pagetailpattern]" cols="40" rows="3" id="rtconfig[page_pagetailpattern]">{:rtc.page_pagetailpattern}</textarea></td>
+    </tr>
+	{/endif}
+	{if}
+	'{:do}' == 'seo' || '{:do}' == ''
+	{/if}
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>SEO设置</strong></td>
+    </tr>
+    <tr>
+      <td width="180" height="24" bgcolor="#FFFFFF">SEO方法</td>
+      <td width="620" bgcolor="#FFFFFF"><input name="rtconfig[seo_method]" type="text" id="rtconfig[seo_method]" value="{:rtc.seo_method}" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">是否启用加强方式</td>
+      <td bgcolor="#FFFFFF"><input name="rtconfig[seo_level]" type="text" id="rtconfig[seo_level]" value="{:rtc.seo_level}" /></td>
+    </tr>
+	{/endif}
+	{if}
+	'{:do}' == 'money' || '{:do}' == ''
+	{/if}
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>货币设置</strong></td>
+    </tr>
+     <tr>
+    <td width="180" height="24" bgcolor="#FFFFFF">启用用货币/积分<br />
+      说明，货币名请到基础语言包里面添加一个语言配置</td>
+    <td width="620" bgcolor="#FFFFFF">{foreach money_types k v} {:v} 
+      <input name="rtconfig[passport_money][{:k}]" type="checkbox" id="rtconfig[passport_money][{:k}]" value="{:k}" {if}{:rtc.passport_money|in_array [:k],@}{/if}checked="checked"{/endif} />
+      货币名 {:v|GetMsg @} {if}{:k}==0{/if}(必选){/endif}注册初始值：
+      <input name="rtconfig[passport_money_start][{:k}]" type="text" id="rtconfig[passport_money_start][{:k}]" value="{:rtc.passport_money_start.[:k]}" />
+      <br />
+      {/foreach}    </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">充值货币</td>
+    <td bgcolor="#FFFFFF">1RMB 获得
+      <input name="rtconfig[passport_moneyhuilv]" type="text" id="rtconfig[passport_moneyhuilv]" value="{:rtc.passport_moneyhuilv}" size="10" />
+      <select name="rtconfig[passport_onlinemoney]">
+	  {foreach rtc.passport_money k v}
+      <option value="{:v}" {if}'{:rtc.passport_onlinemoney}'=='{:v}'{/if}selected="selected"{/endif}>{:money_types.[:v]}|{:money_types.[:v]|GetMsg @}</option>
+	   {/foreach}
+    </select></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">最低充值</td>
+    <td bgcolor="#FFFFFF"><input name="rtconfig[passport_chongzhi_min]" type="text" id="rtconfig[passport_chongzhi_min]" value="{:rtc.passport_chongzhi_min}" size="15" />
+      RMB</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">开启充值功能</td>
+    <td bgcolor="#FFFFFF"><label>
+      <input type="radio" name="rtconfig[passport_chongzhi]" value="1"  {if}{:rtc.passport_chongzhi}==1{/if}checked{/endif}/>
+是</label>
+      <label>
+      <input type="radio" name="rtconfig[passport_chongzhi]" value="0"  {if}{:rtc.passport_chongzhi}==0{/if}checked{/endif}/>
+否</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">在线支付</td>
+    <td bgcolor="#FFFFFF"><input type="radio" name="rtconfig[passport_onlinepay]" value="1"  {if}{:rtc.passport_onlinepay}==1{/if}checked{/endif}/>
+      开启
+        <input type="radio" name="rtconfig[passport_onlinepay]" value="0"  {if}{:rtc.passport_onlinepay}==0{/if}checked{/endif}/> 
+      关闭</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">在线支付工具信息</td>
+    <td bgcolor="#FFFFFF"><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+        <tr>
+          <td colspan="2" bgcolor="#FFFFFF">支付宝
+            <input name="rtconfig[olpay_info][alipay][use]" type="checkbox" id="rtconfig[olpay_info][alipay][use]" value="1" {if}{:rtc.olpay_info.alipay.use}{/if}checked="checked"{/endif} />
+            启用</td>
+          </tr>
+        <tr>
+          <td bgcolor="#FFFFFF">合作者身份partnerID</td>
+          <td bgcolor="#FFFFFF"><input name="rtconfig[olpay_info][alipay][partnerid]" type="text" id="rtconfig[olpay_info][alipay][partnerid]" value="{:rtc.olpay_info.alipay.partnerid}" /></td>
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF">交易安全校验码</td>
+          <td bgcolor="#FFFFFF"><input name="rtconfig[olpay_info][alipay][key]" type="text" id="rtconfig[olpay_info][alipay][key]" value="{:rtc.olpay_info.alipay.key}" /></td>
+        </tr>
+        <tr>
+          <td width="120" bgcolor="#FFFFFF">支付宝帐号</td>
+          <td bgcolor="#FFFFFF"><input name="rtconfig[olpay_info][alipay][username]" type="text" id="rtconfig[olpay_info][alipay][username]" value="{:rtc.olpay_info.alipay.username}" /></td>
+        </tr>
+        <tr>
+          <td colspan="2" bgcolor="#FFFFFF">财付通
+            <input name="rtconfig[olpay_info][tenpay][use]" type="checkbox" id="rtconfig[olpay_info][tenpay][use]" value="1" {if}{:rtc.olpay_info.tenpay.use}{/if}checked="checked"{/endif}/>
+            启用</td>
+          </tr>
+        <tr>
+          <td bgcolor="#FFFFFF">商户号</td>
+          <td bgcolor="#FFFFFF"><input name="rtconfig[olpay_info][tenpay][spid]" type="text" id="rtconfig[olpay_info][tenpay][spid]" value="{:rtc.olpay_info.tenpay.spid}" /></td>
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF">商户密钥</td>
+          <td bgcolor="#FFFFFF"><input name="rtconfig[olpay_info][tenpay][spkey]" type="text" id="rtconfig[olpay_info][tenpay][spkey]" value="{:rtc.olpay_info.tenpay.spkey}" /></td>
+        </tr>
+        <tr>
+          <td colspan="2" bgcolor="#FFFFFF">贝宝信息(latter)</td>
+          </tr>
+        <tr>
+          <td bgcolor="#FFFFFF">贝宝帐号</td>
+          <td bgcolor="#FFFFFF"><input name="rtconfig[olpay_info][paypal][username]" type="text" id="rtconfig[olpay_info][paypal][username]" value="{:rtc.olpay_info.paypal.username}" /></td>
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF">贝宝公共密钥</td>
+          <td bgcolor="#FFFFFF"><input name="rtconfig[olpay_info][paypal][code]" type="text" id="rtconfig[olpay_info][paypal][code]" value="{:rtc.olpay_info.paypal.code}" /></td>
+        </tr>
+        <tr>
+          <td colspan="2" bgcolor="#FFFFFF">快钱信息(latter)</td>
+          </tr>
+        <tr>
+          <td bgcolor="#FFFFFF">商户编号</td>
+          <td bgcolor="#FFFFFF"><input name="rtconfig[olpay_info][99bill][username]" type="text" id="rtconfig[olpay_info][99bill][username]" value="{:rtc.olpay_info.99bill.username}" /></td>
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF">快钱密码</td>
+          <td bgcolor="#FFFFFF"><input name="rtconfig[olpay_info][99bill][code]" type="text" id="rtconfig[olpay_info][99bill][code]" value="{:rtc.olpay_info.99bill.info}" /></td>
+        </tr>
+      </table></td>
+  </tr>
+  {/endif}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+      <td bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+	
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+      <td bgcolor="#FFFFFF"><input type="submit" name="Submit" value="提交" />
+        <input name="Submit" type="hidden" id="Submit" value="1" /></td>
+    </tr>
+  </table>
+</form>
+{include footer.htm}

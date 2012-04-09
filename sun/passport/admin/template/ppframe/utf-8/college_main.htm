@@ -1,0 +1,46 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><strong>院系管理</strong></td>
+  </tr>
+  <tr>
+    <td width="10%" height="24" bgcolor="#FFFFFF">院系ID</td>
+    <td width="50%" bgcolor="#FFFFFF">院系名</td>
+    <td width="30%" bgcolor="#FFFFFF">院系代码</td>
+    <td width="10%" bgcolor="#FFFFFF">操作</td>
+  </tr>
+ {foreach lister_lister_lister fk fv}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"> {:fv.id}</td>
+    <td bgcolor="#FFFFFF">{:fv.name}</td>
+    <td bgcolor="#FFFFFF"><!--{if}{:fv.ctype}==0{/if}-->{:fv.code}<!--{/else}--></td>
+    <td bgcolor="#FFFFFF"><a href="college_del.php?id={:fv.id}" onClick="if(!confirm('确定删除？不可恢复！删除院系是非常危险的操作！')) return false;">删除</a> <a href="college_view.php?id={:fv.id}">查看</a></td>
+  </tr>{/foreach}
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">{:pagelink}</td>
+  </tr>
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><a href="college_add.php">添加院系</a></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><strong>搜索</strong></td>
+  </tr><form name="form1" action="{:FormToSelf}">
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">院系名
+      <input name="name" type="text" id="name" value="{:name}">
+      <input name="jq" type="checkbox" id="jq" value="1">
+      精确匹配</td>
+  </tr>
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">院系代码
+      <input name="code" type="text" id="code" value="{:code}" size="10" /></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><input name="submit" type="submit" value="搜索"></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><strong>提示：院系一旦固定，不要随意删除。删除之后院系ID恢复需要自己到数据库去修改。</strong></td>
+  </tr>
+  </form>
+</table>
+{include footer.htm}

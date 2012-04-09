@@ -1,0 +1,72 @@
+{include passport_header 1}
+<div><table width="100%" border="0" cellspacing="1" cellpadding="3">
+  <tr>
+    <td width="24%" valign="top">{include left 1} </td>
+    <td valign="top">
+	<div class="box">
+	<table width="100%" border="0" cellspacing="1" cellpadding="3">
+  <tr class="h">
+    <td>我的资料</td>
+  </tr>
+  <tr>
+    <td>{:passport-&gt;U_Uname} ({:passport-&gt;U.u_name}) 您好! </td>
+    </tr>
+  <tr>
+    <td> EMAIL {:passport-&gt;U.email} </td>
+    </tr>
+  <tr>
+    <td>证件号 {:passport-&gt;U.u_cardid} </td>
+  </tr>
+	{if}
+	{:passport-&gt;U.u_cid}
+	{/if}
+    <tr>
+      <td>{:passport-&gt;U.u_cid|GetCollegeElement @} </td>
+    </tr>
+	{/endif}
+	{if}
+	{:passport-&gt;U.u_pid}
+	{/if}
+    <tr>
+      <td>{:passport-&gt;U.u_pid|GetProfessionalElement @} </td>
+    </tr>
+	{/endif}
+	{if}
+	{:passport-&gt;U.grade}
+	{/if}
+    <tr>
+    <td>{:passport-&gt;U.grade}级</td>
+  </tr>
+  {/endif}
+  {if}{:passport->U.class}{/if}
+  <tr>
+    <td>{:user_class.classname}班</td>
+  </tr>
+  {/endif}
+  {if}
+  {:passport->U.classes}
+  {/if}
+  <tr>
+    <td>你加入了 {foreach classes k v}{:add_class.[:v].classname}班 {/foreach} </td>
+  </tr>
+  {/endif}
+  <tr>
+    <td><a href="class_apply.php">申请加入某班级</a></td>
+  </tr>
+  <tr>
+    <td>用户组 {if}{:base_group}{/if}{:_usergroup.[:base_group].name}{/endif}{else}默认组{/else} {foreach add_groups k v} {:_usergroup.[:v].name} {/foreach} </td>
+  </tr>
+</table>
+{notes}
+使用下面行调用exam模块的试卷列表，Just a example
+notes 只PPF 模板的注释标签
+{@UseModuleInterface exam} {* 启用exam模块调用 *}
+{@GetShijuanListerView fun_shijuan_lister,0,0,5} {* 调用模块接口 *}
+{@UnUseModuleInterface} {* 关闭模块调用 *}
+{/notes}
+	</div>
+	 </td>
+  </tr>
+</table>
+</div>
+{include passport_footer 1}

@@ -1,0 +1,109 @@
+
+-- 
+-- 表的结构 `##__frame_admin`
+-- 
+
+DROP TABLE IF EXISTS `##__frame_admin`;
+CREATE TABLE `##__frame_admin` (
+  `uid` int(11) NOT NULL auto_increment,
+  `userid` varchar(20) NOT NULL default '',
+  `name` varchar(40) NOT NULL default '',
+  `password` varchar(40) NOT NULL default '',
+  `email` varchar(80) NOT NULL default '',
+  `telphone` varchar(15) NOT NULL default '',
+  `ceilphone` varchar(15) NOT NULL default '',
+  `privkey` text NOT NULL,
+  `loginban` tinyint(1) NOT NULL default '0',
+  `u_lastlogin` int(10) unsigned NOT NULL default '0',
+  `u_lastlogip` varchar(32) NOT NULL,
+  `u_discript` text NOT NULL,
+  PRIMARY KEY  (`uid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=gbk;
+
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `##__frame_cache`
+-- 
+
+DROP TABLE IF EXISTS `##__frame_cache`;
+CREATE TABLE `##__frame_cache` (
+  `cacheid` varchar(32) NOT NULL default '',
+  `cachevalue` text NOT NULL,
+  `time` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`cacheid`)
+) ENGINE=MyISAM DEFAULT CHARSET=gbk;
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `##__frame_cknum`
+-- 
+
+DROP TABLE IF EXISTS `##__frame_cknum`;
+CREATE TABLE `##__frame_cknum` (
+  `ckid` varchar(8) NOT NULL,
+  `number` varchar(12) NOT NULL default '',
+  `time` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`ckid`)
+) ENGINE=MyISAM DEFAULT CHARSET=gbk;
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `##__frame_config`
+-- 
+
+DROP TABLE IF EXISTS `##__frame_config`;
+CREATE TABLE `##__frame_config` (
+  `truename` varchar(80) NOT NULL default '',
+  `name` varchar(80) NOT NULL default '',
+  `body` text NOT NULL,
+  UNIQUE KEY `unique` (`name`),
+  UNIQUE KEY `truename` (`truename`)
+) ENGINE=MyISAM DEFAULT CHARSET=gbk;
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `##__frame_module`
+-- 
+
+DROP TABLE IF EXISTS `##__frame_module`;
+CREATE TABLE `##__frame_module` (
+  `id` int(11) NOT NULL auto_increment,
+  `key` varchar(30) NOT NULL default '',
+  `name` varchar(30) NOT NULL default '',
+  `run` tinyint(1) NOT NULL default '0',
+  `author` varchar(20) NOT NULL default '',
+  `lastmodify` varchar(20) NOT NULL default '',
+  `business` varchar(11) NOT NULL default '',
+  `adminroot` varchar(100) NOT NULL default '',
+  `adminmenu` varchar(100) NOT NULL default '',
+  `adminmenuajax` varchar(100) NOT NULL default '',
+  `sysmodule` tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `key` (`key`)
+) ENGINE=MyISAM DEFAULT CHARSET=gbk;
+
+-- --------------------------------------------------------
+
+-- 
+-- 表的结构 `##__frame_syslogs`
+-- 
+
+DROP TABLE IF EXISTS `##__frame_syslogs`;
+CREATE TABLE `##__frame_syslogs` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `adminid` int(11) unsigned NOT NULL default '0',
+  `adminname` varchar(20) NOT NULL default '',
+  `module` varchar(20) NOT NULL,
+  `dotype` varchar(60) NOT NULL default '',
+  `doaction` varchar(20) NOT NULL default '',
+  `identifyid` varchar(20) NOT NULL default '',
+  `dourl` varchar(250) NOT NULL default '',
+  `dotime` int(11) unsigned NOT NULL default '0',
+  `doip` varchar(20) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=gbk;

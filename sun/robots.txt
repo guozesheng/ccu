@@ -1,0 +1,17 @@
+#
+# robots.txt for PPFrame
+# Version 1.3.x
+#
+
+User-agent: *
+Disallow: /admin/
+Disallow: /passport/
+Disallow: /ck.php
+Disallow: /keepalive.php
+Disallow: /exam_report_error.php
+Disallow: /exam_do
+Disallow: /ajax_
+Disallow: /exam_down_word.php
+Disallow: /my_shiti_
+Disallow: /my_kaojuan.php
+Disallow: /shijuan_select.php

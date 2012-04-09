@@ -1,0 +1,7 @@
+说明行，此行无意义,用户ID,用户名,密码（可以在导入时选择加密）,Email,后面可以扩展。。。
+字段行，数据库里的字段名,uid,username,password,email,selfdef_yes_abc
+以下是数据行,,sdfgdf,123456,,adf
+,,reagfd,123456,,asdf
+,,jhk8yuj,123456,,adf
+,,hgfjdt,123456,,adf
+第一列是说明列，无意义,,,,,

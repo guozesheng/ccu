@@ -1,0 +1,71 @@
+{include header.htm 1}
+{notes}
+元素数组是 $element
+{/notes}
+
+<form id="form1" name="form1" method="post" action="?">
+  <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF">查看/修改模型 [<a href="config_module_main.php">模块管理</a>] </td>
+    </tr>
+  <tr>
+    <td width="180" height="24" bgcolor="#FFFFFF">模型名称</td>
+    <td bgcolor="#FFFFFF"><input name="name" type="text" id="name" value="{:element.name}" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">模型标志</td>
+    <td bgcolor="#FFFFFF">{:element.key}</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">是否系统模型</td>
+    <td bgcolor="#FFFFFF"><label>
+      <input name="sysmodule" type="radio" value="1" {php}if({:element.sysmodule}==1) echo "checked";{/php} />
+是</label>
+      <label>
+      <input type="radio" name="sysmodule" value="0" {php}if({:element.sysmodule}==0) echo "checked";{/php}/>
+否</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">是否启用</td>
+    <td bgcolor="#FFFFFF"><p>
+      <label>
+        <input name="run" type="radio" value="1" {php}if({:element.run}==1) echo "checked";{/php} />
+        是</label>
+      <label>
+        <input type="radio" name="run" value="0" {php}if({:element.run}==0) echo "checked";{/php}/>
+        否</label>
+      <br />
+    </p></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">作者</td>
+    <td bgcolor="#FFFFFF"><input name="author" type="text" id="author" value="{:element.author}" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">最后修改</td>
+    <td bgcolor="#FFFFFF"><input name="lastmodify" type="text" id="lastmodify" value="{:element.lastmodify}" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">商业授权价格</td>
+    <td bgcolor="#FFFFFF"><input name="business" type="text" id="business" value="{:element.business}" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">模块后台根地址</td>
+    <td bgcolor="#FFFFFF"><input name="adminroot" type="text" id="adminroot" value="{:element.adminroot}" />
+      以&quot;/&quot; 结尾 注意：无论你是否使用了二级域名，这里的根地址务必与登陆后台的地址在同一个域名下，否则出现AJAX无权限问题</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">模块后台菜单地址</td>
+    <td bgcolor="#FFFFFF"><input name="adminmenu" type="text" id="adminmenu" value="{:element.adminmenu}" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">模块后台菜单地址(AJAX)</td>
+    <td bgcolor="#FFFFFF"><input name="adminmenuajax" type="text" id="adminmenuajax" value="{:element.adminmenuajax}" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><input name="id" type="hidden" id="id" value="{:element.id}" /></td>
+    <td bgcolor="#FFFFFF"><input type="submit" name="Submit" value="提交" />    </td>
+  </tr>
+</table>
+</form>
+{include footer.htm}

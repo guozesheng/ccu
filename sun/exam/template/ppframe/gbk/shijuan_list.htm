@@ -1,0 +1,60 @@
+{include exam_header.htm 1}
+<table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+  
+  <tr>
+    <td width="24%" valign="top"><form action="shijuan_list.php" name="form1" id="form1">
+      <div class="box">
+        <table width="100%" border="0" cellspacing="1" cellpadding="3">
+          <tr class="h">
+            <td>试卷搜索</td>
+          </tr>
+          <tr class="t3">
+            <td>标题
+              <input name="sjtitle" type="text" id="sjtitle" value="{:sjtitle}" /></td>
+          </tr>
+          <tr>
+            <td><input type="submit" value="搜索" /> <a href="high_search.php">高级搜索</a></td>
+          </tr>
+        </table>
+      </div>
+    </form>
+      <div class="box">
+        <table width="100%" border="0" cellspacing="1" cellpadding="3">
+          <tr class="h">
+            <td>试卷分类</td>
+          </tr>
+
+          <tr>
+            <td> {:a|GetClassLister|GetPPFTreeMenu @,fun_getppfshijuantreemenu,3} </td>
+          </tr>
+        </table>
+    </div></td>
+    <td valign="top">
+	{if}
+	{:havesuns}
+	{/if}
+	<div class="box">
+      <table width="100%" border="0" cellspacing="1" cellpadding="3">
+        <tr class="h">
+          <td>子分类</td>
+        </tr>
+        <tr class="t1">
+          <td>{foreach sunclass k v}  <span><a href="shijuan_list.php?class={:v.id}">{:v.name}</a></span>  {/foreach} </td>
+        </tr>
+      </table>
+    </div>
+	{/endif}
+    <div class="box"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+      <tr class="h">
+        <td>试卷列表</td>
+      </tr>
+      <tr class="t1">
+        <td>{@GetShijuanListerView fun_shijuan_lister,[:class],[:tiku],[:limit],[:sjtitle]}</td>
+      </tr>
+      <tr>
+        <td>{:pagelink}</td>
+      </tr>
+    </table></div></td>
+  </tr>
+</table>
+{include exam_footer.htm 1}

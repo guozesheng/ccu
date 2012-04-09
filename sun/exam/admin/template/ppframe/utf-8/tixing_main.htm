@@ -1,0 +1,69 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><strong>题型管理</strong></td>
+  </tr>
+  <tr>
+    <td width="200" height="24" bgcolor="#FFFFFF">题型ID</td>
+    <td width="200" bgcolor="#FFFFFF">题型名称</td>
+    <td width="300" bgcolor="#FFFFFF">基础题型</td>
+    <td width="100" bgcolor="#FFFFFF">操作</td>
+  </tr>
+ {foreach tixing_db_base fk fv}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"> {:fk}</td>
+    <td bgcolor="#FFFFFF">{:fk|GetTxName @}</td>
+    <td bgcolor="#FFFFFF">{:fv|GetTxName @}</td>
+    <td bgcolor="#FFFFFF">
+	{if}
+	{:fk} > 100
+	{/if}
+	<a href="tixing_del.php?id={:fk}" onClick="if(!confirm('确定删除？不可恢复')) return false;">删除</a> <a href="user_view.php?id={:fv.id}"></a>
+	{/endif}	</td>
+  </tr>{/foreach}
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">注意:请确保<font color="#FF0000">{:file}</font>可写</td>
+  </tr>
+  
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">添加一个题型</td>
+  </tr><form name="form1" action="tixing_add.php">
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">ID(大于100正整数)
+      <input name="id" type="text" id="id" size="10">
+      
+ 题型名称
+  <input name="txname" type="text" id="txname" size="10">
+ 添加同样的ID覆盖！</td>
+  </tr>
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">基础题型      
+      <p>
+        <label>
+          <input name="basetype" type="radio" value="1" checked>
+          单选题</label>
+        (n选1)<br>
+        <label>
+          <input type="radio" name="basetype" value="2">
+          多选题</label>
+        (n选m)<br>
+        <label>
+          <input type="radio" name="basetype" value="3">
+          简答题</label>
+        (1问1答)<br>
+        <label>
+          <input type="radio" name="basetype" value="4">
+          心理题</label>
+        (n选1 每个选项赋分值)
+        <label> <br />
+        <input type="radio" name="basetype" value="7" />
+组合题</label>
+(一个题目下面可以添加子题目)<br>
+      </p></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><input type="submit" value="添加"></td>
+  </tr>
+  </form>
+</table>
+{include footer.htm}

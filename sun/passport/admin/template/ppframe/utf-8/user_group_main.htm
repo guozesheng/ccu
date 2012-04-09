@@ -1,0 +1,45 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><strong>用户组管理</strong></td>
+  </tr>
+  <tr>
+    <td width="200" height="24" bgcolor="#FFFFFF">用户组ID</td>
+    <td width="200" bgcolor="#FFFFFF">用户组名称</td>
+    <td width="300" bgcolor="#FFFFFF">扩展</td>
+    <td width="100" bgcolor="#FFFFFF">操作</td>
+  </tr>
+ {foreach _usergroup fk fv}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"> {:fv.id}</td>
+    <td bgcolor="#FFFFFF">{:fv.name}</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">
+	{if}
+	{:fv.id} > 0
+	{/if}
+	<a href="user_group_del.php?id={:fv.id}" onClick="if(!confirm('确定删除？不可恢复')) return false;">删除</a> <a href="user_view.php?id={:fv.id}"></a>
+	{/endif}
+	</td>
+  </tr>{/foreach}
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">注意:请确保<font color="#FF0000">{:file}</font>可写</td>
+  </tr>
+  
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">添加一个用户组</td>
+  </tr><form name="form1" action="user_group_add.php">
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">ID(正整数)
+      <input name="id" type="text" id="id" size="10">
+      
+ 组名
+  <input name="gpname" type="text" id="gpname" size="10">
+ 添加同样的ID会覆盖！</td>
+  </tr>
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><input type="submit" value="添加"></td>
+  </tr>
+  </form>
+</table>
+{include footer.htm}

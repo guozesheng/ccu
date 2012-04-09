@@ -1,0 +1,78 @@
+{include passport_header 1}
+<div>
+        <div id="reg">
+  <div class="l2">
+    <table width="100%" border="0" cellspacing="0" cellpadding="4" style="padding-top:10px;">
+<form action="{:rtc.passport_reg}?" method="POST">
+<input type="hidden" name="tpl_ok" value="">
+<input type="hidden" name="next_target" value="">
+<input type="hidden" name="tpl" value="mn">
+<input type="hidden" name="skip_ok" value="">
+<input type="hidden" name="aid" value="">
+<input type="hidden" name="need_pay" value="">
+<input type="hidden" name="need_coin" value="">
+<input type="hidden" name="pay_method" value="">
+<input type="hidden" id="u" name="u" value="http://www.baidu.com/">
+<input type="hidden" name="return_method" value="get">
+<input type="hidden" name="more_param" value="">
+<input type="hidden" name="return_type" value="">
+<input type="hidden" name="psp_tt" value="0">
+
+<tr><td id="errortd" colspan=2 align=left style="color: red ;"></td></tr>
+        
+        <tr> 
+                <td width="20%" class="f14">用户名</td>
+                <td>
+                  <input name="username" type="text" id="username" />
+{:base_config.username_pattern_descrip}</td>
+        </tr>
+        <tr> 
+                <td class="f14">密　码</td>
+                <td>                  <input name="password" type="password" id="password" />                </td>
+        </tr>
+		 <tr>
+          <td class="f14">密码重复</td>
+          <td>            <input name="password2" type="password" id="password2" />          </td>
+        </tr>
+        <tr>
+          <td class="f14">EMAIL</td>
+            <td>            <input name="email" type="text" id="email" />          </td>
+        </tr>
+  
+  {if}
+  {:base_config.reg_gdcode}
+  {/if}
+ <tr>
+          <td class="f14">验证码</td>
+          <td>
+          <input name="gdcode" type="text" id="gdcode" size="8" />            <img src="{:rtc.passport_root}ck.php{:checknum_no_cookie}" alt="" width="80" height="30" align="absmiddle" style="cursor:pointer" onclick="this.src='{:rtc.passport_root}ck.php{:checknum_no_cookie}'" /></td>
+        </tr>
+ 
+		{/endif}
+      <tr>
+	<td colspan="2" width="240"><strong>自定义字段</strong></td>
+     </tr>
+
+{foreach selfdef_fields k v}
+        <tr>
+          <td >{:v.0|GetMsg @}</td>
+          <td><input name="input[{:v.0}]" type="text" id="input[{:v.0}]" />
+            {if}{:v.0|ereg _no_,@}{/if}注册后不允许修改{/endif}</td>
+        </tr>
+		{/foreach}
+        <tr> 
+            <td ><input name="Submit" type="hidden" id="Submit" value="1" />
+                  <input name="return" type="hidden" id="return" value="{:return}" />
+                  <input name="forward" type="hidden" id="forward" value="{:return}" />
+                  <input name="{$ckecknum_ckckey}" type="hidden" id="{$ckecknum_ckckey}" value="{$checknum_key}" /></td>
+                <td> <input type="submit" value="注册"/>&nbsp;&nbsp;</td>
+          </tr>
+</form>
+<script language="javascript">
+        document.getElementById("username").focus();
+</script>
+</table>
+    <div align="center"></div>
+  </div>
+  </div>
+</div>{include passport_footer 1}

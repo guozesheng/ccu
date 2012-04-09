@@ -1,0 +1,109 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td bgcolor="#FFFFFF"><strong>用户批量入库</strong> 如果你的用户是内部的，不需要外部注册，那么禁用注册，使用本功能！</td>
+  </tr>
+  
+  
+  <tr id="dbimport">
+    <td bgcolor="#FFFFFF"><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+        <form action="user_import_db.php" method="post" target="importMain"><tr>
+          <td colspan="2" bgcolor="#FFFFFF">从其他数据库导入 <a href="#" onclick="show('csvimport');hidden('dbimport');return false;">从CSV文本导入</a> </td>
+        </tr>
+        <tr>
+	        <td colspan="2" bgcolor="#FFFFFF">我要从
+              <input name="db" type="text" id="db" value="{$_db_config.dbname}" size="15">
+数据库
+<input name="tb" type="text" id="tb" size="15">
+数据表 导入到PPF 用户表 对应关系如下：</td>
+          </tr>
+		  {foreach userfields k v}
+	      <tr>
+        <td width="35%" bgcolor="#FFFFFF">{:v.0} 类型 {:v.1} </td>
+        <td bgcolor="#FFFFFF"><input name="fields[{:v.0}]" type="text" id="fields[{:v.0}]"></td>
+      </tr>
+	  {/foreach}
+      <tr>
+        <td colspan="2" bgcolor="#FFFFFF"><input name="replace" type="checkbox" id="replace" value="1" onclick="warn(this,'危险操作，请确认已经配置UID，否则可能摧毁之前的用户数据。\n包括但不限于\n 1、用户UID错乱')" />
+          我要替换已有数据 
+            <input name="ignore" type="checkbox" id="ignore" value="1" checked="checked" />
+            忽略重复行          </td>
+        </tr>
+      
+      <tr>
+        <td colspan="2" bgcolor="#FFFFFF">我先测试
+          <input name="check_first" type="checkbox" id="check_first" value="1" checked  onclick="rwarn(this,'注意！导入之前最好先测试一下！确认配置正确后再导入')" > 
+          注：本功能不做数据转换，<strong>如果类型不同可能出错。比如把char字段的值导入int类型字段就可能出错！</strong></td>
+      </tr>
+      
+      <tr>
+        <td colspan="2" bgcolor="#FFFFFF">注意：源数据库内的密码字段必须是MD5加密的，如果不是MD5加密的，可以导入后使用SQL批量加密，但是如果是经过了多次MD5加密，并且混淆了其它参数，那么是无用的数据。比如：DZ6.1的数据</td>
+      </tr>
+      <tr>
+        <td colspan="2" bgcolor="#FFFFFF"><input type="submit" value="导入" />
+          <input name="Submit2" type="hidden" id="Submit2" value="1" /></td>
+      </tr>
+        </form>
+    </table></td>
+  </tr>
+   <tr id="csvimport" style="display:none">
+     <td bgcolor="#FFFFFF"><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+       <form action="user_import_csv.php" method="post" enctype="multipart/form-data" target="importMain"><tr>
+         <td colspan="2" bgcolor="#FFFFFF">CSV文本导入程序 <a href="#" onclick="show('dbimport');hidden('csvimport');return false;">从其他数据库导入</a> </td>
+         </tr>
+       <tr>
+         <td colspan="2" bgcolor="#FFFFFF"><strong>用户导入程序</strong> 此项功能对区域和编码设置敏感,导入之前务必测试 （格式样例请看 passport 目录下 userimport.csv） </td>
+         </tr>
+       <tr>
+         <td bgcolor="#FFFFFF">批量入库文件</td>
+         <td bgcolor="#FFFFFF"><input type="file" name="file" /></td>
+       </tr>
+       <tr>
+         <td width="20%" bgcolor="#FFFFFF">区域设置</td>
+         <td bgcolor="#FFFFFF"><select name="country" id="country">
+           <option>区域设置</option>
+           <option value="zh_CN">中国</option>
+           <option value="zh_TW">台湾省</option>
+           <option value="zh_HK">香港特区</option>
+           <option value="en_US">英语语系</option>
+         </select></td>
+       </tr>
+       <tr>
+         <td bgcolor="#FFFFFF">文件编码</td>
+         <td bgcolor="#FFFFFF"><select name="charset" id="charset">
+           <option>编码设置</option>
+           <option value="gbk">GBK</option>
+           <option value="utf8">UTF8</option>
+           <option value="big5">BIG5</option>
+         </select></td>
+       </tr>
+       <tr>
+         <td bgcolor="#FFFFFF">附加</td>
+         <td bgcolor="#FFFFFF"><input name="replace" type="checkbox" id="replace" value="1" onclick="warn(this,'危险操作，如果不是导入出错，不要覆盖，否则可能摧毁之前的用户数据。\n包括但不限于\n 1、导致用户无法登陆\n 2、用户UID错乱')" />
+           替换已有用户(危险操作！)
+             <input name="ignore" type="checkbox" id="ignore" value="1" checked="checked" />
+忽略重复行(推荐) 
+<input name="pass_encode" type="checkbox" id="pass_encode" value="1" checked="checked" onclick="rwarn(this,'注意！系统密码必须使用MD5加密，如果你的CVS文件中的密码是明码则必须选择此项。\n除非CSV中的密码已经是MD5值否则不要取消此项！以免导入的用户无法登陆')" />
+我要对密码
+
+字段
+<select name="pass_method" id="pass_method">
+  <option value="md5" selected="selected">MD5</option>
+</select>
+加密 (CSV文件中密码是明码时，需要MD5加密)  </td>
+       </tr>
+       <tr>
+         <td bgcolor="#FFFFFF">&nbsp;</td>
+         <td bgcolor="#FFFFFF"><input type="submit" value="批量导入" />
+           <input name="Submit" type="hidden" id="Submit" value="1" />
+           <input name="check_first" type="checkbox" id="check_first" value="1" checked="checked"  onclick="rwarn(this,'注意！导入之前最好先测试一下！确认配置正确后再导入')" />
+我要测试</td>
+       </tr></form>
+     </table></td>
+   </tr>
+  
+   <tr>
+     <td bgcolor="#FFFFFF"><iframe src="" name="importMain" width="100%" marginwidth="0" height="500" marginheight="0" align="top" scrolling="auto" frameborder="0"></iframe></td>
+   </tr>
+</table>
+{include footer.htm}

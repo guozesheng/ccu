@@ -1,0 +1,85 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF"><a href="kaojuan_main.php">考卷管理</a></td>
+  </tr>
+  <tr>
+    <td width="300" height="24" bgcolor="#FFFFFF">标题</td>
+    <td width="300" bgcolor="#FFFFFF">试卷</td>
+    <td width="300" bgcolor="#FFFFFF">考生ID</td>
+    <td width="100" bgcolor="#FFFFFF">状态</td>
+    <td width="100" bgcolor="#FFFFFF">得分</td>
+    <td width="100" bgcolor="#FFFFFF">操作</td>
+  </tr>
+  {foreach lister_exam_kaojuan k v}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">{if}{:v.name}{/if}{:v.name}{/endif}{else}Create {:v.time|GetMyDate Y-m-d H:i,@}{/else}</td>
+    <td height="24" bgcolor="#FFFFFF">{:v.shijuan|GetShijuanName @}</td>
+    <td bgcolor="#FFFFFF">{:v.username}(ID:{:v.author})</td>
+    <td height="24" bgcolor="#FFFFFF">{if}{:v.state}==1{/if}未开始{/endif}{if}{:v.state}==2{/if}考试中{/endif}{if}{:v.state}==3{/if}已结束{/endif}{if}{:v.state}==4{/if}已评分{/endif}{if}{:v.state}==5{/if}过期废卷{/endif}{if}{:v.state}==6{/if}已清空废卷{/endif}{if}{:v.state}==7{/if}已评分并清空{/endif}</td>
+    <td bgcolor="#FFFFFF">{:v.sorce|UseFenSize @,[:v.fensize]}/{:v.totalsorce|UseFenSize @,[:v.fensize]}</td>
+    <td bgcolor="#FFFFFF"><a href="kaojuan_view.php?id={:v.id}">查看</a> {if}{:array|in_array [:v.state],@}{/if}{/endif}{else}<a onclick="if(!confirm('确定删除？不可以恢复！')) return false;" href="kaojuan_del.php?id={:v.id}">删除</a>{/else}</td>
+  </tr>
+  {/foreach}
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF">{:pagelink} </td>
+  </tr> <form action="" name="formpagesize" id="formpagesize" onsubmit="formaddpagesize(this.pagesize.value);return false;">
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF">每页显示
+      <input name="pagesize" type="text" id="pagesize" value="{:pagesize}" size="6" />
+条
+<input type="submit" value="提交" /></td>
+  </tr></form>
+  <form name="form1" action="{:FormToSelf}">
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF">
+    
+      考卷名称:
+        <input name="name" type="text" id="name" value="{:name}" size="15"> 
+        
+         
+        考生ID:
+        <input name="examer" type="text" id="examer" value="{:examer}" size="10"> 
+        or 考试用户名
+        <input name="examername" type="text" id="examername" value="{:examername}" size="10" /></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF">试卷:
+      {:a|GetShijuanLister 0|GetTreeSelect @,shijuan,[:shijuan],id,title,请选择试卷} </td>
+  </tr>
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF">
+      <p>状态:
+        <label><input name="state" type="radio" value="1" {if}'{:state}'==1{/if}checked{/endif}>
+          考试中</label>
+        <label>
+          <input type="radio" name="state" value="2" {if}'{:state}'==2{/if}checked{/endif}>
+          已结束
+          <input type="radio" name="state" value="3" {if}'{:state}'==3{/if}checked{/endif}> 
+          已评分</label>
+        <label>
+          <input type="radio" name="state" value="10" {if}'{:state}'==10{/if}checked{/endif}>
+          废卷</label>
+        <input name="state" type="radio" value="0" />
+      全部</p>      </td>
+  </tr>
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF"> 
+      <p>清理:
+        <label>
+          <input type="radio" name="clear" value="1" {if}'{:clear}'==1{/if}checked{/endif}>
+          已清理</label>
+        <label>
+          <input type="radio" name="clear" value="2" {if}'{:clear}'==2{/if}checked{/endif}>
+          未清理</label>
+        <label>
+        <input type="radio" name="clear" value="0">
+        全部        </label>
+</p></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF"><input type="submit" value="提交"></td>
+  </tr>
+</form>
+</table>
+{include footer.htm 1}

@@ -1,0 +1,59 @@
+{include header.htm 1}
+<form id="form1" name="form1" action="{:FormToSelf}">
+  <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF">添加题库 <a href="tiku_main.php">返回题库管理</a></td>
+    </tr>
+    <tr>
+      <td width="180" height="24" bgcolor="#FFFFFF">题库名称:</td>
+      <td bgcolor="#FFFFFF"><input name="tiku[name]" type="text" id="tiku[name]" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">题库描述:</td>
+      <td bgcolor="#FFFFFF"><p>
+        <textarea name="tiku[descrip]" cols="40" rows="4" id="tiku[descrip]"></textarea>
+      </p></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">是否顶级题库:</td>
+      <td bgcolor="#FFFFFF"><p>
+        <label>
+          <input name="tiku[istop]" type="radio" value="1">
+          是</label>
+        <label>
+          <input type="radio" name="tiku[istop]" value="0">
+          否</label>
+      </p></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">上级题库:</td>
+      <td bgcolor="#FFFFFF"><select name="tiku[upid]" id="tiku[upid]">
+	   <option value="0">请选择上级题库</option>
+	  {foreach lister_exam_tiku k v}
+        <option value="{:v.id}">{:v.name}</option>
+		{/foreach}
+      </select>      </td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">题库存储表:</td>
+      <td bgcolor="#FFFFFF">##__exam_shiti_
+        <input name="tiku[storetable]" type="text" id="tiku[storetable]" /> 
+      (##__ 代表数据库前缀,不可修改,<font color="#FF0000">建议留空使用默认</font>)</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">是否允许会员投稿</td>
+      <td bgcolor="#FFFFFF"><label>
+        <input name="tiku[allowpush]" type="radio" value="1" />
+是</label>
+        <label>
+        <input type="radio" name="tiku[allowpush]" value="0" />
+否</label></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+      <td bgcolor="#FFFFFF"><input type="submit" name="Submit" value="提交" />
+        <input name="Submit2" type="hidden" id="Submit" value="1" /></td>
+    </tr>
+  </table>
+</form>
+{include footer.htm 1}

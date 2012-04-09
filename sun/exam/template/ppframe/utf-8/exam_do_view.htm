@@ -1,0 +1,96 @@
+{include exam_header.htm 1}
+<div class="box"><table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+  <tr class="h">
+    <td valign="top">考卷查看</td>
+  </tr>
+  <tr>
+    <td valign="top">
+	
+	<table width="100%" border="0" cellspacing="1" cellpadding="3">
+      <tr class="t3">
+        <td width="20%">考卷名称:</td>
+        <td>{if}{:kaojuan.name}{/if}{:kaojuan.name}{/endif}{else}Create {:kaojuan.time|GetMyDate Y-m-d H:i,@}{/else}</td>
+      </tr>
+      <tr class="t3">
+        <td>所属试卷:</td>
+        <td><a href="shijuan_view.php?id={:shijuan.id}">{:shijuan.title}</a></td>
+      </tr>
+      <tr class="t3">
+        <td>试卷说明：</td>
+        <td>{if}{:shijuan.descrip}{/if}{:shijuan.descrip}{/endif}{else}无{/else}</td>
+      </tr>
+      <tr class="t3">
+        <td>评分状态:</td>
+        <td>得分:{:kaojuan.sorce|UseFenSize @,[:fensize],2} {if}!{:shijuan.xinli}{/if} 总分 {:kaojuan.totalsorce|UseFenSize @,[:fensize],2}{/endif} </td>
+      </tr>
+      <tr class="t3">
+        <td>考试开始时间:</td>
+        <td>{:kaojuan.start|GetMyDate Y-m-d H:i:s,@}</td>
+      </tr>
+      <tr class="t3">
+        <td>考试结束时间:</td>
+        <td>{if}{:kaojuan.end}{/if}{:kaojuan.end|GetMyDate Y-m-d H:i:s,@}{/endif}{else}超时结束{/else}</td>
+      </tr>
+      
+	  {if}
+	  {:kaojuan.state} == 3 && {:jianda_exist}
+	  {/if} 
+	  <tr class="t3">
+        <td>备注:</td>
+        <td>可能还有主观题未评分,上述得分可能不是最终得分</td>
+      </tr>
+	  {/endif}
+	  <tr class="t3">
+        <td>解说：</td>
+        <td>{if}{:shijuan.overdescrip}{/if}{:shijuan.overdescrip}{/endif}{else}无{/else}</td>
+      </tr>
+      <tr>
+        <td colspan="2">
+		<table width="100%">
+		{if}
+	  {:kaojuan.state} == 3 && {:jianda_exist} && {:shijuan.selfpf}
+	  {/if}
+	 <tr class="t3">
+	   <td>可能有未评分的主观题 而且这份试卷允许您自己<a href="exam_do_pf.php?id={:id}">评分</a></td>
+	   </tr>
+	   {/endif}
+		</table>		</td>
+      </tr>
+	  {if}
+	  {:protect} != 1
+	  {/if}
+      <tr>
+        <td colspan="2">
+		<span id="upspan"><a href="javascript:;" onclick="exam_kaojuan_view();return false;">查看试卷内容</a></span>
+		<script language="javascript">
+			loaded =false;
+			function exam_kaojuan_view(type,page){
+				container = $('kaojuan');
+				if(true){
+					var ajax = new Ajax(container);
+					ajax.doOpen('GET','ajax_kaojuan_view.php?id={:id}&type=' + type + '&page=' + page);
+					ajax.doSend();
+					if(!loaded) {
+						$('upspan').innerHTML = '<strong>查看考卷</strong>';
+					}
+					loaded=true;
+				}
+				if(container.style.display != 'block') {
+					container.style.display = 'block';
+				}
+			}
+		</script>		</td>
+      </tr>
+      <tr>
+        <td colspan="2"><div id="kaojuan" style="display:none"></div></td>
+      </tr>
+	  {/endif}
+	  {else}
+	  <tr>
+        <td colspan="2"><strong>这份试卷开启了保密功能，或者还在固定答题时间内不允许查看!</strong></td>
+      </tr>
+	  {/else}
+    </table></td>
+  </tr>
+</table></div>
+{include exam_footer.htm 1}

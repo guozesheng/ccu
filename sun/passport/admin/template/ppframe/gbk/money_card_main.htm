@@ -1,0 +1,77 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF"><strong>充值卡管理</strong></td>
+  </tr>
+  <tr>
+    <td width="300" height="24" bgcolor="#FFFFFF">卡号</td>
+    <td width="200" bgcolor="#FFFFFF">创建日期</td>
+    <td width="200" bgcolor="#FFFFFF">过期时间</td>
+    <td width="200" bgcolor="#FFFFFF">货币</td>
+    <td width="200" bgcolor="#FFFFFF">状态</td>
+    <td width="100" bgcolor="#FFFFFF">操作</td>
+  </tr>
+ {foreach lister_moneycard fk fv}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"> {:fv.cardno} </td>
+    <td bgcolor="#FFFFFF">{:fv.date}</td>
+    <td bgcolor="#FFFFFF">{if}{:fv.timeout}{/if}{:fv.timeout|GetMyDate Ymd,@}{/endif}{else}永久有效{/else}</td>
+    <td bgcolor="#FFFFFF">{:fv.mtype|GetMoneyName @}(金额{:fv.mnum})</td>
+    <td bgcolor="#FFFFFF">{if}{:fv.state}==0{/if}刚生成{/endif}{if}{:fv.state}==1{/if}销售中{/endif}{if}{:fv.state}==2{/if}已充值(Uid:{:fv.useruse}){/endif}</td>
+    <td bgcolor="#FFFFFF"><a href="money_card_del.php?cardno={:fv.cardno}" onclick="if(!confirm('确定删除?不可恢复')) return false; else return true;">删除</a></td>
+  </tr>{/foreach}
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF">{:pagelink}</td>
+  </tr>
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF"><a href="money_card_add.php">生成充值卡</a> <a href="money_card_download.php">下载充值卡</a></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF"><strong>搜索</strong></td>
+  </tr><form name="form1" action="{:FormToSelf}">
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF">卡号
+      <input name="cardno" type="text" id="cardno" value="{:cardno}" /> 
+      密码
+      <input name="password" type="text" id="password" value="{:password}" /></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF">货币
+      <select name="mtype" id="mtype">
+        
+        
+	  {foreach rtc.passport_money k v}
+      
+        
+        <option value="{:v}" {if}'{:mtype}'=='{:v}'{/if}selected="selected"{/endif}>{:money_types.[:v]}|{:money_types.[:v]|GetMsg @}</option>
+        
+        
+	   {/foreach}
+    
+      
+      </select>
+金额
+<input name="mnum" type="text" id="mnum" value="{:mnum}" /></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF"><p>
+      <label>
+        <input name="state" type="radio" value="0" {if}'{:state}'=='0'{/if}checked="checked"{/endif} />
+        刚生成</label>
+      <label>
+        <input type="radio" name="state" value="1" {if}'{:state}'=='1'{/if}checked="checked"{/endif} />
+        销售中</label>
+      <label>
+        <input type="radio" name="state" value="2" {if}'{:state}'=='2'{/if}checked="checked"{/endif} />
+        已充值</label>
+		<label>
+        <input type="radio" name="state" value="3" {if}'{:state}'=='3'{/if}checked="checked"{/endif} />
+        所有</label>
+    </p></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF"><input type="submit" value="搜索" /></td>
+  </tr>
+  </form>
+</table>
+{include footer.htm}

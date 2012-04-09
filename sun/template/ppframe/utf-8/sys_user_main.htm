@@ -1,0 +1,24 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="3" bgcolor="#FFFFFF">后台管理员管理</td>
+  </tr>
+  <tr>
+    <td width="200" height="24" bgcolor="#FFFFFF">ID</td>
+    <td width="300" bgcolor="#FFFFFF">用户名</td>
+    <td width="300" bgcolor="#FFFFFF">姓名</td>
+  </tr>
+ {foreach lister_adminuser fk fv}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"> {:fv.uid}</td>
+    <td bgcolor="#FFFFFF"><a href="sys_user_view.php?id={:fv.uid}">{:fv.userid}</a></td>
+    <td bgcolor="#FFFFFF">{:fv.name}</td>
+  </tr>{/foreach}
+  <tr>
+    <td height="24" colspan="3" bgcolor="#FFFFFF">{:pagelink}</td>
+  </tr>
+  <tr>
+    <td height="24" colspan="3" bgcolor="#FFFFFF"><a href="sys_user_add.php">添加管理员</a></td>
+  </tr>
+</table>
+{include footer.htm}

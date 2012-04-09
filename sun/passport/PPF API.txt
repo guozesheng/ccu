@@ -1,0 +1,9 @@
+action = login / logout
+data = azEncode(array)
+time = timestamp
+lang = gbk / utf-8 / big5
+server = server端API地址
+return = return 地址
+step = 第几个Client
+
+action=login&data=data&time=time&lang=gbk&server=server&return=return&step=0&sign=&sign_type=md5

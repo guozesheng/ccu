@@ -1,0 +1,9 @@
+{if}{:input.class}{/if}试卷分类,{:input.class|GetClassName @},
+{/endif}{if}{:input.u_cid}{/if}院系,{:input.u_cid|GetCollegeElement @},
+{/endif}{if}{:input.u_pid}{/if}专业,{:input.u_pid|GetProfessionalElement @},
+{/endif}{if}{:input.grade}{/if}年级,{:input.grade},
+{/endif}{if}{:input.stclass}{/if}班级,{:input.stclass},
+{/endif}
+用户名,姓名,数目
+{foreach download k v}{:v.username},{:v.u_name},{:v.nums}
+{/foreach}

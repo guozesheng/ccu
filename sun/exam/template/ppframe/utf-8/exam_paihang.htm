@@ -1,0 +1,30 @@
+{include exam_ajax_header.htm 1}
+<div class="box"><table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+  <tr class="h">
+    <td valign="top">考试成绩排行！</td>
+  </tr>
+  <tr class="t2">
+    <td valign="top">有效考卷数目{:maxnum} 平均分:{:avg|sprintf %.2f,@}</td>
+  </tr>
+  <tr>
+    <td valign="top"><table width="98%" border="0" cellspacing="2" cellpadding="3">
+      <tr class="t2">
+        <td>考生</td>
+        <td>试卷</td>
+        <td>成绩</td>
+      </tr>
+	  {foreach lister k v}
+      <tr class="t3">
+        <td>{:v.username|cn_substr @,4, }***</td>
+        <td>{if}{:v.del}{/if}{:v.title}(已删除){/endif}{else}<a href="shijuan_view.php?id={:v.shijuan}">{:v.sjtitle}</a>{/else}</td>
+        <td>{:v.sorce|sprintf %.2f,@}</td>
+      </tr>
+	  {/foreach}
+    </table>      </td>
+  </tr>
+  <tr>
+    <td valign="top">{:pagelink}</td>
+  </tr>
+</table>
+</div>
+{include exam_footer.htm 1}

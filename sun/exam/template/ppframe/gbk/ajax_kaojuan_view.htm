@@ -1,0 +1,90 @@
+<div class="box"><table width="100%">
+      <tr class="h">
+        <td>考卷内容:</td>
+  </tr>
+      <tr>
+        <td><table width="100%" border="0" cellspacing="1" cellpadding="3">
+          {foreach data k v}
+          <tr class="t2">
+        <td><strong>{:k|GetShitiType @}</strong></td>
+          </tr>
+          {foreach v kk vv}
+  <tr class="t3">
+    <td><strong>第{:vv.th}题</strong>：{:vv.title} {if}{:k|GetTxBaseType @} != 7{/if}得分:{if}{:damix.[:k].[:vv.k].df}{/if}{:damix.[:k].[:vv.k].df|UseFenSize @,[:fensize],2}{/endif}{if}'{:damix.[:k].[:vv.k].df}'=='0'{/if}0{/endif}{if}'{:damix.[:k].[:vv.k].df}'==''{/if}未评{/endif}{if}{:k|GetTxBaseType @}!= 4{/if}/{:vv.fen|UseFenSize @,[:fensize],2}{/endif}{/endif} {if}'{:damix.[:k].[:vv.k].df}'!= '{:vv.fen}' && {:k|GetTxBaseType @} != 4{/if}<font color="#FF0000"><strong>答错了</strong>！</font>{/endif}  {if}{:k|GetTxBaseType @} != 4{/if}<a href="exam_report_error.php?tiku={:element_exam_shijuan-&gt;E.tiku}&amp;id={:vv.k}" target="_blank">题目报错</a>{/endif}</td>
+  </tr>
+          {if}
+          {:k|GetTxBaseType @} == 1 || {:k|GetTxBaseType @} == 4
+          {/if}
+  <tr class="t3">
+    <td> {+AZ 65 1 1}
+      {foreach vv.xx kkk vvv}
+      <input id="{:k}_{:vv.k}_{:vvv.k}" type="radio" disabled="disabled" {if}'{:damix.[:k].[:vv.k].da}'=='{:vvv.k}'{/if}checked{/endif} />
+      <label for="{:k}_{:vv.k}_{:vvv.k}"> {:kkk|chr [+AZ 65 1]}:{:vvv.xx}</label>
+      {if}'{:vv.daan}'=='{:vvv.k}' && {:shijuan.protect} !=2 {/if}<font color="#FF0000">√</font>{/endif} {if}{:k|GetTxBaseType @}== 4{/if}选择得{:vvv.fen|UseFenSize @,[:fensize],2}分{/endif}<br />
+      {/foreach} </td>
+  </tr>
+  {if}{:shijuan.protect}!=2{/if}
+  <tr class="t3">
+    <td>解答:{:vv.jieda} </td>
+  </tr>
+  {/endif}
+          {/endif}
+          {if}
+          {:k|GetTxBaseType @} == 2
+          {/if}
+  <tr class="t3">
+    <td>{foreach vv.xx kkk vvv}
+      <input name="exam[{:k}][{:vv.k}][]" id="{:k}_{:vv.k}_{:vvv.k}" type="checkbox" value="{:vvv.k}" disabled="disabled" {if}{:damix.[:k].[:vv.k].da|in_array [:vvv.k],@}{/if}checked{/endif} />
+      <label for="{:k}_{:vv.k}_{:vvv.k}"> {:vvv.xx}</label>
+      {if}'{:vv.daan|in_array [:vvv.k],@}' && {:shijuan.protect}!=2 {/if} <font color="#FF0000">√</font> {/endif} <br />
+      {/foreach}</td>
+  </tr>
+  {if}{:shijuan.protect}!=2{/if}
+   <tr class="t3">
+    <td> 解答:{:vv.jieda}</td>
+  </tr>
+  {/endif}
+          {/endif}
+          {if}
+          {:k|GetTxBaseType @} == 3
+          {/if}
+  <tr class="t3">
+    <td>Answer:{:damix.[:k].[:vv.k].da}</td>
+  </tr>
+  {if}
+   {:shijuan.protect}!=2
+  {/if}
+  <tr class="t3">
+    <td>参考答案:{:vv.daan} </td>
+  </tr>
+   <tr class="t3">
+    <td> 参考解答:{:vv.jieda}</td>
+  </tr>
+  {/endif}
+          {/endif}
+	  {if}
+	  {:vv.sun}
+	  {/if}
+	  <tr class="t3">
+        <td>{foreach vv.sun msk msv}{foreach msv mskk msvv}{:msvv|GetExamShitiView [:msk],@,exam,fun_examshiti_view}{/foreach}{/foreach}</td>
+      </tr>
+	  {/endif}
+          {/foreach}
+          {/foreach}
+        </table></td>
+      </tr>
+	  <tr>
+	    <td>{foreach record k v}
+		 <span style="padding-left:3px;">
+		{if}{:v}=={:type}{/if}
+		<strong>{:v|GetShitiType @}</strong>
+		{/endif}{else}<a href="javascript:;" onclick="exam_kaojuan_view({:v})">{:v|GetShitiType @}</a>{/else}
+		 <span>
+		{/foreach}
+		</td>
+    </tr>
+	  <tr>
+	  <td>{:pagelink}</td>
+	  </tr>
+</table>
+</div>

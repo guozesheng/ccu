@@ -1,0 +1,424 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+<form action="{:FormToSelf}" method="post">
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF"><a href="?do=basic">[基本配置]</a>  <a href="?do=page">[分页配置]</a>  {if}{:rtc.uc_use}{/if} <a href="?do=ucenter">[UC设置]</a>{/endif}   <a href="?">[所有设置]</a></td>
+  </tr>
+  {if}
+	'{:do}' == 'basic' || '{:do}' == ''
+  {/if}
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>考试系统基础配置</strong></td>
+    </tr>
+  <tr>
+    <td width="20%" height="24" bgcolor="#FFFFFF">考试后台地址</td>
+    <td bgcolor="#FFFFFF"><input name="config[admin_host_self]" type="text" id="config[admin_host_self]" value="{:base_config.admin_host_self}" />
+      (重要参数,请勿乱改,除非你知道这是什么意思)</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">考试系统根地址</td>
+    <td bgcolor="#FFFFFF"><input name="config[exam_root]" type="text" id="config[exam_root]" value="{:base_config.exam_root}" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">考试系统名称</td>
+    <td bgcolor="#FFFFFF"><input name="config[exam_title]" type="text" id="config[exam_title]" value="{:base_config.exam_title}" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">是否开放考试系统</td>
+    <td bgcolor="#FFFFFF"><label>
+    <input type="radio" name="config[exam_open]" value="1"  {if}{:base_config.exam_open}==1{/if}checked{/endif}/>
+是</label>
+      <label>
+      <input type="radio" name="config[exam_open]" value="0"  {if}{:base_config.exam_open}==0{/if}checked{/endif}/>
+否</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">关闭考试系统原因</td>
+    <td bgcolor="#FFFFFF"><textarea name="config[why_close]" cols="40" rows="4" id="config[why_close]"></textarea></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">全模块IP限制</td>
+    <td bgcolor="#FFFFFF"><label>
+      <input name="config[ip_ban]" type="radio" value="0" {if}'{:base_config.ip_ban}'==0{/if}checked{/endif}/>
+否 </label>
+      <label>
+      <input type="radio" name="config[ip_ban]" value="1" {if}'{:base_config.ip_ban}'==1{/if}checked{/endif}/>
+是</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">考试选题IP限制</td>
+    <td bgcolor="#FFFFFF"><label>
+      <input name="config[ip_ban_exam]" type="radio" value="0" {if}'{:base_config.ip_ban_exam}'==0{/if}checked{/endif}/>
+否 </label>
+      <label>
+      <input type="radio" name="config[ip_ban_exam]" value="1" {if}'{:base_config.ip_ban_exam}'==1{/if}checked{/endif}/>
+是</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">考卷有效期</td>
+    <td bgcolor="#FFFFFF"><input name="config[kaojuan_livetime]" type="text" id="config[kaojuan_livetime]" value="{:base_config.kaojuan_livetime}" /> 
+      过期未开始答题则失效成为废卷。单位：小时</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">允许提前选题时间</td>
+    <td bgcolor="#FFFFFF"><input name="config[kaojuan_before_select]" type="text" id="config[kaojuan_before_select]" value="{:base_config.kaojuan_before_select}" />
+      单位：分钟 （必须小于考卷过期时间，否则选题过早，可能变成废卷了都无法开始答题） </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">考卷自动保存时间</td>
+    <td bgcolor="#FFFFFF"><input name="config[kaojuan_autotime]" type="text" id="config[kaojuan_autotime]" value="{:base_config.kaojuan_autotime}" />
+      秒</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">允许延迟交卷</td>
+    <td bgcolor="#FFFFFF"><input name="config[kaojuan_delaytime]" type="text" id="config[kaojuan_delaytime]" value="{:base_config.kaojuan_delaytime}" />
+      秒</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">考卷答题超时</td>
+    <td bgcolor="#FFFFFF"><input name="config[kaojuan_timeout]" type="text" id="config[kaojuan_timeout]" value="{:base_config.kaojuan_timeout}" /> 
+      答题时间超过则失效。（必须大于你所有试卷可能的最长答题时间）单位:小时</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">函数缓存时间</td>
+    <td bgcolor="#FFFFFF"><input name="config[func_cachetime]" type="text" id="config[func_cachetime]" value="{:base_config.func_cachetime}" />
+      秒</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">禁用考卷名</td>
+    <td bgcolor="#FFFFFF"><label>
+      <input type="radio" name="config[ban_kjname]" value="1" {if}{:base_config.ban_kjname}==1{/if}checked{/endif}/>
+是</label>
+      <label>
+      <input type="radio" name="config[ban_kjname]" value="0" {if}{:base_config.ban_kjname}==0{/if}checked{/endif}/>
+否</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">快速开始考试</td>
+    <td bgcolor="#FFFFFF"><label>
+      <input type="radio" name="config[kui_start]" value="1" {if}{:base_config.kui_start}==1{/if}checked{/endif}/>
+是</label>
+      <label>
+      <input type="radio" name="config[kui_start]" value="0" {if}{:base_config.kui_start}==0{/if}checked{/endif}/>
+否</label></td>
+  </tr>
+    <tr>
+    <td height="24" bgcolor="#FFFFFF">EasyCache时间</td>
+    <td bgcolor="#FFFFFF"><input name="config[easy_cachetime]" type="text" id="config[easy_cachetime]" value="{:base_config.easy_cachetime}" />
+      秒</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">使用EasyCache</td>
+    <td bgcolor="#FFFFFF">首页:
+      <input type="radio" name="config[easy_use_index]" value="1" {if}{:base_config.easy_use_index}{/if}checked{/endif} />
+      使用
+      <input type="radio" name="config[easy_use_index]" value="0" {if}{:base_config.easy_use_index}==0{/if}checked{/endif} />
+      不使用</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">货币</td>
+    <td bgcolor="#FFFFFF"><input name="config[exam_usemoney]" type="radio" id="radio" value="1" {if}{:base_config.exam_usemoney}{/if}checked{/endif} />
+      启用
+       
+        <input name="config[exam_usemoney]" type="radio" id="config[exam_usemoney]" value="0" {if}{:base_config.exam_usemoney}==0{/if}checked{/endif} />
+        不启用 
+      
+      默认使用 
+        <select name="config[exam_paymoney]" id="config[exam_paymoney]">
+        
+	  {foreach rtc.passport_money k v}
+      
+        <option value="{:v}" {if}'{:base_config.exam_paymoney}'=='{:v}'{/if}selected{/endif}>{:money_types.[:v]}|{:money_types.[:v]|GetMsg @}</option>
+        
+	   {/foreach}
+    
+      </select>      </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">全局一份正在考试的考卷</td>
+    <td bgcolor="#FFFFFF"><input type="radio" name="config[global_onlyone_kaojuan]" value="1" {if}{:base_config.global_onlyone_kaojuan}{/if}checked{/endif} />
+是
+  <label>
+  <input type="radio" name="config[global_onlyone_kaojuan]" value="0" {if}{:base_config.global_onlyone_kaojuan}==0{/if}checked{/endif} />
+否</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">同一份试卷只能有一份正在测试的考卷</td>
+    <td bgcolor="#FFFFFF">
+
+        <input type="radio" name="config[exam_onlyone_kaojuan]" value="1" {if}{:base_config.exam_onlyone_kaojuan}{/if}checked{/endif} />
+        是        <label>
+        <input type="radio" name="config[exam_onlyone_kaojuan]" value="0" {if}{:base_config.exam_onlyone_kaojuan}==0{/if}checked{/endif} />
+        否</label> 
+        (启用后对于同一份试卷，如果你正在考试中，就不能重新选题测试)</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">启用主观题答题编辑器</td>
+    <td bgcolor="#FFFFFF"><input type="radio" name="config[exam_use_ueditor]" value="1" {if}{:base_config.exam_use_ueditor}{/if}checked{/endif} />
+是
+  <label>
+  <input type="radio" name="config[exam_use_ueditor]" value="0" {if}{:base_config.exam_use_ueditor}==0{/if}checked{/endif} />
+否</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">启用后台添加试题编辑器</td>
+    <td bgcolor="#FFFFFF"><input type="radio" name="config[exam_use_editor]" value="1" {if}{:base_config.exam_use_editor}{/if}checked{/endif} />
+是
+  <label>
+  <input type="radio" name="config[exam_use_editor]" value="0" {if}{:base_config.exam_use_editor}==0{/if}checked{/endif} />
+否</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">编辑器宽度</td>
+    <td bgcolor="#FFFFFF"><input name="config[exam_editor_width]" type="text" id="config[exam_editor_width]" value="{:base_config.exam_editor_width}" />
+      例如 400 or 100% </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">编辑器高度</td>
+    <td bgcolor="#FFFFFF"><input name="config[exam_editor_hight]" type="text" id="config[exam_editor_hight]" value="{:base_config.exam_editor_hight}" /> 
+      例如 400 </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">编辑器选项</td>
+    <td bgcolor="#FFFFFF"><input type="radio" name="config[exam_editor_toolbar]" value="1" {if}{:base_config.exam_editor_toolbar}{/if}checked{/endif} />
+      完整
+        <label>
+  <input type="radio" name="config[exam_editor_toolbar]" value="0" {if}{:base_config.exam_editor_toolbar}==0{/if}checked{/endif} />
+基本</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">编辑器附件目录</td>
+    <td bgcolor="#FFFFFF"><input name="config[editor_userfiles]" type="text" id="config[editor_userfiles]" value="{:base_config.editor_userfiles}" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">考卷分页数目</td>
+    <td bgcolor="#FFFFFF"><input name="config[exam_pagebreak_num]" type="text" id="config[exam_pagebreak_num]" value="{:base_config.exam_pagebreak_num}" />
+      注意：太大造成考卷载入速度变慢，太小加大服务器负载！建议15-25</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">考卷状态批处理时间</td>
+    <td bgcolor="#FFFFFF"><label>
+      <input name="config[exam_batupdate_start]" type="text" id="config[exam_batupdate_start]" value="{:base_config.exam_batupdate_start}" size="6" />
+    至
+    <input name="config[exam_batupdate_end]" type="text" id="config[exam_batupdate_end]" value="{:base_config.exam_batupdate_end}" size="6" />
+    (请设置在闲时时段、比如凌晨，默认是凌晨1点至3点)</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">试卷报错奖励</td>
+    <td bgcolor="#FFFFFF"><input name="config[exam_reportmoney_num]" type="text" id="config[exam_reportmoney_num]" value="{:base_config.exam_reportmoney_num}" size="6" />
+      (留空或者0无奖励)
+        <select name="config[exam_reportmoney]" id="config[exam_reportmoney]">
+        
+        
+	  {foreach rtc.passport_money k v}
+      
+        
+        <option value="{:v}" {if}'{:base_config.exam_reportmoney}'=='{:v}'{/if}selected{/endif}>{:money_types.[:v]}|{:money_types.[:v]|GetMsg @}</option>
+        
+        
+	   {/foreach}
+    
+      
+      </select>      </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">是否允许会员提交试题</td>
+    <td bgcolor="#FFFFFF"><input type="radio" name="config[exam_allowpush]" value="1" {if}{:base_config.exam_allowpush}{/if}checked{/endif} />
+是
+  <label>
+  <input type="radio" name="config[exam_allowpush]" value="0" {if}{:base_config.exam_allowpush}==0{/if}checked{/endif} /> 
+  否 <font color="#FF0000">（注意：如果有资源有人手请勿让会员提交试题，这可能会被作为攻击入口，塞满你的数据库）</font></label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">会员提交试题是否需要审核</td>
+    <td bgcolor="#FFFFFF"><input type="radio" name="config[exam_push_sh]" value="1" {if}{:base_config.exam_push_sh}{/if}checked{/endif} />
+是
+  <label>
+  <input type="radio" name="config[exam_push_sh]" value="0" {if}{:base_config.exam_push_sh}==0{/if}checked{/endif} />
+否</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">会员提交试题奖励</td>
+    <td bgcolor="#FFFFFF"><input name="config[exam_pushmoney_num]" type="text" id="config[exam_pushmoney_num]" value="{:base_config.exam_pushmoney_num}" size="6" />
+(留空或者0无奖励)
+  <select name="config[exam_pushmoney]" id="config[exam_pushmoney]">
+    
+        
+        
+	  {foreach rtc.passport_money k v}
+      
+        
+        
+    <option value="{:v}" {if}'{:base_config.exam_pushmoney}'=='{:v}'{/if}selected{/endif}>{:money_types.[:v]}|{:money_types.[:v]|GetMsg @}</option>
+    
+        
+        
+	   {/foreach}
+    
+      
+      
+  </select>  </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">最高在线人数</td>
+    <td bgcolor="#FFFFFF"><input name="config[exam_max_num]" type="text" id="config[exam_max_num]" value="{:base_config.exam_max_num}" size="10" />
+      （留空或者0不限制)</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">多少秒内有动作算作在线</td>
+    <td bgcolor="#FFFFFF"><input name="config[exam_online_timelimit]" type="text" id="config[exam_online_timelimit]" value="{:base_config.exam_online_timelimit}" size="10" />
+      在多少秒内有动作算作在线（默认600秒）</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">考试提示框位置</td>
+    <td bgcolor="#FFFFFF"><p>
+      <label>
+        <input type="radio" name="config[exam_tishi_position]" value="1" {if}'{:base_config.exam_tishi_position}'=='1'{/if}checked{/endif}/>
+        正中间</label>
+      <label>
+        <input type="radio" name="config[exam_tishi_position]" value="2" {if}'{:base_config.exam_tishi_position}'=='2'{/if}checked{/endif}/>
+        左下角</label>
+      <label>
+        <input type="radio" name="config[exam_tishi_position]" value="3" {if}'{:base_config.exam_tishi_position}'=='3'{/if}checked{/endif}/>
+        右下角</label>
+    </p></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">班级功能</td>
+    <td bgcolor="#FFFFFF"><input type="radio" name="config[exam_class_use]" value="1" {if}{:base_config.exam_class_use}{/if}checked{/endif} />
+启用
+  <label>
+  <input type="radio" name="config[exam_class_use]" value="0" {if}{:base_config.exam_class_use}==0{/if}checked{/endif} />
+禁用</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">分类考试次数限制功能</td>
+    <td bgcolor="#FFFFFF"><input type="radio" name="config[exam_cktimes_use]" value="1" {if}{:base_config.exam_cktimes_use}{/if}checked{/endif} />
+启用
+  <label>
+  <input type="radio" name="config[exam_cktimes_use]" value="0" {if}{:base_config.exam_cktimes_use}==0{/if}checked{/endif} />
+禁用</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">启用WORD考卷下载</td>
+    <td bgcolor="#FFFFFF"><input type="radio" name="config[exam_word_down]" value="1" {if}{:base_config.exam_word_down}{/if}checked{/endif} />
+启用
+  <label>
+  <input type="radio" name="config[exam_word_down]" value="0" {if}{:base_config.exam_word_down}==0{/if}checked{/endif} />
+禁用</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">选题随机等待功能</td>
+    <td bgcolor="#FFFFFF"><input type="radio" name="config[exam_select_wait]" value="1" {if}{:base_config.exam_select_wait}{/if}checked{/endif} />
+启用
+  <label>
+  <input type="radio" name="config[exam_select_wait]" value="0" {if}{:base_config.exam_select_wait}==0{/if}checked{/endif} />
+禁用</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">随机等待秒数</td>
+    <td bgcolor="#FFFFFF"><input name="config[exam_select_waittime]" type="text" id="config[exam_select_waittime]" value="{:base_config.exam_select_waittime}" size="6" /> 
+      秒 将随机等待 2 - {:base_config.exam_select_waittime} 秒 </td>
+  </tr>
+  {/endif}
+  {if}
+	'{:do}' == 'ucenter' || '{:do}' == ''
+	{/if}
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>UCenter配置</strong></td>
+    </tr>
+   <tr>
+    <td width="20%" height="24" bgcolor="#FFFFFF">参加考试发送Feed</td>
+    <td bgcolor="#FFFFFF"><p>
+      <label>
+        <input name="input[exam_ucfeed_start]" type="radio" value="1" {if}{:base_config.exam_ucfeed_start}==1{/if}checked="checked"{/endif} />
+        是</label>
+      <label>
+        <input type="radio" name="input[exam_ucfeed_start]" value="0" {if}{:base_config.exam_ucfeed_start}==0{/if}checked="checked"{/endif}/>
+        否</label>
+    </p></td>
+  </tr>
+   <tr>
+     <td height="24" bgcolor="#FFFFFF">完成考试并评分发送Feed</td>
+     <td bgcolor="#FFFFFF"><label>
+       <input type="radio" name="input[exam_ucfeed_close]" value="1" {if}{:base_config.exam_ucfeed_close}==1{/if}checked="checked"{/endif}/>
+是</label>
+       <label>
+       <input type="radio" name="input[exam_ucfeed_close]" value="0" {if}{:base_config.exam_ucfeed_close}==0{/if}checked="checked"{/endif}/>
+否</label></td>
+   </tr>
+   <tr>
+     <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+     <td bgcolor="#FFFFFF">&nbsp;</td>
+   </tr>
+  {/endif}
+  {if}
+	'{:do}' == 'page' || '{:do}' == ''
+	{/if}
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>分页配置</strong></td>
+    </tr>
+  <tr>
+    <td width="20%" height="24" bgcolor="#FFFFFF">前台 试卷搜索</td>
+    <td bgcolor="#FFFFFF"><input name="config[pageset][search]" type="text" id="config[pageset][search]" value="{:base_config.pageset.search}" size="4" />
+      条分页</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">前台 我的考卷</td>
+    <td bgcolor="#FFFFFF"><input name="config[pageset][my_kaojuan]" type="text" id="config[pageset][my_kaojuan]" value="{:base_config.pageset.my_kaojuan}" size="4" />
+条分页</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">前台 成绩排行</td>
+    <td bgcolor="#FFFFFF"><input name="config[pageset][paihang]" type="text" id="config[pageset][paihang]" value="{:base_config.pageset.paihang}" size="4" />
+条分页</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">后台 题库管理</td>
+    <td bgcolor="#FFFFFF"><input name="config[pageset_admin][tiku]" type="text" id="config[pageset_admin][tiku]" value="{:base_config.pageset_admin.tiku}" size="4" />
+条分页</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">后台 试题管理</td>
+    <td bgcolor="#FFFFFF"><input name="config[pageset_admin][shiti]" type="text" id="config[pageset_admin][shiti]" value="{:base_config.pageset_admin.shiti}" size="4" />
+条分页</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">后台 试卷管理</td>
+    <td bgcolor="#FFFFFF"><input name="config[pageset_admin][shijuan]" type="text" id="config[pageset_admin][shijuan]" value="{:base_config.pageset_admin.shijuan}" size="4" />
+条分页</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">后台 试卷分类管理</td>
+    <td bgcolor="#FFFFFF"><input name="config[pageset_admin][class]" type="text" id="config[pageset_admin][class]" value="{:base_config.pageset_admin.class}" size="4" />
+条分页</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">后台 考卷管理</td>
+    <td bgcolor="#FFFFFF"><input name="config[pageset_admin][kaojuan]" type="text" id="config[pageset_admin][kaojuan]" value="{:base_config.pageset_admin.kaojuan}" size="4" />
+条分页</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">后台 题目报错管理</td>
+    <td bgcolor="#FFFFFF"><input name="config[pageset_admin][errorreport]" type="text" id="config[pageset_admin][errorreport]" value="{:base_config.pageset_admin.errorreport}" size="4" />
+条分页</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">后台 选题管理</td>
+    <td bgcolor="#FFFFFF"><input name="config[pageset_admin][xuanti]" type="text" id="config[pageset_admin][xuanti]" value="{:base_config.pageset_admin.xuanti}" size="4" />
+条分页</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">后台 查看已选题</td>
+    <td bgcolor="#FFFFFF"><input name="config[pageset_admin][xuanti_view]" type="text" id="config[pageset_admin][xuanti_view]" value="{:base_config.pageset_admin.xuanti_view}" size="4" />
+条分页</td>
+  </tr>
+  {/endif}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF"><input type="submit" name="Submit" value="提交" />
+      <input name="Submit" type="hidden" id="Submit" value="1" /></td>
+  </tr>
+  </form>
+</table>
+{include footer.htm 1}

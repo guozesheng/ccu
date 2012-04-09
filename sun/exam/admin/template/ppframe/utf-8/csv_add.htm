@@ -1,0 +1,100 @@
+{include iframeheader.htm 1}
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+}
+-->
+</style>
+<table width="98%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  {if}
+  {:check}
+  {/if}
+  <tr>
+    <td width="800" bgcolor="#FFFFFF"><strong>检测结果</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">共有记录:{:total_num}<br>
+      合格的记录:{:success_num}<br>
+      不合格记录:{:failed_num}<br />
+      注意：这仅仅是一个检测，并没有真正导入。要真正导入，请去掉 <strong>我要测试</strong> 选项。</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">不合格记录:</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+      <tr>
+	        <td>标题</td>
+            <td>类型 </td>
+            <td>解答</td>
+            <td>答案</td>
+            <td>分值</td>
+            <td>题库 </td>
+            <td>分级</td>
+            <td> 				选项</td>
+      </tr>
+		{foreach failed k v}
+	     
+        <tr>
+			<td>{:v.title}</td>
+            <td>{:v.type}</td>
+            <td>{:v.jieda}</td>
+            <td>{:v.daan}</td>
+            <td>{:v.fen}</td>
+            <td>{:v.tikus}</td>
+            <td>{:v.level}</td>
+            <td>
+			{foreach v.xuanxiang kk vv}
+			{:vv.k}:{:vv.xx}<br />
+			{/foreach}
+			</td>
+        </tr>
+	  {/foreach}
+    </table></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">合格记录:</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+        <tr>
+	        <td>标题</td>
+            <td>类型 </td>
+            <td>解答</td>
+            <td>答案</td>
+            <td>分值</td>
+            <td>题库 </td>
+            <td>分级</td>
+            <td>选项</td>
+      </tr>
+		  {foreach successed k v}
+        <tr>
+		  <td>{:v.title}</td>
+            <td>{:v.type}</td>
+            <td>{:v.jieda}</td>
+            <td>{:v.daan}</td>
+            <td>{:v.fen}</td>
+            <td>{:v.tikus}</td>
+            <td>{:v.level}</td>
+            <td> {foreach v.xuanxiang kk vv}
+			{:vv.k}:{:vv.xx}<br />
+{/foreach} </td>
+        </tr>
+      {/foreach}
+    </table></td>
+  </tr>
+  {/endif}
+  {else}
+  <tr>
+    <td bgcolor="#FFFFFF"><strong>导入结果</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">共有记录:{:total_num}<br>
+合格的记录:{:success_num}<br>
+不合格记录:{:failed_num}</td>
+  </tr>
+  {/else}
+</table> 
+{include footer.htm 1}

@@ -1,0 +1,205 @@
+{if}{:base_config.easy_use_index}{/if}{include exam_ajax_header.htm 1}{/endif}{else}{include exam_header.htm 1}{/else}
+<table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+  <tr>
+    <td width="25%" valign="top"><form action="shijuan_list.php" name="form1" id="form1">
+      <div class="box">
+        <table width="100%" border="0" cellspacing="1" cellpadding="3">
+          <tr class="h">
+            <td>试卷搜索</td>
+          </tr>
+          <tr class="t3">
+            <td>标题
+              <input name="sjtitle" type="text" id="sjtitle" value="{:sjtitle}" /></td>
+          </tr>
+          <tr>
+            <td><input type="submit" value="搜索" /> <a href="high_search.php">高级搜索</a></td>
+          </tr>
+        </table>
+      </div>
+    </form></td>
+    <td><div class="box"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+      <tr class="h">
+        <td><strong> {:view.title}</strong></td>
+      </tr>
+      <tr class="t3">
+        <td><strong>试卷描述</strong> {:view.descrip}</td>
+      </tr>
+	  {if}
+	  {:view.helplink|trim @}
+	  {/if}
+      <tr class="t3">
+        <td> <strong>答题参考参考资料</strong> <a href="{:view.helplink}" target="_blank">点击打开</a></td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:view.showadmin}
+	  {/if}
+	  <tr class="t3">
+        <td> <strong>查看命题人介绍</strong> <a href="viewteacher.php?id={:view.adminid}" target="_blank">点击打开</a></td>
+      </tr>
+	  {/endif}
+      <tr class="t3">
+        <td><strong>答题时间</strong> {:view.dotime}分钟 <strong>最少答题时间</strong> {:view.limitime}分钟</td>
+      </tr>
+	  {if}
+	  {:view.okrate}
+	  {/if}
+      <tr class="t3">
+        <td><strong>合格线</strong> 正确率达到 {:view.okrate}% 考试合格 {if}{:view.okban}{/if}合格之后不能再参加这门考试{/endif} </td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:view.dotimes}
+	  {/if}
+      <tr class="t3">
+        <td><strong>截止</strong> {:view.dtuptime|GetMyDate Y-m-d H:i:s,@} 已有 {:view.dotimes} 人次考试</td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:view.start} || {:view.end}
+	  {/if}
+      <tr class="t3">
+        <td>
+		{if}
+	  {:view.start} 
+	  {/if}
+		<strong>开始时间</strong> {:view.start|GetMyDate Y-m-d H:i:s,@} 
+	  {/endif}
+	  {if}
+	  {:view.end}
+	  {/if}
+	  <strong>结束时间</strong> {:view.end|GetMyDate Y-m-d H:i:s,@}
+	  {/endif}
+	  {if}
+	  {:view.start} && {:view.end} && {:view.ltime}
+	  {/if}<strong>迟到</strong> {:view.ltime}分钟 后不能考试 {/endif}	  </td>
+      </tr>
+	  {/endif}
+      <tr>
+        <td>
+		<table width="100%" border="0" cellspacing="1" cellpadding="3">
+       {foreach tixing_db k v} 
+           {if}
+		   '{:view.shitimix.[:k]}'||'{:view.fenmix.[:k]}'
+		   {/if}
+		   <tr class="t3">
+          <td width="100">{:v|GetMsg @}:</td>
+          <td>{:view.shitimix.[:k]} 
+	    题 {if}!{:view.fix}{/if}每题
+	    {:view.fenmix.[:k]|UseFenSize @,[:fensize],2} 
+	    分{/endif} </td>
+          <td>{if}'{:view.timemix.[:k].st}'||'{:view.timemix.[:k].ed}'{/if}限定在{:view.timemix.[:k].st} - {:view.timemix.[:k].ed}分钟答题{/endif} &nbsp;</td>
+		   </tr> 
+		{/endif}
+		{/foreach}
+      </table>	  </td>
+      </tr>
+      <tr class="t3">
+        <td><strong>题库</strong> <a href="shijuan_list.php?tiku={:view.tiku}">{:view.tiku|GetTikuName @}</a> <strong>分类</strong> <a href="shijuan_list.php?input%5Bclass%5D={:view.class}">{:view.class|GetClassName @}</a></td>
+      </tr>
+      
+      <tr class="t3">
+        <td>{if}{:view.fix}{/if} <strong>固定选题</strong>{/endif}{else}题库抽题{/else} {if}{:view.open}{/if}<strong>开放测试</strong>{/endif}{else}暂未开放{/else} {if}{:view.totals}{/if} <strong>试卷总分</strong> {:view.totals|UseFenSize @,[:view.fensize],2} 分{/endif} </td>
+      </tr>
+	  {if}{:base_config.exam_usemoney} && {:view.money}{/if}
+      <tr class="t3">
+        <td>参加测试需要花费 {:view.money} {:view.mtype|GetMoneyName @} <a href="{:rtc.passport_root}jifen.php">我的积分</a> </td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:view.jnum}
+	  {/if}
+	  <tr class="t3">
+        <td><strong>奖励</strong> 正确率达到 {:view.jrate}% 以上奖励 {:view.jnum} {:view.jmtype|GetMoneyName @} </td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:view.allowgroups|is_array @}
+	  {/if}
+      <tr class="t3">
+        <td><strong>允许用户组</strong>{foreach view.allowgroups k v} 
+		{:v.id|GetUsergroupElement @} 
+	{/foreach} </td>
+      </tr>
+      {/endif}
+	  {if}
+	  {:view.allowcolleges|is_array @}
+	  {/if}
+	  <tr class="t3">
+        <td><strong>允许院系</strong> {foreach view.allowcolleges k v} {:v.id|GetCollegeElement @} {/foreach}</td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:view.allowpros|is_array @}
+	  {/if}
+      <tr class="t3">
+        <td><strong>允许专业</strong> {foreach view.allowpros k v} {:v.id|GetProfessionalElement @} {/foreach} </td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:view.allowgrades|is_array @}
+	  {/if}
+	  <tr class="t3">
+        <td><strong>允许年级</strong> {foreach view.allowgrades k v} {:v} {/foreach}</td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:view.andor}
+	  {/if}
+	  <tr>
+	  <td align="center">
+	  <table>
+	  {if}
+	  {:class_exist}
+	  {/if}
+	   <tr>
+	    <td><strong>本卷只允许</strong></td>
+	    </tr>
+	  <tr>
+        <td>在自然班 {foreach view.allowclass k v}{:base_class.[:v].classname}班 {/foreach} 其中之一 </td>
+      </tr>
+	  {/endif}
+	  {if}{:view.andor}==1 || {:view.andor}==2{/if}
+      <tr>
+        <td><strong>{if}{:view.andor}==1{/if}并且{/endif}{else}或者{/else}</strong></td>
+      </tr>
+      {/endif}
+	  {if}{:classes_exist}{/if}
+	  <tr>
+        <td>在课程班 {foreach view.allowclasses k v}{:add_class.[:v].classname}班 {/foreach} 其中之一</td>
+      </tr>
+	  {/endif}
+	  <tr class="t3">
+	    <td><strong>的用户参加考试</strong></td>
+	    </tr>
+	  </table>	  </td>
+	  </tr>
+	  {/endif}
+	  <tr>
+        <td>{if}{:view.open}{/if}
+          <form name="form2" method="post" action="shijuan_select.php">
+            <table width="100%" border="0" cellspacing="1" cellpadding="3">
+                {if}!'{:base_config.ban_kjname}'{/if}
+				<tr>
+                  <td align="center">给自己的考卷命名
+                  <input name="name" type="text" id="name"></td>
+                </tr>
+                {/endif}
+				<tr>
+                  <td align="center"><input name="t" type="submit" id="t" value="立即测试">
+                  <!--{if}{:base_config.exam_select_wait}{/if}
+				  {/endif}
+				  {else}-->
+				  <input name="Submit" type="hidden" id="Submit" value="1">
+				  <!--{/else}-->
+                  <input name="id" type="hidden" id="id" value="{:id}"></td>
+                </tr>
+              </table>
+          </form>
+          {/endif}</td>
+      </tr>
+    </table>
+    </div></td>
+  </tr>
+</table>
+{include exam_footer.htm 1}

@@ -1,0 +1,315 @@
+{include header.htm 1}
+<form action="{:FormToSelf}" method="post" name="form1" id="form1">
+  <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><strong>添加试卷</strong> <a href="shijuan_main.php">试卷管理</a></td>
+    </tr>
+	
+    <tr id="basic" style="display:">
+      <td height="24" bgcolor="#FFFFFF">
+	  <table width="100%" border="0" cellpadding="3" cellspacing="0" bgcolor="#000000">
+	      <tr>
+	        <td height="24" bgcolor="#FFFFFF"><strong>基本配置</strong> <a href="javascript:;" onclick="show('limit');hidden('basic');hidden('timu'); return false;">考试限制</a> <a href="javascript:;" onclick="show('timu');hidden('basic');hidden('limit'); return false;">题目配置</a></td>
+          </tr>
+	      <tr>
+      <td height="24" bgcolor="#FFFFFF"><label class="help" onMouseOver="help('试卷的标题');" onMouseOut="closeDiv();">试卷标题
+        <input name="input[title]" type="text" id="input[title]" value="" size="40"> </label>
+        <span class="help" onMouseOver="help('练习性的测试可以给定参考资料（完整链接）。留空禁用！');" onMouseOut="closeDiv();"> 参考资料
+        <input name="input[helplink]" type="text" id="input[helplink]" value="" size="40" /></span></td>
+      </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><span class="help" onMouseOver="help('试卷的描述，显示在标题下面');" onmouseout="closeDiv();">试卷描述
+        <textarea name="input[descrip]" cols="40" rows="4" id="input[descrip]"></textarea></span>
+        <span class="help" onMouseOver="help('完成考试之后才能看到的解说');" onmouseout="closeDiv();">答完解说
+        <textarea name="input[overdescrip]" cols="40" rows="4" id="input[overdescrip]"></textarea></span></td>
+      </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"> <span class="help" onmouseover="help('试卷抽题或者选题的题库。上级题库包含下级题库！');" onmouseout="closeDiv();"> 题库</span> {:a|GetTiKuLister|GetTreeSelect @,input[tiku],,id,name,请选择题库}<span class="help" onmouseover="help('方便检索而设置试卷分类，不能设置顶级分类！分类可以在分类管理里面添加');" onmouseout="closeDiv();"> 分类</span> {:a|GetClassLister|GetTreeSelect @,input[class],,id,name,请选择分类} <a href="class_main.php">试卷分类管理</a></td>
+      </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><span class="help" onMouseOver="help('只有这个时间之后才能开始答题！设置固定答题开始时间需要选中后面的复选框！如果没有设置则不做限制');" onmouseout="closeDiv();">开始时间</span>
+        <input name="input[start][year]" type="text" id="input[start][year]" value="{:year}" size="6" />
+年
+<input name="input[start][mon]" type="text" id="input[start][mon]" value="{:month}" size="4" />
+月
+<input name="input[start][day]" type="text" id="input[start][day]" value="{:day}" size="4" />
+日
+<input name="input[start][hour]" type="text" id="input[start][hour]" value="" size="4" />
+时
+<input name="input[start][min]" type="text" id="input[start][min]" value="" size="4" />
+分
+<input name="input[start][sec]" type="text" id="input[start][sec]" size="4" />
+秒
+<input name="input[usestart]" type="checkbox" id="input[usestart]" value="1" /></td>
+      </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><span class="help" onMouseOver="help('只有这个时间之前才能答题！设置固定答题结束时间需要选中后面的复选框！如果没有设置则不做限制');" onmouseout="closeDiv();">结束时间</span>
+        <input name="input[end][year]" type="text" id="input[end][year]" value="{:year}" size="6" />
+年
+<input name="input[end][mon]" type="text" id="input[end][mon]" value="{:month}" size="4" />
+月
+<input name="input[end][day]" type="text" id="input[end][day]" value="{:day}" size="4" />
+日
+<input name="input[end][hour]" type="text" id="input[end][hour]" value="" size="4" />
+时
+<input name="input[end][min]" type="text" id="input[end][min]" value="" size="4" />
+分
+<input name="input[end][sec]" type="text" id="input[end][sec]" value="" size="4" />
+秒
+<input name="input[useend]" type="checkbox" id="input[useend]" value="1" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">
+	  <span class="help" onMouseOver="help('设置了货币之后，参加考试需要支付相应货币！');" onmouseout="closeDiv();">
+	  花费货币</span>
+        <input name="input[money]" type="text" id="input[money]" size="10" />
+        <select name="input[mtype]" id="input[mtype]">
+          
+          
+          
+        
+	  {foreach rtc.passport_money k v}
+      
+        
+          
+        
+          <option value="{:v}">{:money_types.[:v]}|{:v|GetMoneyName @}</option>
+          
+          
+        
+	   {/foreach}
+    
+      
+        
+        
+        </select>
+        <span class="help" onMouseOver="help('得分/总分是正确率');" onmouseout="closeDiv();">
+正确率达到</span>
+        <input name="input[jrate]" type="text" id="input[jrate]" value="100" size="6" />
+% 
+		<span class="help" onMouseOver="help('与花费相反，符合条件后奖励');" onmouseout="closeDiv();">奖励</span>
+<input name="input[jnum]" type="text" id="input[jnum]" value="0" size="6" />
+<select name="input[jmtype]" id="input[jmtype]">
+  
+        
+        
+          
+        
+	  {foreach rtc.passport_money k v}
+      
+        
+          
+        
+        
+  <option value="{:v}">{:money_types.[:v]}|{:v|GetMoneyName @}</option>
+  
+        
+          
+        
+	   {/foreach}
+    
+      
+        
+      
+      
+</select>
+</td>
+      </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><span class="help" onmouseover="help('最长答题时间');" onmouseout="closeDiv();">完成时间</span>
+        <input name="input[dotime]" type="text" id="input[dotime]" value="" size="10" />
+分钟 <span class="help" onmouseover="help('在最短答题时间内，不允许交卷！');" onmouseout="closeDiv();">最低答题</span>
+<input name="input[limitime]" type="text" id="input[limitime]" value="" size="10" />
+分钟 <span class="help" onmouseover="help('迟到时间超过后，不允许开始考试！设置为0不做限制！只有固定时间内答题的试卷有效！');" onmouseout="closeDiv();">迟到</span>
+<input name="input[ltime]" type="text" id="input[ltime]" value="0" size="6" />
+分钟后不能答题 <span class="help" onmouseover="help('为了支持小数分，在这里设置放大倍数，系统会自动除于这个倍数！设置题目的分数时请放大相应倍数。如果题目设置的分数是1，放大倍数是2，那么显示分数是0.5。如果分数没有小数值，忽略该项');" onmouseout="closeDiv();">分数被放大了</span>
+<input name="input[fensize]" type="text" id="input[fensize]" value="1" size="6" />
+倍 </td>
+      </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">
+	  <span class="help" onMouseOver="help('设置保护试卷后，考生考试完成一段时间后将不能再查看试题和答案，固定时间内答题的试卷，在答题固定答题时间结束前，自动保护！');" onmouseout="closeDiv();">保护试卷内容</span>
+        <input name="input[protect]" type="radio" id="input[protect]" value="1" /> <span class="help" onmouseover="help('设置仅保护答案之后，用户只能看到题目而看不到答案！');" onmouseout="closeDiv();">仅保护答案 </span>
+        <input name="input[protect]" type="radio" id="radio" value="2" />
+       <span class="help" onMouseOver="help('保护时间是指答题结束后多久不能再查看试题，如果设置为10，则考试结束后10分钟不能再查看试题。10分钟内是可以查看的。');" onmouseout="closeDiv();">保护时间</span>
+        <span class="help">交卷</span>
+        <input name="input[protecttime]" type="text" id="input[protecttime]" size="6" />
+分钟后不可查看 
+<span class="help" onMouseOver="help('设置成绩保密之后，将没有排行，成绩证明也只有自己能够看到！');" onmouseout="closeDiv();">
+ 成绩保密</span>
+        <input name="input[cjbm]" type="checkbox" id="input[cjbm]" value="1" />
+        <span class="help" onMouseOver="help('设置考试次数后，达到指定次数将不能再参加这门考试。设置0无限制');" onmouseout="closeDiv();">
+		考试次数</span>每人最多考
+        <input name="input[ktimes]" type="text" id="input[ktimes]" size="6" />
+次 </td>
+      </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">
+	  <span class="help" onMouseOver="help('固定选题的试卷需要管理员手工指定题目，选题之后需要生成试卷。每个人的考卷将完全一样！');" onmouseout="closeDiv();">是否固定题目</span>
+	  <input name="input[fix]" type="checkbox" id="input[fix]" value="1" />
+        <span class="help" onMouseOver="help('心理测试卷将只能选择心理测试题，心理测试功能目前并不完善，源于对心理测试的不了解。');" onmouseout="closeDiv();">是否心理测试卷</span><input name="input[xinli]" type="checkbox" id="input[xinli]" value="1" />
+        <span class="help" onMouseOver="help('选择此项之后，选择题的选项将是完全随机的。对于随机抽题的试卷非常有效。即便是抽到完全一样的题目，选项也是乱七八糟的。远超AB卷的效果');" onmouseout="closeDiv();">对选择题随机打乱选项</span>
+        <input name="input[random]" type="checkbox" id="input[random]" value="1" />
+        <span class="help" onMouseOver="help('如果是练习性质的考试，又有主观题，可以开启此项。开启之后，考生可以自己对照答案评分。');" onmouseout="closeDiv();">允许自己给主观题评分</span>
+        <input name="input[selfpf]" type="checkbox" id="input[selfpf]" value="1" /></td>
+      </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">
+	  <span class="help" onMouseOver="help('只有开放测试之后，前台才有显示，才能选题测试。注意：固定选题的试卷默认是不开放的，请选题完成之后，点击生成，选择开放测试！');" onmouseout="closeDiv();">
+	  开放试卷</span>
+        <input name="input[open]" type="checkbox" id="input[open]" value="1" /></td>
+      </tr>
+    <tr>
+      <td bgcolor="#FFFFFF"><span class="help" onMouseOver="help('可以给不同考试指定不同的界面，必须有对应的模板！可以忽略，除非你明白');" onmouseout="closeDiv();">考试界面风格</span>
+        <input name="input[dostyle]" type="text" id="input[dostyle]" value="ppframe" size="10" />
+        <span class="help" onMouseOver="help('可以在考卷上面展示出卷的管理员/老师！');" onmouseout="closeDiv();">展示管理员说明</span>
+        <input name="input[showadmin]" type="radio" id="input[showadmin]" value="2" />
+        <span class="help" onMouseOver="help('直接在考卷旁边展示说明！可以对页面比较不美观！');" onmouseout="closeDiv();">直接展示</span>
+        <input name="input[showadmin]" type="radio" id="radio2" value="1" />
+<span class="help" onMouseOver="help('在页面上显示一个链接，通过点击这个链接来查看管理员/老师展示！');" onmouseout="closeDiv();">链接展示</span>
+<input name="input[showadmin]" type="radio" id="radio3" value="0" checked="checked" />
+不展示</td>
+      </tr>
+	  </table>	  </td>
+    </tr>
+	
+    <tr id="limit" style="display:none;">
+      <td height="24" bgcolor="#FFFFFF">
+	  <table width="100%" border="0" cellpadding="3" cellspacing="0" bgcolor="#000000">
+	      <tr>
+	        <td height="24" bgcolor="#FFFFFF"><a href="javascript:;" onclick="show('basic');hidden('timu');hidden('limit'); return false;">基本配置</a> <strong><span class="help" onMouseOver="help('注意：所有的限制都只在选题阶段限制，这意味着无论你怎么限制，只要一个考生拥有了一份考卷，他都可以答题。这也意味着，你可以在后台给受限制用户分发考卷！');" onmouseout="closeDiv();">考试限制</span></strong> <a href="javascript:;" onclick="show('timu');hidden('basic');hidden('limit'); return false;">题目配置</a></td>
+          </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><span class="help" onMouseOver="help('指定的用户组可以组卷考试');" onmouseout="closeDiv();">允许的用户组</span>
+	   {:_usergroup|GetCheckBoxLister @,input[allowgroups][],,id,name} </td>
+      </tr>
+	  {if}
+  {:rtc.pass_school_ban} != 1
+  {/if}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><span class="help" onMouseOver="help('指定院系的学生可以参加考试，留空不做限制');" onmouseout="closeDiv();">允许的院系</span> {:a|GetCollegesLister|GetCheckBoxLister @,input[allowcolleges][],,id,name,code} <a href="{:rtc.passport_root}admin/college_main.php">院系管理</a></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><span class="help" onMouseOver="help('指定专业的学生可以参加考试，留空不做限制');" onmouseout="closeDiv();">允许的专业</span>{:a|GetProfessionalLister|GetCheckBoxLister @,input[allowpros][],,id,pname,pcode} <a href="{:rtc.passport_root}admin/professional_main.php">专业管理</a></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><span class="help" onMouseOver="help('指定年级的学生可以参加考试，留空不做限制');" onmouseout="closeDiv();">允许的年级</span> 
+	  {:a|GetGrades|GetEasyCheckBoxLister @,input[allowgrades][]}   </td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><span class="help" onMouseOver="help('允许答题的自然班');" onmouseout="closeDiv();">允许的自然班</span>
+	  {:a|GetStudentClassList 0|GetCheckBoxLister @,input[allowclass][],,id,classname} </td>
+      </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">关系
+        <label>
+        <input type="radio" name="input[andor]" value="1" />
+<span class="help" onMouseOver="help('既满足自然班限制条件，又满足课程班限制条件');" onmouseout="closeDiv();">并且</span></label>
+        <label>
+        <input type="radio" name="input[andor]" value="2" />
+<span class="help" onMouseOver="help('自然班与课程班限制条件满足其中之一即可');" onmouseout="closeDiv();">或者</span>
+<input name="input[andor]" type="radio" value="0" checked="checked" />
+<span class="help" onMouseOver="help('自然班与课程班限制条件都失效');" onmouseout="closeDiv();">允许所有班级</span> </label></td>
+      </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><span class="help" onMouseOver="help('允许答题的课程班');" onmouseout="closeDiv();">允许的课程班级
+	  </span>{:a|GetStudentClassList 1|GetCheckBoxLister @,input[allowclasses][],,id,classname}</td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:rtc.pass_buss_ban} != 1
+	  {/if}
+      <tr>
+        <td bgcolor="#FFFFFF">允许的部门 {:a|GetBussTreeList|GetTreeList @,fun_shijuanadd_userbuss}</td>
+      </tr>
+	  {/endif}
+      <tr>
+      <td bgcolor="#FFFFFF"><span class="help" onMouseOver="help('正确率达到合格线后考试合格 填 0 禁用合格功能');" onmouseout="closeDiv();">合格线</span> 
+        <input name="input[okrate]" type="text" id="input[okrate]" value="60" size="6" />
+% <span class="help" onMouseOver="help('设置合格后禁考之后，已经合格的考试不能再参加这门考试');" onmouseout="closeDiv();">合格后禁止考试</span>
+<input name="input[okban]" type="checkbox" id="input[okban]" value="1" /></td>
+      </tr>
+	  </table>	  </td>
+    </tr>
+	
+    <tr id="timu" style="display:none;">
+      <td height="24" bgcolor="#FFFFFF">
+	  <table width="100%" border="0" cellpadding="3" cellspacing="0" bgcolor="#000000">
+	  <tr>
+      <td height="24" bgcolor="#FFFFFF"><a href="javascript:;" onclick="show('basic');hidden('timu');hidden('limit');return false;">基本配置</a> <a href="javascript:;" onclick="show('limit');hidden('basic');hidden('timu');return false;">考试限制</a> <strong><span class="help" onmouseover="help('你并不需要配置每一种题型，不需要的题型可以留空');" onmouseout="closeDiv();">题目配置</span></strong></td>
+    </tr>
+	  <tr>
+	    <td height="24" bgcolor="#FFFFFF"><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+          
+	      {foreach tixing_db k v}
+  <tr>
+    <td width="100" bgcolor="#FFFFFF">{:v|GetMsg @}<br /></td>
+    <td bgcolor="#FFFFFF"><textarea name="input[descripmix][{:k}]" cols="50" rows="2" id="input[descripmix][{:k}]">这里是 {:v|GetMsg @} 的说明</textarea>
+        <br />
+        <input name="input[shitimix][{:k}]" type="text" id="input[shitimix][{:k}]" size="4" />
+      题 每题
+      <input name="input[fenmix][{:k}]" type="text" id="input[fenmix][{:k}]" size="4" />
+      分
+      
+      答错扣
+      <input name="input[kfmix][{:k}]" type="text" id="input[kfmix][{:k}]" size="4" />
+      分 <span class="help" onmouseover="help('限时答题意味着只能在给定的时间内答题，时间未到看不到题，时间已过，不能修改。');" onmouseout="closeDiv();">限定</span>第
+      <input name="input[timemix][{:k}][st]" type="text" id="input[timemix][{:k}][st]" size="4" />
+      分钟-
+      <input name="input[timemix][{:k}][ed]" type="text" id="input[timemix][{:k}][ed]" size="4" />
+      分钟内完成 <span class="help" onmouseover="help('可以根据试题的Level灵活配置题目的范围');" onmouseout="closeDiv();">范围</span>
+      <input name="checkbox" type="checkbox" onclick="showhidden({:k},this);" value="checkbox" /></td>
+  </tr>
+  <tr id="{:k}" style="display:none">
+    <td width="100" bgcolor="#FFFFFF">说明：两值相等时是精确选择一个级别。设置后，题目数将是分级题数之和。但你还是要在题数框填一个数，以使这项设置生效!</td>
+    <td bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+      <tr>
+        <td><input name="input[lvlmix][{:k}][1][min]" type="text" id="input[lvlmix][{:k}][1][min]" value="0" size="6" />
+          &lt;= Level &lt;=
+          <input name="input[lvlmix][{:k}][1][max]" type="text" id="input[lvlmix][{:k}][1][max]" value="0" size="6" />
+          <input name="input[lvlmix][{:k}][1][num]" type="text" id="input[lvlmix][{:k}][1][num]" size="6" />
+          题<br />
+          <input name="input[lvlmix][{:k}][2][min]" type="text" id="input[lvlmix][{:k}][2][min]" value="0" size="6" />
+          &lt;= Level &lt;=
+          <input name="input[lvlmix][{:k}][2][max]" type="text" id="input[lvlmix][{:k}][2][max]" value="0" size="6" />
+          <input name="input[lvlmix][{:k}][2][num]" type="text" id="input[lvlmix][{:k}][2][num]" size="6" />
+          题<br />
+          <input name="input[lvlmix][{:k}][3][min]" type="text" id="input[lvlmix][{:k}][3][min]" value="0" size="6" />
+          &lt;= Level &lt;=
+          <input name="input[lvlmix][{:k}][3][max]" type="text" id="input[lvlmix][{:k}][3][max]" value="0" size="6" />
+          <input name="input[lvlmix][{:k}][3][num]" type="text" id="input[lvlmix][{:k}][3][num]" size="6" />
+          题<br />
+          <input name="input[lvlmix][{:k}][4][min]" type="text" id="input[lvlmix][{:k}][4][min]" value="0" size="6" />
+          &lt;= Level &lt;=
+          <input name="input[lvlmix][{:k}][4][max]" type="text" id="input[lvlmix][{:k}][4][max]" value="0" size="6" />
+          <input name="input[lvlmix][{:k}][4][num]" type="text" id="input[lvlmix][{:k}][4][num]" size="6" />
+          题<br />
+          <input name="input[lvlmix][{:k}][5][min]" type="text" id="input[lvlmix][{:k}][5][min]" value="0" size="6" />
+          &lt;= Level &lt;=
+          <input name="input[lvlmix][{:k}][5][max]" type="text" id="input[lvlmix][{:k}][5][max]" value="0" size="6" />
+          <input name="input[lvlmix][{:k}][5][num]" type="text" id="input[lvlmix][{:k}][5][num]" size="6" />
+          题</td>
+      </tr>
+    </table></td>
+  </tr>
+	      {/foreach}
+	      </table></td>
+	    </tr>
+	  </table>	  </td>
+    </tr>
+	<tr>
+      <td height="24" bgcolor="#FFFFFF"><input type="submit" name="Submit" value="提交" />
+      <input name="Submit" type="hidden" id="Submit" value="1"></td>
+    </tr>
+  </table>
+</form>
+<script language="javascript" >
+function showhidden(id,o) {
+	if(o.checked) {
+		show(id);
+	}else {
+		hidden(id);
+	}
+}
+</script>
+{include footer.htm 1}

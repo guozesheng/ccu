@@ -1,0 +1,76 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><a href="shiti_main.php">试题管理</a> <a href="shiti_add.php">添加试题</a></td>
+  </tr>
+  <tr>
+    <td width="490" height="24" bgcolor="#FFFFFF">标题</td>
+    <td width="80" bgcolor="#FFFFFF">类型</td>
+    <td width="100" bgcolor="#FFFFFF">标签</td>
+    <td width="130" bgcolor="#FFFFFF">操作</td>
+  </tr>
+  {foreach lister_exam_shiti k v}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">{:v.title|strip_tags @|cn_substr @,255}</td>
+    <td height="24" bgcolor="#FFFFFF">{:v.type|GetShitiType @}</td>
+    <td height="24" bgcolor="#FFFFFF">      <input name="textfield" type="text" value="{:v.tag|trim @}" size="15" /></td>
+    <td bgcolor="#FFFFFF"><a href="shiti_view.php?id={:v.id}&amp;tiku={:v.tikus|GetTopTikuFromS @}">{if}{:v.unuse}{/if}审核{/endif}{else}修改{/else}</a> <a href="shiti_del.php?id={:v.id}&amp;tiku={:v.tikus|GetTopTikuFromS @}" onclick="if(!confirm('确定删除?不可恢复')) return false; else return true;">删除</a>
+    <!--{if}{:v.type|GetTxBaseType @}==7{/if}--><a href="shiti_add.php?upid={:v.id}&amp;tiku={:v.tikus|GetTopTikuFromS @}">添加</a> <a href="shiti_main.php?upid={:v.id}&amp;tiku={:v.tikus|GetTopTikuFromS @}">所有</a>      <!--{/endif}--></td>
+  </tr>
+  {/foreach}
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">{:pagelink}</td>
+  </tr><form action="" name="formpagesize" id="formpagesize" onsubmit="formaddpagesize(this.pagesize.value);return false;">
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">每页显示
+      <input name="pagesize" type="text" id="pagesize" value="{:pagesize}" size="6" />
+条
+<input type="submit" value="提交" /></td>
+  </tr></form>
+  <form name="form1" action="{:FormToSelf}">
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">
+    
+      题库 {:a|GetTiKuLister|GetTreeSelect @,tiku,[:tiku],id,name,请选择题库}
+         
+        类型
+        <select name="type" id="type">
+	  <option value="">请选择类型</option>
+		{foreach tixing_db k v}
+          <option value="{:k}" {if}'{:k}'=='{:type}'{/if}selected{/endif}>{:v|GetMsg @}</option>
+		 {/foreach}
+        </select></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">标题
+      <input name="title" type="text" id="title" value="{:title}" size="15" />
+      模糊查询 Tag
+      <input name="tag" type="text" id="tag" value="{:tag}" size="15" />
+      
+      精确匹配
+      <input name="jq" type="checkbox" id="jq" value="1" {if}{:jq}{/if}checked="checked"{/endif} />
+      级别
+      <input name="lvlmin" type="text" id="lvlmin" value="{:lvlmin}" size="6" />
+      &lt;=Level&lt;=
+      <input name="lvlmax" type="text" id="lvlmax" value="{:lvlmax}" size="6" /></td>
+  </tr>
+
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">
+      <label>
+        <input name="state" type="radio" value="Y" {if}'{:state}'=='Y'{/if}checked="checked" {/endif}/>
+        已审核</label>
+      <label>
+        <input type="radio" name="state" value="N" {if}'{:state}'=='N'{/if}checked="checked" {/endif}/>
+        未审核</label>
+      <label>
+        <input type="radio" name="state" value="0" {if}'{:state}'=='0'{/if}checked="checked" {/endif}/>
+        全部</label>
+      <input type="submit" value="检索" />
+      <input name="pagesize" type="hidden" id="pagesize" value="{:pagesize}" /></td></tr>
+</form>
+<tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><a href="shiti_add.php">添加试题</a></td>
+  </tr>
+</table>
+{include footer.htm 1}

@@ -1,0 +1,88 @@
+
+{include exam_header.htm 1}
+<div class="box"><table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+  <tr class="h">
+    <td colspan="2">我提交的试题</td>
+  </tr>
+  <tr>
+    <td width="20%" valign="top">
+	<div class="box">
+	  <table width="100%" border="0" cellspacing="1" cellpadding="3">
+        <form action="{:FormToSelf}">
+        <tr class="t3">
+          <td>题库:
+            {:a|GetTiKuLister|GetTreeSelect @,tiku,[:tiku],id,name,请选择题库} </td>
+        </tr>
+        <tr class="t3">
+          <td>题型:
+            <select name="type" id="type">
+              <option value="">请选择类型</option>
+              
+		{foreach tixing_db k v}
+          {if}{:k|GetTxBaseType @} != 7{/if}
+              <option value="{:k}" {if}'{:k}'=='{:type}'{/if}selected{/endif}>{:v|GetMsg @}</option>
+              {/endif}
+		 {/foreach}
+        
+            </select></td>
+        </tr>
+        <tr class="t3">
+          <td><input type="radio" name="state" value="N">
+                未审核
+                <input type="radio" name="state" value="Y">
+                已审核              
+                <input type="radio" name="state">
+              全部            </td>
+        </tr>
+        <tr class="t3">
+          <td><input name="submit" type="submit" value="搜索" /></td>
+        </tr>
+		</form>
+		{if}
+		{:base_config.exam_allowpush}
+		{/if}
+		{if}
+		{:base_config.exam_pushmoney_num}
+		{/if}
+		<tr class="t3">
+		  <td>现在出题奖励 {:base_config.exam_pushmoney_num} {:base_config.exam_pushmoney|GetMoneyName @}{if}{:base_config.exam_push_sh}{/if}(审核后){/endif}{else}(无需审核){/else}</td>
+		  </tr>
+		  {/endif}
+		 <tr>
+          <td><a href="my_shiti_push.php">马上出题 </a></td>
+        </tr>
+		
+		{/endif}
+		  {else}
+		  <tr>
+		  <td>系统关闭了会员出题</td>
+		  </tr>
+		  {/else}
+      </table>
+	</div>
+	</td>
+    <td valign="top"><div class="box"><table width="100%" border="0" cellpadding="3" cellspacing="1">
+      <tr class="t2">
+        <td>标题</td>
+        <td>题型</td>
+        <td>状态</td>
+        <td>操作</td>
+      </tr>
+      {foreach lister_exam_shiti k v}
+  <tr class="t3">
+    <td>{:v.title|cn_substr @,255}</td>
+    <td>{:v.type|GetShitiType @}</td>
+    <td>{if}{:v.unuse}{/if}未审核{/endif}{else}已审核{/else}</td>
+    <td>{if}{:v.unuse}{/if}<a href="my_shiti_edit.php?id={:v.id}&tiku={:v.tikus|GetTopTikuFromS @}">修改</a> <!--<a href="my_shiti_del.php?id={:v.id}&tiku={:v.tikus|GetTopTikuFromS @}" onClick="if(!confirm('确认删除？')) return false;">删除</a>-->{/endif}{else}不可操作{/else}</td>
+  </tr>
+      {/foreach}
+  <tr>
+    <td colspan="4">{:pagelink}</td>
+  </tr>
+    </table>
+	</div></td>
+  </tr>
+
+</table>
+</div>
+{include exam_footer.htm 1}

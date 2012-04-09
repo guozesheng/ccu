@@ -1,0 +1,41 @@
+{include header.htm 1}
+<form action="{:FormToSelf}" name="form1" id="form1">
+  <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>查看成绩导出</strong></td>
+    </tr>
+    <tr>
+      <td width="180" height="24" bgcolor="#FFFFFF">试卷标题</td>
+      <td bgcolor="#FFFFFF">{:view.title}</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">试卷描述</td>
+      <td bgcolor="#FFFFFF">{:view.descrip}</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">仅导出最好成绩</td>
+      <td bgcolor="#FFFFFF"><input name="best" type="checkbox" id="best" value="1" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">仅导出合格线</td>
+      <td bgcolor="#FFFFFF"><input name="okrate" type="text" id="okrate" value="{:view.okrate}" size="6" />
+      % 及以上（选择导出最好成绩时，该项有效）</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">导出格式</td>
+      <td bgcolor="#FFFFFF"><input name="format" type="radio" value="csv" checked>
+      CSV</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+      <td bgcolor="#FFFFFF"><input type="submit" value="提交" />
+        <input name="Submit" type="hidden" id="Submit" value="1">
+        <input name="id" type="hidden" id="id" value="{:id}"></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">提示</td>
+      <td bgcolor="#FFFFFF">你可以修改模板文件shijuan_chengji_export_template.htm自己定义导出的用户字段</td>
+    </tr>
+  </table>
+</form>
+{include footer.htm 1}

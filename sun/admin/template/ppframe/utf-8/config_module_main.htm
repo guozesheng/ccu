@@ -1,0 +1,30 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF">PPFrame 模块管理 </td>
+  </tr>
+  <tr>
+    <td width="140" height="24" bgcolor="#FFFFFF">名称</td>
+    <td width="140" bgcolor="#FFFFFF">唯一标志</td>
+    <td width="120" bgcolor="#FFFFFF">运行状态</td>
+    <td width="140" bgcolor="#FFFFFF">作者</td>
+    <td width="140" bgcolor="#FFFFFF">最后修改</td>
+    <td width="120" bgcolor="#FFFFFF">是否商业</td>
+  </tr>
+ {foreach lister fk fv}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><a href="config_module_view.php?id={:fv.id}">{:fv.name}</a></td>
+    <td bgcolor="#FFFFFF">{:fv.key}</td>
+    <td bgcolor="#FFFFFF">{:fv.run}</td>
+    <td bgcolor="#FFFFFF">{:fv.author}</td>
+    <td bgcolor="#FFFFFF">{:fv.lastmodify}</td>
+    <td bgcolor="#FFFFFF">{:fv.business}</td>
+  </tr>{/foreach}
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF">{:pagelink}</td>
+  </tr>
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF"><a href="config_module_add.php">添加模块</a></td>
+  </tr>
+</table>
+{include footer.htm}

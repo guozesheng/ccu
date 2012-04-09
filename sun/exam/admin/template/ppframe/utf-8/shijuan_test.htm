@@ -1,0 +1,95 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>试卷选题测试</strong> <a href="shijuan_main.php">试卷管理</a> <a href="shijuan_view.php?id={:id}">重新配置这份试卷</a></td>
+  </tr>
+  <tr>
+    <td width="178" height="24" bgcolor="#FFFFFF">试卷标题:</td>
+    <td width="615" bgcolor="#FFFFFF">{:edit.title}</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">试卷描述:</td>
+    <td bgcolor="#FFFFFF">{:edit.descrip}</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">试题组成:</td>
+    <td bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+       {foreach tixing_db k v} 
+         <tr>
+          <td width="100">{:v|GetMsg @}:</td>
+          <td><input name="input[shitimix][{:k}]" type="text" id="input[shitimix][{:k}]" value="{:edit.shitimix.[:k]}" size="4"> 
+	    题 每题
+	    <input name="input[fenmix][{:k}]" type="text" id="input[fenmix][{:k}]" value="{:edit.fenmix.[:k]}" size="4"> 
+	    分 限定在第
+	    <input name="input[timemix][{:k}][st]" type="text" id="input[timemix][{:k}][st]" value="{:edit.timemix.[:k].st}" size="4" />
+分钟-
+<input name="input[timemix][{:k}][ed]" type="text" id="input[timemix][{:k}][ed]" value="{:edit.timemix.[:k].ed}" size="4" />
+分钟内完成 限定范围
+	    <input type="checkbox" name="checkbox" value="checkbox" onclick="showhidden({:k});" /></td>
+        </tr>
+         <tr id="{:k}" style="display:none">
+           <td width="95">说明：两值相等时是精确选择一个级别，否则将是一个范围。一旦设置后，题目数将是分级题数之和</td>
+           <td> {foreach edit.lvlmix.[:k] kk vv}
+             <input name="input[lvlmix][{:k}][{:kk}][min]" type="text" id="input[lvlmix][{:k}][{:kk}][min]" value="{:edit.lvlmix.[:k].[:kk].min}" size="6" />
+&lt;= Level &lt;=
+<input name="input[lvlmix][{:k}][{:kk}][max]" type="text" id="input[lvlmix][{:k}][{:kk}][max]" value="{:edit.lvlmix.[:k].[:kk].max}" size="6" />
+<input name="input[lvlmix][{:k}][{:kk}][num]" type="text" id="input[lvlmix][{:k}][{:kk}][num]" value="{:edit.lvlmix.[:k].[:kk].num}" size="6" />
+题<br />
+{/foreach}
+<input name="input[lvlmix][{:k}][{:kk|PlusPlus @}][min]" type="text" id="input[lvlmix][{:k}][{:kk|PlusPlus @}][min]" value="0" size="6" />
+&lt;= Level &lt;=
+<input name="input[lvlmix][{:k}][{:kk|PlusPlus @}][max]" type="text" id="input[lvlmix][{:k}][{:kk|PlusPlus @}][max]" value="0" size="6" />
+<input name="input[lvlmix][{:k}][{:kk|PlusPlus @}][num]" type="text" id="input[lvlmix][{:k}][{:kk|PlusPlus @}][num]" size="6" />
+题</td>
+         </tr> 
+        {/foreach}
+   </table></td>
+  </tr>
+  
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">是否固定题目:</td>
+    <td bgcolor="#FFFFFF">{if}{:edit.fix}{/if}是 {/endif}{else}否{/else}</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">是否心理测试卷:</td>
+    <td bgcolor="#FFFFFF">{if}{:edit.xinli}{/if}是心理测试卷 {/endif} {if}{:edit.xinli}==0{/if}不是心理测试卷 {/endif}</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">对选择题打乱:</td>
+    <td bgcolor="#FFFFFF">{if}{:edit.random}{/if}随机打乱 {/endif}{if}{:edit.random}==0{/if}不随机打乱 {/endif}</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">主观题评分:</td>
+    <td bgcolor="#FFFFFF">{if}{:edit.selfpf}{/if}允许自己评分 {/endif} {if}{:edit.selfpf}==0{/if}不允许自己评分 {/endif}  </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">开放试卷:</td>
+    <td bgcolor="#FFFFFF">{if}{:edit.open}{/if}已开放试卷 {/endif}
+      {if}{:edit.open}==0{/if}暂未开放试卷 {/endif}</td>
+  </tr>
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF"><a href="shijuan_test_do.php?id={:id}" target="testMain">开始测试</a>  请多次测试 多次成功才保险 固定选题无需测试 </td>
+  </tr>
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF"><iframe src="" name="testMain" width="100%" marginwidth="0" height="400" marginheight="0" align="top" scrolling="auto" frameborder="0"></iframe></td>
+  </tr>
+</table>
+<script language="javascript" >
+function $(id) {
+	return document.getElementById(id);
+}
+function show(id) {
+	$(id).style.display = 'block';
+}
+function hidden(id) {
+	$(id).style.display='none';
+}
+function showhidden(id) {
+	if($(id).style.display != 'block') {
+		$(id).style.display = 'block';
+	}else {
+		$(id).style.display = 'none';
+	}
+}
+</script>
+  {include footer.htm 1}

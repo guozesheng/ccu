@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>PP框架后台</title>
+<style>
+body{font-size:12px;
+}
+</style>
+</head>
+
+<body>
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td bgcolor="#FFFFFF"><strong>PPFrame动态</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF" id="Frame_Info"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+      <tr>
+        <td width="40" align="center">！</td>
+        <td width="760"><?php echo $frame_info;?></td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+</table>
+<br />
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF"><strong>系统信息</strong></td>
+  </tr>
+  <tr>
+    <td width="20%" bgcolor="#FFFFFF">PHP基本信息</td>
+    <td bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+      <tr>
+        <td><strong>PHP版本：</strong> <?php echo @phpversion();?> <strong> GD版本：</strong>          <?php $gdinfo = gd_info(); echo $gdinfo['GD Version']?>        </td>
+      </tr>
+      <tr>
+        <td><span><strong>是否安全模式：</strong>
+          <?php echo ini_get("safe_mode") ? 'YES' : 'NO';?>
+        </span></td>
+      </tr>
+      <tr>
+        <td><span><strong>Register_Globals：</strong> <?php echo ini_get("register_globals") ? 'On' : 'Off'?> <strong>Magic_Quotes_Gpc：</strong> <?php echo ini_get("magic_quotes_gpc") ? 'On' : 'Off'?> </span></td>
+      </tr>
+      <tr>
+        <td><span><strong>支持上传的最大文件：</strong> <?php echo ini_get("post_max_size")?> </span></td>
+      </tr>
+      <tr>
+        <td><span><strong>是否允许打开远程连接：</strong> <?php echo ini_get("allow_url_fopen") ? '支持' : '不支持'?> </span></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">PPFrame版本号</td>
+    <td bgcolor="#FFFFFF"><span class="main_bright">
+      <?php
+		@include(ROOT.'config/install_config.php');
+		 echo $install_frame_version;
+		 ?>
+    </span></td>
+  </tr>
+</table>
+<br />
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td bgcolor="#FFFFFF"><strong>缓存清除</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><a href="cache_clear.php">清除缓存</a></td>
+  </tr>
+</table>
+<br />
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td bgcolor="#FFFFFF"><strong>语言包备份恢复</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><form id="form1" name="form1" method="post" action="config_lang_backup.php">
+      <select name="modes[]" size="5" multiple="multiple" id="modes[]">
+        <option value="exam" selected="selected">考试模块</option>
+        <option value="passport" selected="selected">通行证模块</option>
+      </select>
+        <br />
+    
+        <label>
+          <input name="action" type="radio" value="1" checked="checked" />
+          备份</label>
+        <label>
+          <input type="radio" name="action" value="2" />
+          恢复</label>
+        <br />
+        <input type="submit" value="提交" />
+        该功能需要目录 <font color="#FF0000"><?php echo ROOT . 'template/ppframe/' . $rtc['language'];?></font> 可写
+        <br />
+        </form>
+    </td>
+  </tr>
+</table>
+<br />
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td bgcolor="#FFFFFF"><strong>帮助信息</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><a href="<?php echo $rtc['host']?>help.html">简易帮助文档</a></td>
+  </tr>
+</table>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<table>
+<tr class="t2">
+  <td>题目{:_f_a.th}：分值:{:_f_a.fen|UseFenSize @,[:fensize],2}{if}{:_f_a.kf|UseFenSize @,[:fensize],2}{/if}答错倒扣{:vv.kf|UseFenSize @,[:fensize],2}分{/endif}</td>
+</tr>
+<tr class="t3">
+        <td>{:_f_a.title|nl2br @} </td>
+      </tr>
+	  {if}
+	  {:_f_k|GetTxBaseType @} == 3
+	  {/if}
+      <tr class="t3">
+        <td>我的答案: {:damix.[:_f_k].[:_f_a.k].da}</td>
+      </tr>
+      <tr class="t3">
+        <td>参考答案: {:_f_a.daan}</td>
+      </tr>
+      <tr class="t3">
+        <td>参考解答: {:_f_a.jieda}</td>
+      </tr>
+      <tr class="t3">
+        <td>打分
+          <input name="defen[{:_f_k}][{:_f_a.k}]" type="text" id="defen[{:_f_k}][{:_f_a.k}]" value="{:damix.[:_f_k].[:_f_a.k].df|UseFenSize @,[:fensize],2}" size="6">
+修改该题得分
+<input name="dafen[{:_f_k}][{:_f_a.k}]" type="checkbox" id="dafen[{:_f_k}][{:_f_a.k}]" value="1"></td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:_f_a.sun}
+	  {/if}
+	  <tr >
+	  <td>{foreach _f_a.sun sk sv} {foreach sv skk svv}{:svv|GetExamShitiView [:sk],@,[:_f_t],fun_examshiti_pf}{/foreach}{/foreach}</td>
+	  </tr>
+	  {/endif}
+</table>

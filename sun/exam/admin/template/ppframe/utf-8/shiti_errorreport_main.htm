@@ -1,0 +1,22 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="3" bgcolor="#FFFFFF">试题报错管理</td>
+  </tr>
+  <tr>
+    <td width="300" height="24" bgcolor="#FFFFFF">标题</td>
+    <td width="300" bgcolor="#FFFFFF">报错原因</td>
+    <td width="200" bgcolor="#FFFFFF">操作</td>
+  </tr>
+  {foreach lister_exam_errorreport k v}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">{:v.title}</td>
+    <td bgcolor="#FFFFFF"><a href="{:rtc.passport_root}admin/user_view.php?id={:v.author}">{:v.username}(Uid:{:v.uid})</a> Said: {:v.why}</td>
+    <td bgcolor="#FFFFFF"><a href="shiti_view.php?id={:v.stid}&tiku={:v.tiku}" target="_blank">修改试题</a> <a href="shiti_errorreport_del.php?id={:v.id}">删除</a></td>
+  </tr>
+  {/foreach}
+  <tr>
+    <td height="24" colspan="3" bgcolor="#FFFFFF">{:pagelink}</td>
+  </tr>
+</table>
+{include footer.htm 1}

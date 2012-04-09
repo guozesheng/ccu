@@ -1,0 +1,72 @@
+<table>
+<tr class="t2">
+  <td>题目{:_f_a.th}：分值:{:_f_a.fen|UseFenSize @,[:fensize],2}{if}{:_f_a.kf|UseFenSize @,[:fensize],2}{/if}答错倒扣{:vv.kf|UseFenSize @,[:fensize],2}分{/endif}</td>
+</tr>
+<tr class="t3">
+        <td>{:_f_a.title|nl2br @} </td>
+      </tr>{if}{:_f_k|GetTxBaseType @}!= 4 &&{:_f_k|GetTxBaseType @}!= 7{/if}
+  {/endif}
+	  {if}
+	  {:_f_k|GetTxBaseType @} == 1 || {:_f_k|GetTxBaseType @} == 4
+	  {/if}
+      <tr class="t3">
+        <td>
+		{+AZ 65 1 1}
+		{foreach _f_a.xx kkk vvv}
+              <input onchange="ChangeState();" name="{:_f_t}[{:_f_k}][{:_f_a.k}]" id="{:_f_k}_{:_f_a.k}_{:vvv.k}" type="radio" value="{:vvv.k}" {if}'{:damix.[:_f_k].[:_f_a.k].da}'=='{:vvv.k}'{/if}checked{/endif}>
+             <label for="{:_f_k}_{:vv.k}_{:vvv.k}"  onclick="ChangeState();">{:kkk|chr [+AZ 65 1]}:{:vvv.xx|nl2br @}</label>
+		      <br />
+		      {/foreach}			  {if}
+			 {:_f_a.kf}
+			 {/if}
+			  <input onchange="ChangeState();" name="exam[{:k}][{:vv.k}]" id="{:k}_{:vv.k}_0" type="radio" value="0">
+              <label for="{:k}_{:vv.k}_0" onclick="ChangeState();">我怕扣分，我不作答</label>
+{/endif}</td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:_f_k|GetTxBaseType @} == 2
+	  {/if}
+      <tr class="t3">
+        <td>
+		{+AZ 65 1 1}
+		{foreach _f_a.xx kkk vvv}
+            <input onchange="ChangeState();" name="{:_f_t}[{:_f_k}][{:_f_a.k}][]" id="{:_f_k}_{:_f_a.k}_{:vvv.k}" type="checkbox" value="{:vvv.k}" {if}{:damix.[:_f_k].[:_f_a.k].da|in_array [:vvv.k],@}{/if}checked{/endif}>
+<label for="{:_f_k}_{:_f_a.k}_{:vvv.k}" onclick="ChangeState();">{:kkk|chr [+AZ 65 1]}:{:vvv.xx|nl2br @}</label>
+		<br />
+		{/foreach}		{if}
+			 {:_f_a.kf}
+			 {/if}
+			  <input onchange="ChangeState();" name="exam[{:k}][{:vv.k}]" id="radio" type="radio" value="0">
+              <label for="radio" onclick="ChangeState();">我怕扣分，我不作答</label>
+{/endif}</td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:_f_k|GetTxBaseType @} == 3
+	  {/if}
+	  <script language="javascript">
+	  addlisten({:_f_k},{:_f_a.k});
+	  </script>
+      <tr class="t3">
+        <td>
+		{if}{:base_config.exam_use_ueditor}{/if}
+		{:damix.[:_f_k].[:_f_a.k].da|CreateExamFCKEditor exam[[:_f_k]][[:_f_a.k]],@,150,90%}
+		<script language="javascript">
+	  	editor = 1;
+	    </script>
+		{/endif}
+		{else}
+		  <textarea name="{:_f_t}[{:_f_k}][{:_f_a.k}]" cols="40" rows="4">{:damix.[:_f_k].[:_f_a.k].da}</textarea>
+		{/else}
+		</td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:_f_a.sun}
+	  {/if}
+	  <tr >
+	  <td>{foreach _f_a.sun sk sv} {foreach sv skk svv}{:svv|GetExamShitiView [:sk],@,[:_f_t],fun_examshiti_do}{/foreach}{/foreach}</td>
+	  </tr>
+	  {/endif}
+</table>

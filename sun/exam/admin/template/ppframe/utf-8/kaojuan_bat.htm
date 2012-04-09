@@ -1,0 +1,36 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td width="1200" height="24" bgcolor="#FFFFFF"> <strong>考卷批量管理</strong> <a href="kaojuan_main.php">考卷管理</a></td>
+  </tr>
+  <form name="form1" action="{:FormToSelf}">
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><input type="radio" name="do" value="1" />
+      删除废卷      </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">
+      <p>
+        <input type="radio" name="do" value="2" />
+        释放
+        <input name="day" type="text" id="day" value="7" size="6" />
+      天前已评分考卷存储空间（最少3天前，最近的考卷是受保护的）</p>      </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"> 
+      <p>
+        <input type="radio" name="do" value="3" onclick="warn(this,'这是非常危险的操作，除非你明白，请不要执行此操作！');" />
+      删除
+      <input name="day2" type="text" id="day2" value="7" size="6" />
+天前已评分考卷 （最少3天前，最近的考卷是受保护的）</p></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><input type="submit" value="提交">
+      <input name="Submit" type="hidden" id="Submit" value="1" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><strong>注意：考卷批量删除是很危险的操作，请谨慎使用！</strong></td>
+  </tr>
+</form>
+</table>
+{include footer.htm 1}

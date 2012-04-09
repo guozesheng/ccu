@@ -1,0 +1,48 @@
+{include passport_header 1}
+<div>
+  <table width="100%" border="0" cellspacing="1" cellpadding="3">
+    <tr>
+      <td width="24%" valign="top">{include left 1} </td>
+      <td valign="top"><div class="box">
+        <table width="100%" border="0" cellspacing="1" cellpadding="3">
+          <tr>
+            <td class="h"><a href="jifen.php">查看积分</a> <a href="chongzhi.php"> 积分充值</a>  <a href="order.php">查看订单</a> <strong>订单支付</strong></td>
+          </tr>
+          <tr>
+            <td><table width="100%" border="0" cellspacing="1" cellpadding="3">
+              <tr class="t2">
+                <td width="20%">订单号</td>
+                <td>{:order.orderno}</td>
+              </tr>
+              <tr class="t2">
+                <td>支付金额</td>
+                <td>{:order.fee} RMB</td>
+              </tr><form action="{:FormToSelf}" method="post" name="form1" target="_blank">
+              <tr class="t2">
+                <td>选择支付工具</td>
+                <td>
+                  <select name="paytool" id="paytool">
+                    {foreach rtc.olpay_info k v}<option value="{:k}">{:k|GetMsg @}</option>{/foreach}
+                  </select>                </td>
+              </tr>
+              <tr class="t2">
+                <td>&nbsp;</td>
+                <td><input type="submit" value="支付">
+                  <input name="id" type="hidden" id="id" value="{:id}"></td>
+              </tr>
+              </form>
+            </table></td>
+          </tr>
+
+          <tr>
+            <td> 当前汇率 1 RMB = {:rtc.passport_moneyhuilv} {:rtc.passport_onlinemoney|GetMoneyName @} </td>
+          </tr>
+          <tr>
+            <td> 最低充值 {:rtc.passport_chongzhi_min} RMB </td>
+          </tr>
+        </table>
+      </div></td>
+    </tr>
+  </table>
+</div>
+{include passport_footer 1}

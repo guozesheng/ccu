@@ -1,0 +1,110 @@
+{include iframeheader.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><strong>会员管理</strong></td>
+  </tr>
+  <tr>
+    <td width="30" bgcolor="#FFFFFF">选择</td>
+    <td height="24" bgcolor="#FFFFFF">ID用户名</td>
+    <td bgcolor="#FFFFFF">EMAIL</td>
+    <td width="100" bgcolor="#FFFFFF">操作</td>
+  </tr>
+  <form name="form_all" id="form_all" onsubmit="return false;">
+ {foreach lister_user fk fv}
+  <tr>
+    <td bgcolor="#FFFFFF"><input name="to__checkall__" type="checkbox" id="to__checkall__" onclick="addcheckid(this,{:fv.uid})" value="{:fv.uid}"/></td>
+    <td height="24" bgcolor="#FFFFFF"><a href="{:rtc.passport_root}admin/user_view.php?id={:fv.uid}" target="_blank">{:fv.username}</a> (UID:{:fv.uid})</td>
+    <td bgcolor="#FFFFFF">{:fv.email}</td>
+    <td bgcolor="#FFFFFF"><span id="push_{:fv.uid}"><a href="javascript:;" onclick="pushone({:fv.uid})">分发</a></span></td>
+  </tr>
+ {/foreach}
+ </form>
+ <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><input type="checkbox" name="checkbox2" value="checkbox" onclick="check(document.form_all)" />
+      全选/反选
+      <span id="do_refresh"><a href="javascript:;" onclick="sjpush();">分发选中</a></span></td>
+  </tr>
+ 
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">{:pagelink}</td>
+  </tr>
+</table>
+<script language="JavaScript">
+var checkflag = "false";
+var ids = {};
+var done = 0;
+var selnum = 0;
+function check(field) {
+	if (checkflag == "false") {
+		for (i = 0; i < field.length; i++) {
+			if(field[i].name.indexOf('__checkall__')>0) {
+				field[i].checked = true;
+				addid(field[i].value);
+			}
+		}
+		checkflag = "true";
+		return "false";
+	}
+	else {
+		for (i = 0; i < field.length; i++) {
+			if(field[i].name.indexOf('__checkall__')>0) {
+				field[i].checked = false;
+				delid(field[i].value);
+			}
+		}
+		checkflag = "false";
+		return "true"; 
+	}
+}
+
+function addid(id) {
+	eval('ids.id' + id + '=' + id + ';');
+	++ selnum;
+}
+
+function delid(id) {
+	eval('delete(ids.id' + id + ');');
+	-- selnum;
+}
+
+function addcheckid(i,id) {
+	if(i.checked) addid(id);
+	else delid(id);
+}
+
+function sjpush() {
+	if(selnum>0) {
+		foreachjson();
+		$('do_refresh').innerHTML = '操作中，请稍后';
+	}else {
+		alert('请选择用户');
+		return false;
+	}
+}
+
+function pushone(id) {
+	var ajax;
+	var container = $('push_'+id);
+	ajax = new Ajax(container);
+	ajax.doOpen('GET','ajax_shijuan_push_add.php?id={:id}' + '&uid=' + id + '&random={:random}');
+	ajax.doSend();
+	if(done > 0) {
+		done -= 1;
+		if(done == 0) {
+			$('do_refresh').innerHTML = '操作已完成 <a href=' + window.location + '>点击刷新</a>';
+			setTimeout('window.location.href=window.location;',500);
+		}
+	}
+}
+
+function foreachjson() {
+	var t = 10;
+	for(var e in ids) {
+		var s = "pushone(ids." + e + ")";
+		setTimeout(s,t);
+		done += 1;
+		t += 200;	//延迟200毫秒
+	}
+}
+</script>
+{include footer.htm}

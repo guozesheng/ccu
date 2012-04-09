@@ -1,0 +1,70 @@
+<table>
+
+<tr class="t3">
+        <td>题目{:_f_a.th}：{:_f_a.title|nl2br @} {if}{:_f_k|GetTxBaseType @} != 7{/if}得分:{if}{:damix.[:_f_k].[:_f_a.k].df}{/if}{:damix.[:_f_k].[:_f_a.k].df|UseFenSize @,[:fensize],2}{/endif}{if}'{:damix.[:_f_k].[:_f_a.k].df}'=='0'{/if}0{/endif}{if}'{:damix.[:_f_k].[:_f_a.k].df}'==''{/if}未评{/endif}{if}{:_f_k|GetTxBaseType @}!= 4{/if}/{:_f_a.fen|UseFenSize @,[:fensize],2}{/endif}{/endif} {if}'{:damix.[:_f_k].[:_f_a.k].df}' != '{:_f_a.fen}'{/if}<font color="#FF0000"><strong>答错了</strong>！</font>{/endif} <a href="exam_report_error.php?tiku={:element_exam_shijuan-&gt;E.tiku}&amp;id={:_f_a.k}" target="_blank">题目报错</a></td>
+  </tr>{if}{:_f_k|GetTxBaseType @}!= 4 &&{:_f_k|GetTxBaseType @}!= 7{/if}
+	  {/endif}
+	  {if}
+	  {:_f_k|GetTxBaseType @} == 1 || {:_f_k|GetTxBaseType @} == 4
+	  {/if}
+      <tr class="t3">
+        <td>
+		{+AZ 65 1 1}
+		{foreach _f_a.xx kkk vvv}
+              <input id="{:_f_k}_{:_f_a.k}_{:vvv.k}" type="radio" disabled="disabled" {if}'{:damix.[:_f_k].[:_f_a.k].da}'=='{:vvv.k}'{/if}checked{/endif}>
+             <label for="{:_f_k}_{:vv.k}_{:vvv.k}">{:kkk|chr [+AZ 65 1]}:{:vvv.xx|nl2br @}</label>
+		      {if}'{:_f_a.daan}'=='{:vvv.k}' && {:shijuan.protect}!=2{/if}<font color="#FF0000">√</font>{/endif} {if}{:k|GetTxBaseType @}== 4{/if}选择得{:vvv.fen|UseFenSize @,[:fensize],2}分{/endif}<br />
+		      {/foreach}			  </td>
+      </tr>
+	 {if}
+   {:shijuan.protect}!=2
+  {/if}
+	  <tr class="t3">
+    <td>解答:{:vvv.jieda} </td>
+  </tr>{/endif}
+	  {/endif}
+	  {if}
+	  {:_f_k|GetTxBaseType @} == 2
+	  {/if}
+      <tr class="t3">
+        <td>
+		{+AZ 65 1 1}
+		{foreach _f_a.xx kkk vvv}
+            <input id="{:_f_k}_{:_f_a.k}_{:vvv.k}" type="checkbox" disabled="disabled" {if}{:damix.[:_f_k].[:_f_a.k].da|in_array [:vvv.k],@}{/if}checked{/endif}>
+<label for="{:_f_k}_{:_f_a.k}_{:vvv.k}">{:kkk|chr [+AZ 65 1]}:{:vvv.xx|nl2br @}</label>
+{if}'{:_f_a.daan|in_array [:vvv.k],@}' && {:shijuan.protect}!=2{/if} <font color="#FF0000">√</font> {/endif} <br />
+		{/foreach}		</td>
+      </tr>
+	  </tr>
+	  {if}
+   {:shijuan.protect}!=2
+  {/if}
+	  <tr class="t3">
+    <td>解答:{:vvv.jieda} </td>
+  </tr>{/endif}
+	  {/endif}
+	  {if}
+	  {:_f_k|GetTxBaseType @} == 3
+	  {/if}
+      <tr class="t3">
+        <td>Answer: {:damix.[:_f_k].[:_f_a.k].da}</td>
+      </tr>
+	  {if}
+	   {:shijuan.protect}!=2
+	  {/if}
+      <tr class="t3">
+        <td>参考答案: {:_f_a.daan}</td>
+      </tr>
+      <tr class="t3">
+        <td>参考解答: {:_f_a.jieda}</td>
+      </tr>
+	  {/endif}
+	  {/endif}
+	  {if}
+	  {:_f_a.sun}
+	  {/if}
+	  <tr >
+	  <td>{foreach _f_a.sun sk sv} {foreach sv skk svv}{:svv|GetExamShitiView [:sk],@,[:_f_t],fun_examshiti_view}{/foreach}{/foreach}</td>
+	  </tr>
+	  {/endif}
+</table>

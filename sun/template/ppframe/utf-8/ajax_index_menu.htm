@@ -1,0 +1,20 @@
+<table width="98%" border="0" cellpadding="3" cellspacing="1" bgcolor="#333333">
+  {+mm 0 1 1}
+  {foreach menu k v}
+  <tr class="menuhead">
+    <td><a href="javascript:;" onclick="collapse_change({+mm 0 0},'{:MODULE}_');return false;"><img id="{:MODULE}_menuimg_{+mm 0 0}" src="./images/ppframe/menu_reduce.gif" border="0"/></a><a href="javascript:;" onclick="collapse_change({+mm 0 0},'{:MODULE}_');return false;"><strong>{:k}</strong></a></td>
+  </tr>
+  <tr><td bgcolor="#FFFFFF">
+  <div id="{:MODULE}_{+mm 0 1}" style="display:block"><table width="100%" border="0" cellpadding="3" cellspacing="1">
+  {foreach v kk vv}
+  <tr>
+  <td>{if}{:vv|is_array @}{/if}{foreach vv kkk vvv}  <a href="{:admin_host_self}{:vvv}" target="mainFrame">{:kkk}</a>  {/foreach}{/endif}{else}<a href="{:admin_host_self}{:vv}" target="mainFrame">{:kk}</a>{/else}</td>
+  </tr>
+  {/foreach}
+  </table>
+  </div>
+  </td>
+  </tr>
+  {/foreach}
+</table>
+

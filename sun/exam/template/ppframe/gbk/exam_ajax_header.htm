@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={:rtc.language}" />
+<title>{:base_config.exam_title}-{:title} - powered by ppframe.com</title>
+<link type="text/css" rel="stylesheet" href="{:rtc.sourceurl}css/{:rtc.language}/base_{:rtc.style|GetStyle}.css" />
+<link type="text/css" rel="stylesheet" href="{:rtc.sourceurl}exam/{:rtc.language}/{:rtc.style|GetStyle}.css" />
+<script src="{:rtc.sourceurl}ajax.js">
+</script>
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" oncopy="document.selection.empty()">
+<div id="root">
+<div id="header">
+<div class="topbar tright">
+<span>
+<a href="http://www.ppframe.com/" target="_blank">首页</a> | <a href="http://blog.ppframe.com/" target="_blank">博客</a> | <a href="{:rtc.passport_root}" target="_blank">通行证</a> | <a href="http://bbs.ppframe.com/" target="_blank">论坛</a></span></div>
+<table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+  <tr>
+    <td height="50"><a href="{:base_config.exam_root}"><img src="images/{:rtc.style|GetStyle}/logo.gif" alt="在线考试系统" /></a></td>
+  </tr>
+</table>
+<div class="guide" id="userstate" name="userstate"></div>
+</div>
+<script language="javascript">
+	var ajax;
+	var container;
+	container = $('userstate');
+	ajax = new Ajax(container);
+	ajax.doOpen('GET','ajax_userstate.php');
+	ajax.doSend();
+</script>
+<div id="main">

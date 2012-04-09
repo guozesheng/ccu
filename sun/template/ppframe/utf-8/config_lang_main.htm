@@ -1,0 +1,72 @@
+{include header.htm 1}
+
+  <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>基础语言包管理</strong></td>
+    </tr>
+    <tr>
+      <td width="180" height="24" bgcolor="#FFFFFF"><strong>标志</strong></td>
+      <td width="620" bgcolor="#FFFFFF"><strong>语言</strong></td>
+    </tr>
+	<form id="form1" name="form1" method="post" action="?">
+	{foreach lang_to_use k v}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">{:k}</td>
+      <td bgcolor="#FFFFFF"><input name="input[{:k}]" type="text" id="input[{:k}]" value="{:v}"></td>
+    </tr>
+    {/foreach}
+	<tr>
+      <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+      <td bgcolor="#FFFFFF"><input type="submit" value="修改">
+      <input name="Submit" type="hidden" id="Submit" value="1"></td>
+    </tr>
+	</form>
+	<tr>
+	  <td height="24" colspan="2" bgcolor="#FFFFFF">{:pagelink}</td>
+    </tr>
+	<tr>
+	  <td height="24" colspan="2" bgcolor="#FFFFFF">添加语言</td>
+    </tr>
+	{if}
+	{:file_note_writeable}
+	{/if}
+	<tr>
+	  <td height="24" colspan="2" bgcolor="#FFFFFF"><font color="#FF0000">{:file}</font><br />
+不可写，无法配置语言包</td>
+    </tr>
+	{/endif}
+	<form name="form2" method="post" action="?">
+	<tr>
+	  <td height="24" bgcolor="#FFFFFF"><strong>标志</strong></td>
+      <td height="24" bgcolor="#FFFFFF"><strong>语言</strong></td>
+	</tr>
+	<tr>
+	  <td height="24" bgcolor="#FFFFFF"><input name="ikey[1]" type="text" id="ikey[1]" size="15"></td>
+	  <td height="24" bgcolor="#FFFFFF"><input name="ivalue[1]" type="text" id="ivalue[1]"></td>
+	  </tr>
+	<tr>
+	  <td height="24" bgcolor="#FFFFFF"><input name="ikey[2]" type="text" id="ikey[2]" size="15"></td>
+	  <td height="24" bgcolor="#FFFFFF"><input name="ivalue[2]" type="text" id="ivalue[2]"></td>
+	  </tr>
+	<tr>
+	  <td height="24" bgcolor="#FFFFFF"><input name="ikey[3]" type="text" id="ikey[3]" size="15"></td>
+	  <td height="24" bgcolor="#FFFFFF"><input name="ivalue[3]" type="text" id="ivalue[3]"></td>
+	  </tr>
+	<tr>
+	  <td height="24" bgcolor="#FFFFFF"><input name="ikey[4]" type="text" id="ikey[4]" size="15"></td>
+	  <td height="24" bgcolor="#FFFFFF"><input name="ivalue[4]" type="text" id="ivalue[4]"></td>
+	  </tr>
+	<tr>
+	  <td height="24" bgcolor="#FFFFFF"><input name="ikey[5]" type="text" id="ikey[5]" size="15"></td>
+	  <td height="24" bgcolor="#FFFFFF"><input name="ivalue[5]" type="text" id="ivalue[5]"></td>
+	  </tr>
+	<tr>
+	  <td height="24" bgcolor="#FFFFFF"></td>
+	  <td height="24" bgcolor="#FFFFFF"><input type="submit" value="增加">
+      <input name="Submit" type="hidden" id="Submit" value="1">
+      <input name="add" type="hidden" id="add" value="1"></td>
+	  </tr>
+	</form>
+</table>
+
+{include footer.htm}

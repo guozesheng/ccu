@@ -1,0 +1,39 @@
+{if}
+{:exam_user->U_ID}>0
+{/if}
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>&nbsp;</td>
+		<td width="100">{:exam_user->U_Uname}</td>
+        <td width="100"><a href="{:go|GetLogouturl @}">退出</a></td>
+		<td width="100"><a href="my_kaojuan.php">我的考卷</a></td>
+		{if}{:base_config.exam_allowpush}{/if}
+		<td width="100"><a href="my_shiti.php">我要出题</a></td>
+		{/endif}
+		<td width="100"><a href="{:rtc.passport_root}">我的通行证</a></td>
+  </tr>
+</table>
+{/endif}
+{else}
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>&nbsp;</td>
+	    <td width="600"><form action="{:rtc.passport_login}" method="POST">用户名
+	      <input name="username" type="text" id="username" value="{:exam_user-&gt;U_Uname}" size="10" />
+	      密　码
+          <input name="password" type="password" id="password" size="10" />
+	      {if}
+	      {:rtc.login_gdcode}
+	      {/if}
+	      验证码
+          <input name="gdcode" type="text" id="gdcode" size="8" />
+          <img src="{:rtc.passport_root}ck.php{:checknum_no_cookie}" alt="" width="80" height="22" align="absmiddle" style="cursor:pointer" onclick="this.src='{:rtc.passport_root}ck.php{:checknum_no_cookie}'" />
+          <input name="{$ckecknum_ckckey}" type="hidden" id="{$ckecknum_ckckey}" value="{$checknum_key}" />
+	      {/endif}
+          <input name="Submit" type="hidden" id="Submit" value="1" />
+          <input name="return" type="hidden" id="return" value="{:go}" />          <input name="submit" type="submit" value=" 登录 "/> <a href="{:go|GetRegurl @}">注册</a>  
+	    </form>   
+	      </td>
+     </tr>
+    </table>
+{/else}

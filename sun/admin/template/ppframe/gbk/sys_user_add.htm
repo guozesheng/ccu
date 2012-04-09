@@ -1,0 +1,99 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF"><a href="sys_user_main.php">PPFrame后台管理员管理</a></td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF">添加管理员</td>
+  </tr><form name="form1" method="post" action="?">
+  <tr>
+    <td width="20%" bgcolor="#FFFFFF">用户名</td>
+    <td bgcolor="#FFFFFF">
+      <input name="input[userid]" type="text" id="input[userid]">
+      (字母、数字、_ 3-12位)    </td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">姓名</td>
+    <td bgcolor="#FFFFFF"><input name="input[name]" type="text" id="input[name]"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">密码</td>
+    <td bgcolor="#FFFFFF"><input name="input[password]" type="password" id="input[password]"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">密码重复</td>
+    <td bgcolor="#FFFFFF"><input name="input[password2]" type="password" id="input[password2]"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">禁止登录</td>
+    <td bgcolor="#FFFFFF"><p>
+      <label>
+        <input type="radio" name="input[loginban]" value="1">
+        禁止登录</label>
+      <label>
+        <input name="input[loginban]" type="radio" value="0" checked="checked">
+        允许登录</label>
+    </p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF"><input type="submit" value="添加用户">
+      <input name="Submit" type="hidden" id="Submit" value="1"></td>
+  </tr>
+   <tr>
+    <td bgcolor="#FFFFFF">电话</td>
+    <td bgcolor="#FFFFFF"><input name="input[telphone]" type="text" id="input[telphone]">    </td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">手机</td>
+    <td bgcolor="#FFFFFF"><input name="input[ceilphone]" type="text" id="input[ceilphone]"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">Email</td>
+    <td bgcolor="#FFFFFF"><input name="input[email]" type="text" id="input[email]"></td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF">管理员展示/介绍</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF"><textarea name="input[u_discript]" cols="120" rows="8" id="input[u_discript]"></textarea></td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF">权限分配 (基于文件名的3级权限控制) </td>
+    </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF"><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+      <tr>
+        <td colspan="3" bgcolor="#FFFFFF">权限组选择 权限以前缀判断，选定了上层权限无需选择下层权限。简洁的权限设置能加快权限检测速度</td>
+      </tr>
+      {foreach authdb k v}
+  <tr>
+    <td colspan="3" bgcolor="#FFFFFF"><input name="input[priv][]" type="checkbox" id="input[priv][]" value="{:k}"/>
+      {:k|GetMsg @}</td>
+  </tr>
+      {foreach v kk vv}
+  <tr>
+    <td width="4%" bgcolor="#FFFFFF">|-</td>
+    <td colspan="2" bgcolor="#FFFFFF"><input name="input[priv][]" type="checkbox" id="input[priv][]" value="{:kk}"/>
+      {:kk|GetMsg @}</td>
+  </tr>
+      {foreach vv kkk vvv}
+  <tr>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td width="4%" bgcolor="#FFFFFF">|-</td>
+    <td bgcolor="#FFFFFF"><input name="input[priv][]" type="checkbox" id="input[priv][]" value="{:kkk}"/>
+      {:kkk|GetMsg @}</td>
+  </tr>
+      {/foreach}
+      {/foreach}
+  <tr>
+    <td colspan="3" bgcolor="#FFFFFF">---------------</td>
+    </tr>
+  
+
+      {/foreach}
+    </table></td>
+  </tr>
+  </form>
+</table>
+{include footer.htm}

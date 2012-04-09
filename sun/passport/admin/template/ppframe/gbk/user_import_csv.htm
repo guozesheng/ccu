@@ -1,0 +1,79 @@
+{include iframeheader.htm 1}
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+}
+-->
+</style>
+<table width="98%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  {if}
+  {:check_first}
+  {/if}
+  <tr>
+    <td width="800" bgcolor="#FFFFFF"><strong>检测结果</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">共有记录:{:total_num}<br>
+      合格的记录:{:success_num}<br>
+      不合格记录:{:failed_num}<br />
+      注意：这仅仅是一个检测，并没有真正导入。要真正导入，请去掉 <strong>我要测试</strong> 选项。</td>
+  </tr>
+  {if}
+  {:failed_num}
+  {/if}
+  <tr>
+    <td bgcolor="#FFFFFF">不合格记录:</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+      <tr>
+	        <td>用户名</td>
+            <td>密码</td>
+        </tr>
+		{foreach failed k v}
+	     
+        <tr>
+			<td>{:v.[:rtc.passport_uniqueid]}</td>
+            <td>{:v.[:rtc.passport_passkey]}</td>
+        </tr>
+	  {/foreach}
+    </table></td>
+  </tr>
+  {/endif}
+  {if}
+  {:success_num}
+  {/if}
+  <tr>
+    <td bgcolor="#FFFFFF">合格记录:</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+        <tr>
+	        <td>用户名</td>
+            <td>密码</td>
+        </tr>
+		  {foreach successed k v}
+        <tr>
+		  <td>{:v.[:rtc.passport_uniqueid]}</td>
+            <td>{:v.[:rtc.passport_passkey]}</td>
+        </tr>
+      {/foreach}
+    </table></td>
+  </tr>
+  {/endif}
+  {/endif}
+  {else}
+  <tr>
+    <td bgcolor="#FFFFFF"><strong>导入结果</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">共有记录:{:total_num}<br>
+合格的记录:{:success_num}<br>
+不合格记录:{:failed_num}<br />
+注意：如果选择了忽略重复行，则重复的用户记录并不会导入！</td>
+  </tr>
+  {/else}
+</table> 
+{include footer.htm 1}

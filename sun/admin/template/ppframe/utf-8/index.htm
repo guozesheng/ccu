@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>PPFrame后台</title>
+<style>
+body {
+scrollbar-base-color:#C0D586;
+scrollbar-arrow-color:#FFFFFF;
+scrollbar-shadow-color:DEEFC6
+}
+body, td{
+	margin: 0px;
+	font: 12px Arial, Helvetica, sans-serif;
+	text-align: left;
+}
+.topmenu{
+	margin-right:2px; text-align:center; margin-left:2px; float:left;border:1px #999 solid; color:#999; text-decoration:none;
+}
+.topmenu a{
+	display:block; zoom:1; float:left; margin-left:2px; margin-right:2px; text-decoration:none;
+}
+.menuhead{
+ background: url(images/ppframe/bg_header.gif) repeat-x;
+}
+</style>
+<script src="{:rtc.sourceurl}ajax.js" language="javascript">
+</script>
+<script>
+//var collapsed = getcookie('cdb_collapse');
+function collapse_change(menucount,menuname) {
+	
+	if($(menuname + menucount).style.display == 'none') {
+		$(menuname + menucount).style.display = '';
+		//collapsed = collapsed.replace('[' + menucount + ']' , '');
+		$(menuname + 'menuimg_' + menucount).src = './images/ppframe/menu_reduce.gif';
+		
+	} else {
+		$(menuname + menucount).style.display = 'none';
+		//collapsed += '[' + menucount + ']';
+		$(menuname + 'menuimg_' + menucount).src = './images/ppframe/menu_add.gif';
+	}
+	//setcookie('cdb_collapse', collapsed, 2592000);
+}
+</script>
+</head>
+<body>
+<table width="100%" border="0" cellspacing="1" cellpadding="3">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="1" cellpadding="3">
+      
+      <tr>
+        <td>
+		<div style="float:left">
+		<p><strong>PPFrame后台管理
+        </strong>		</p>
+		<p>{:Admin-&gt;U_Uname}你好</p>
+		</div>
+        <div style="float:right">{foreach menu k v}<span class="topmenu"><a href="{:v}" target="mainFrame">{:k} </a></span>{/foreach} </div>
+        <div style="float:right; clear:right; margin-top:5px;">
+          {foreach modules k v}
+          {if}
+          {:v.run} && {:v.adminmenuajax}
+          {/if}
+          
+          <span class="topmenu"><a href="javascript:;" onclick="loadmodule('{:v.key}','{:v.adminroot}{:v.adminmenuajax}');return false;">{:v.name}</a></span>
+          {/endif}
+		  {else}
+  <span class="topmenu"><a href="{:v.adminroot}{:v.adminmenu}" target="mainFrame">{:v.name}</a></span>
+          {/else}
+          {/foreach}  </div></td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td>
+	<div style="width:19%; clear:both; text-align:center;border-width:1px; padding-bottom:10px; padding-top:10px; margin-bottom:5px; background:#3399FF; font-size:14px; text-align:center; vertical-align:middle"><strong><a href="javascript:;" style="cursor:pointer; width:100%" onclick="ChangMenu();return false;"><img src="./images/ppframe/menu_reduce.gif" border="0" align="absmiddle" id="TopImg"/><font color="#FFFF00">模块管理入口点击展开或者收缩</font></a></strong> </div>
+	<div style="float:left; width:19%; display:" id="menuleft">
+	<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+          {foreach modules k v}
+          {if}
+          {:v.run} && {:v.adminmenuajax}
+          {/if}
+  <tr>
+    <td height="28" bgcolor="#FFFFFF" style="cursor:pointer" onclick="loadmodule('{:v.key}','{:v.adminroot}{:v.adminmenuajax}');return false;">{:v.name}</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><div id="module{:v.key}" style="display:none"></div></td>
+  </tr>
+          {/endif}
+          {else}
+  <tr>
+    <td height="28" bgcolor="#FFFFFF" style="cursor:pointer"><a href="{:v.adminroot}{:v.adminmenu}" target="mainFrame">{:v.name}</a></td>
+  </tr>
+  
+
+          {/else}
+          {/foreach}
+		  <tr>
+		    <td height="28" bgcolor="#FFFFFF" style="cursor:pointer"><a href="logout.php" target="_top">安全退出</a></td>
+	      </tr>
+		  <tr>
+    <td height="28" bgcolor="#FFFFFF" style="cursor:pointer"><a href="{:rtc.host}help.html" target="_blank">简易帮助文档</a></td>
+  </tr>
+		  <tr>
+		    <td height="28" bgcolor="#FFFFFF" style="cursor:pointer"><a href="http://bbs.ppframe.com/" target="_blank">官方论坛</a></td>
+	      </tr>
+  </table>
+	</div>
+	<div style="float:right; width:79%;" id="menuright">
+	  <iframe frameborder="0" width="100%" height="700" src="{:go}"  name="mainFrame" id="mainFrame" scrolling="Yes"> </iframe>
+	</div>
+	</td>
+  </tr>
+</table>
+<script language="javascript">
+var loaded = '';
+function loadmodule(module,url){
+	container = $('module'+module);
+	if(loaded.indexOf(','+module+',') == -1){
+		ajax = new Ajax(container);
+		ajax.doOpen('GET',url);
+		ajax.doSend(null);
+		if(loaded) {
+			loaded = loaded + module + ',';
+		}else {
+			loaded =  loaded + ',' + module + ',';
+		}
+	}
+	if(container.style.display!='block') {
+		container.style.display='block';
+		if($('menuleft').style.display == 'none'){
+			ChangMenu();
+		}
+	}
+	else if(container.style.display=='block')
+	container.style.display='none';
+	
+}
+function ChangMenu(){
+	menu = $('menuleft');
+	if(menu.style.display != 'none') {
+		menu.style.display = 'none';
+		$('menuright').style.width="99%";
+		$('TopImg').src = './images/ppframe/menu_add.gif';
+	}else {
+		menu.style.display = '';
+		$('menuright').style.width="79%";
+		$('TopImg').src = './images/ppframe/menu_reduce.gif';
+	}
+}
+</script>
+<script type="text/javascript">
+<!--
+var resizeflag='1';
+function iframeResize(handle)
+{  
+
+
+	var dyniframe   = null;
+	var indexwin    = null;
+
+	if (document.getElementById)
+	{
+		dyniframe       = document.getElementById(handle);
+		indexwin        = window;
+ 
+		if (dyniframe)
+		{
+			if(resizeflag=='0'){resizeflag='1';dyniframe.height="700";return false}
+
+			if (dyniframe.contentDocument){
+				dyniframe.height = dyniframe.contentDocument.body.scrollHeight + 20;
+ 
+			}
+			else if (dyniframe.document && dyniframe.document.body.scrollHeight)
+			{
+				iframeheight	= mainFrame.document.body.scrollHeight + 20;
+//				windowheight = indexwin.document.body.scrollHeight - 128;
+//				dyniframe.height = (iframeheight < windowheight) ? windowheight : iframeheight;
+				dyniframe.height = iframeheight;
+ 
+			}
+		}
+	}
+}
+function scroll_to_top()
+{
+	document.body.scrollTop=0;
+}
+</script>
+</body>
+</html>

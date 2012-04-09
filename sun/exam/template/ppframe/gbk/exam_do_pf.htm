@@ -1,0 +1,103 @@
+{include exam_header.htm 1}
+<div class="box"><table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+  <tr class="h">
+    <td valign="top">考卷查看/评分</td>
+  </tr>
+  <tr>
+    <td valign="top">
+	
+	<table width="100%" border="0" cellspacing="1" cellpadding="3">
+      <tr class="t2">
+        <td width="20%">考卷名称:</td>
+        <td>{if}{:kaojuan.name}{/if}{:kaojuan.name}{/endif}{else}Create {:kaojuan.time|GetMyDate Y-m-d H:i,@}{/else}</td>
+      </tr>
+      <tr class="t2">
+        <td>所属试卷:</td>
+        <td>{:shijuan.title}</td>
+      </tr>
+      <tr class="t2">
+        <td>评分状态:</td>
+        <td>得分:{:kaojuan.sorce|UseFenSize @,[:fensize],2} 总分 {:kaojuan.totalsorce|UseFenSize @,[:fensize],2} </td>
+      </tr>
+      <tr class="t2">
+        <td>考试开始时间:</td>
+        <td>{:kaojuan.start|GetMyDate Y-m-d H:i:s,@}</td>
+      </tr>
+      <tr class="t2">
+        <td>考试结束时间:</td>
+        <td>{:kaojuan.end|GetMyDate Y-m-d H:i:s,@}</td>
+      </tr>
+      {if}
+	  {:kaojuan.state} == 3
+	  {/if}
+      <tr class="t2">
+        <td>备注:</td>
+        <td>可能还有主观题未评分,上述得分可能不是最终得分</td>
+      </tr>
+	  {/endif}
+      <tr class="t2">
+        <td colspan="2">考卷评分(自己只有一次评分机会):</td>
+        </tr>
+      <tr>
+        <td colspan="2">
+		<table width="100%" border="0" cellspacing="1" cellpadding="3">
+	  {if}
+	  {:kaojuan.state} == 3 && {:shijuan.selfpf}
+	  {/if}
+	 <form name="form1" method="post" action="{:FormToSelf}">
+	 {foreach data k v}
+	 <tr class="t2">
+        <td><strong>{:key|GetShitiType @}</strong></td>
+      </tr> 
+	 {foreach v kk vv}
+	   <tr class="t3">
+        <td>题目{:vv.th}：{:vv.title} 总分:{:vv.fen|UseFenSize @,[:fensize],2}</td>
+      </tr>
+	  {if}
+	  {:k|GetTxBaseType @} == 3
+	  {/if}
+      <tr class="t3">
+        <td>Answer:{:damix.[:k].[:vv.k].da}</td>
+      </tr>
+      <tr class="t3">
+        <td>参考答案: {:vv.daan}</td>
+      </tr>
+      <tr class="t3">
+        <td>参考解答: {:vv.jieda}</td>
+      </tr>
+      <tr class="t3">
+        <td>
+          打分
+          <input name="defen[{:k}][{:vv.k}]" type="text" id="defen[{:k}][{:vv.k}]" value="{:damix.[:k].[:vv.k].df|UseFenSize @,[:fensize],2}" size="6">
+          修改该题得分
+          <input name="dafen[{:k}][{:vv.k}]" type="checkbox" id="dafen[{:k}][{:vv.k}]" value="1"></td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:vv.sun}
+	  {/if}
+	  <tr>
+	    <td>
+	  {foreach vv.sun msk msv}{foreach msv mskk msvv}{:msvv|GetExamShitiView [:msk],@,exam,fun_examshiti_pf}{/foreach}{/foreach}	  </td>
+	  </tr>
+	  {/endif}
+	  {/foreach}
+	  {/foreach}
+	  <tr class="t3">
+        <td>&nbsp;</td>
+      </tr>
+	  <tr class="t3">
+	    <td><input type="submit" value="提交评分">
+          <input name="do" type="hidden" id="do" value="1">
+          <input name="id" type="hidden" id="id" value="{:id}"></td>
+	    </tr>
+	  </form>
+	   {/endif}
+    </table>
+	
+		</td>
+      </tr>
+    </table></td>
+  </tr>
+</table></div>
+{include exam_footer.htm 1}

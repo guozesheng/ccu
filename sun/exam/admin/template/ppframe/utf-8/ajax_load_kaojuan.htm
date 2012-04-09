@@ -1,0 +1,73 @@
+<table width="100%" border="0" cellspacing="1" cellpadding="3">
+  <tr>
+    <td valign="top" bgcolor="#FFFFFF">
+	<table width="100%" border="0" cellspacing="1" cellpadding="3">
+	{foreach data k v}
+      <tr>
+        <td><strong>{:k|GetShitiType @}</strong></td>
+      </tr>
+	  {foreach v kk vv}
+      <tr>
+        <td>题目{:vv.th}：{:vv.title} {if}{:k|GetTxBaseType @}!= 7{/if}得分:{:damix.[:k].[:vv.k].df|UseFenSize @,[:fensize],2}{if}{:k|GetTxBaseType @}!= 4{/if}/{:vv.fen|UseFenSize @,[:fensize],2}{/endif}{/endif} </td>
+      </tr>
+	  {if}
+	  {:k|GetTxBaseType @} == 1 || {:k|GetTxBaseType @} == 4
+	  {/if}
+      <tr>
+        <td>
+		{+AZ 65 1 1}
+		{foreach vv.xx kkk vvv}
+              <input id="{:k}_{:vv.k}_{:vvv.k}" type="radio" disabled="disabled" {if}'{:damix.[:k].[:vv.k].da}'=='{:vvv.k}'{/if}checked{/endif}>
+              <label for="{:k}_{:vv.k}_{:vvv.k}">{:kkk|chr [+AZ 65 1]}: {:vvv.xx} </label>{if}'{:vv.daan}'=='{:vvv.k}'{/if}<font color="#FF0000">√</font>{/endif} 
+		      {if}{:k|GetTxBaseType @}== 4{/if}选择得{:vvv.fen}分{/endif}<br />
+		      {/foreach}
+		解答:{:vv.jieda}</td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:k|GetTxBaseType @} == 2
+	  {/if}
+      <tr>
+        <td>
+		{+AZ 65 1 1}
+		{foreach vv.xx kkk vvv}
+            <input id="{:k}_{:vv.k}_{:vvv.k}" type="checkbox" disabled="disabled" {if}{:damix.[:k].[:vv.k].da|in_array [:vvv.k],@}{/if}checked{/endif}>
+            <label for="{:k}_{:vv.k}_{:vvv.k}">{:kkk|chr [+AZ 65 1]}: {:vvv.xx} </label>
+            {if}{:vv.daan|in_array [:vvv.k],@}{/if}<font color="#FF0000">√</font> {/endif}
+		<br>
+		{/foreach} 
+        解答:{:vv.jieda}</td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:k|GetTxBaseType @} == 3
+	  {/if}
+      <tr>
+        <td>Answer:{:damix.[:k].[:vv.k].da}<br>
+          解答:{:vv.jieda}</td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:vv.sun}
+	  {/if}
+	  <tr class="t3">
+        <td>{foreach vv.sun msk msv}{foreach msv mskk msvv}{:msvv|GetExamShitiView [:msk],@,exam,fun_examshiti_view}{/foreach}{/foreach}</td>
+      </tr>
+	  {/endif}
+	  {/foreach}
+	 {/foreach}
+	 <tr>
+        <td>{foreach record k v}
+		 <span style="padding-left:3px;">
+		{if}{:v}=={:type}{/if}
+		<strong>{:v|GetShitiType @}</strong>
+		{/endif}{else}<a href="javascript:;" onclick="loadkaojuan({:v})">{:v|GetShitiType @}</a>{/else}
+		 <span>
+		{/foreach}</td>
+      </tr>
+	 <tr>
+	   <td>{:pagelink}</td>
+	   </tr>
+    </table>	</td>
+  </tr>
+</table>

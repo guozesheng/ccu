@@ -1,0 +1,58 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td width="1200" height="24" bgcolor="#FFFFFF"><strong>充值卡生成</strong> <a href="money_card_main.php">查看充值卡</a></td>
+  </tr>
+  
+  <form name="form1" action="{:FormToSelf}">
+  
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">货币
+      <select name="mtype" id="mtype">
+        
+        
+	  {foreach rtc.passport_money k v}
+      
+        
+        <option value="{:v}" {if}'{:mtype}'=='{:v}'{/if}selected="selected"{/endif}>{:money_types.[:v]}|{:money_types.[:v]|GetMsg @}</option>
+        
+        
+	   {/foreach}
+    
+      
+      </select>
+充值卡金额
+<input name="mnum" type="text" id="mnum" value="{:mnum}" size="6" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><label>
+      状态
+          <input name="state" type="radio" value="0" checked="checked" {if}'{:state}'=='0'{/if}checked="checked"{/endif} />
+刚生成</label>
+      <label>
+      <input type="radio" name="state" value="1" {if}'{:state}'=='1'{/if}checked="checked"{/endif} />
+销售中</label>
+      <label>
+      <input type="radio" name="state" value="2" {if}'{:state}'=='2'{/if}checked="checked"{/endif} />
+已充值</label>
+      <label>
+      <input type="radio" name="state" value="3" {if}'{:state}'=='3'{/if}checked="checked"{/endif} />
+所有</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">充值卡生成日期
+      <input name="date" type="text" id="date" value="{:date}" size="15" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><input type="submit" value="下载" />
+      <input name="Submit" type="hidden" id="Submit" value="1" />
+      或者 
+      <input name="record" type="submit" id="record" value="标记销售状态" />
+      （仅仅在选择下载刚生成的充值卡时可以标记销售，其他状态的不能标记）</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">充值卡下载之后，进入销售状态。在确认下载成功后，可以点击标记销售状态！</td>
+  </tr>
+  </form>
+</table>
+{include footer.htm}

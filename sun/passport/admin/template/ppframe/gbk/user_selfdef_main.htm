@@ -1,0 +1,102 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="5" bgcolor="#FFFFFF"><strong>{:tb}表自定义字段管理</strong></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="5" bgcolor="#FFFFFF">自动创建表单字段</td>
+  </tr>
+  <tr>
+    <td width="160" height="24" bgcolor="#FFFFFF">自定义字段</td>
+    <td width="160" bgcolor="#FFFFFF">类型</td>
+    <td width="160" bgcolor="#FFFFFF">是否NULL</td>
+    <td width="160" bgcolor="#FFFFFF">默认值</td>
+    <td width="160" bgcolor="#FFFFFF">操作</td>
+  </tr>
+  {foreach selfdef_fields k v}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">{:v.0}</td>
+    <td bgcolor="#FFFFFF">{:v.1}</td>
+    <td bgcolor="#FFFFFF">{:v.2}</td>
+    <td bgcolor="#FFFFFF">{:v.4}</td>
+    <td bgcolor="#FFFFFF"><a href="user_selfdef_del.php?field={:v.0}" onClick="if(!confirm('确定删除？')) return false;">删除</a> <a href="user_selfdef_edit.php?field={:v.0}">修改</a></td>
+  </tr>
+  {/foreach}
+  <tr>
+    <td height="24" colspan="5" bgcolor="#FFFFFF">不自动创建表单字段</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">自定义字段</td>
+    <td bgcolor="#FFFFFF">类型</td>
+    <td bgcolor="#FFFFFF">是否NULL</td>
+    <td bgcolor="#FFFFFF">默认值</td>
+    <td bgcolor="#FFFFFF">操作</td>
+  </tr>
+  {foreach mydef_fields k v}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">{:v.0}</td>
+    <td bgcolor="#FFFFFF">{:v.1}</td>
+    <td bgcolor="#FFFFFF">{:v.2}</td>
+    <td bgcolor="#FFFFFF">{:v.4}</td>
+    <td bgcolor="#FFFFFF"><a href="user_selfdef_del.php?field={:v.0}" onClick="if(!confirm('确定删除？')) return false;">删除</a> <a href="user_selfdef_edit.php?field={:v.0}">修改</a></td>
+  </tr>
+ {/foreach}
+  <form name="form1" method="post" action="user_selfdef_add.php">
+  <tr>
+    <td height="24" colspan="5" bgcolor="#FFFFFF"><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+        <tr>
+          <td colspan="2" bgcolor="#FFFFFF"><strong>添加自定义字段</strong> 自定义的字段总是以selfdef_ or mydef_ 开头！selfdef_ 字段会自动创建表单。mydef_字段需自己修改模板！</td>
+          </tr>
+        
+        
+        <tr>
+          <td width="100" bgcolor="#FFFFFF">字段名</td>
+          <td bgcolor="#FFFFFF">selfdef_|mydef_
+            <input name="input[field]" type="text" id="input[field]" size="10"></td>
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF">属性</td>
+          <td bgcolor="#FFFFFF"><input name="input[editonce]" type="checkbox" id="input[editonce]" value="1">
+            只允许修改一次
+            
+              <input name="input[autocreate]" type="checkbox" id="input[autocreate]" value="1" checked>
+              自动创建表单
+            
+自动创建的表单总是 text 文本框 </td>
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF">类型</td>
+          <td bgcolor="#FFFFFF"><select name="input[type]" id="input[type]">
+            <option value="varchar">varchar</option>
+            <option value="char">char</option>
+            <option value="int">int</option>
+            <option value="smallint">smallint</option>
+            <option value="tinyint">tinyint</option>
+            <option value="text">text</option>
+            <option value="mediumtext">mediumtext</option>
+          </select>          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF">长度</td>
+          <td bgcolor="#FFFFFF"><input name="input[length]" type="text" id="input[length]" value="10"></td>
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF">是否空</td>
+          <td bgcolor="#FFFFFF"><input type="radio" name="input[null]" value="1">
+            是
+              <input name="input[null]" type="radio" value="0" checked>
+            否</td>
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF">默认值</td>
+          <td bgcolor="#FFFFFF"><input name="input[default]" type="text" id="input[default]"></td>
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF">&nbsp;</td>
+          <td bgcolor="#FFFFFF"><input type="submit" value="添加">
+            <input name="Submit" type="hidden" id="Submit" value="1"></td>
+        </tr>
+      </table>    </td>
+  </tr></form>
+</table>
+{include footer.htm 1}

@@ -1,0 +1,477 @@
+{include exam_header.htm 1}
+<center>
+<div style="height:28px;margin-bottom:5px;">
+{foreach record k v}
+{if}
+'{:type}' == '{:v}'
+ {/if}
+<button class=btn1 id="bt{:v}" onclick="return false">{:v|GetShitiType @}</button>
+&nbsp;
+{/endif}
+{else}
+<button class=btn onmouseover="MouseEvent(1,this)" onmouseout="MouseEvent(0,this)" onClick="window.location='exam_do.php?id={:id}&amp;type={:v}&amp;onlyans={:onlyans}';">{:v|GetShitiType @}</button>&nbsp;
+{/else}
+{/foreach}
+&nbsp;
+{if}
+'{:onlyans}' == '2'
+{/if}<button class="btn1" onclick="return false;">未作答项</button> &nbsp; {/endif}
+{else} <button class="btn" onmouseover="MouseEvent(1,this)" onmouseout="MouseEvent(0,this)" onclick="window.location='exam_do.php?id={:id}&amp;type={:type}&amp;onlyans=2'">查看未作答</button> &nbsp;
+{/else}
+{if}
+'{:onlyans}' == '1'
+{/if}<button class="btn1" onclick="return false;">已作答项</button>{/endif}
+{else} <button class="btn" onmouseover="MouseEvent(1,this)" onmouseout="MouseEvent(0,this)" onclick="window.location='exam_do.php?id={:id}&amp;type={:type}&amp;onlyans=1'">查看已作答</button> 
+{/else}
+</div>
+</center>
+<script language="javascript">
+var listen = {};
+var editor = 0;
+function addlisten(i,j,b) {
+	if(b) {
+		eval("listen.exam_"+ i + "_" + j + "='exam[" + i + "][" + j + "][]';");
+	}else {
+		eval("listen.exam_"+ i + "_" + j + "='exam[" + i + "][" + j + "]';");
+	}
+}
+</script>
+<table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+  <tr>
+    <td width="24%" valign="top">      <div class="box"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+        
+		{foreach record k v}
+        <tr class="t2">
+          <td>
+		  {if}
+		  '{:type}' == '{:v}'
+		  {/if}
+		    <strong>{:v|GetShitiType @}</strong>		  {/endif}
+		  {else}
+		  <a href="exam_do.php?id={:id}&amp;type={:v}&amp;onlyans={:onlyans}">{:v|GetShitiType @}</a>
+		  {/else}		  </td>
+        </tr>
+       {/foreach}
+	   <tr class="t2">
+	     <td>
+		 {if}
+		 '{:onlyans}' == '2'
+		 {/if}		   <strong>未作答项</strong> {/endif}
+		 {else} <a href="exam_do.php?id={:id}&amp;type={:type}&amp;onlyans=2">查看未作答</a>
+		 {/else}		 </td>
+        </tr>
+	   <tr class="t2">
+	     <td>
+		 {if}
+		 '{:onlyans}' == '1'
+		 {/if}
+		   <strong>已作答项</strong>		 {/endif}
+		 {else}
+		 <a href="exam_do.php?id={:id}&amp;type={:type}&amp;onlyans=1">查看已作答</a>
+		 {/else}		 </td>
+        </tr>
+		<!--
+	   <tr class="t2">
+          <td><a href="exam_do.php?id={:id}&amp;all=1">所有</a> 查看所有项可能很慢</td>
+        </tr>
+		-->
+	   <tr>
+	     <td>
+		 <span id="timer"></span>
+		 <style type="text/css">
+		 .col_4{color:#497b02}
+		 .f14b{font-weight:bold;}
+		 </style></td>
+        </tr>
+		{if}
+		{:element_exam_shijuan-&gt;E.limitime}
+		{/if}
+	   <tr>
+	     <td>最短答题时间：<br />
+	       {:element_exam_shijuan-&gt;E.limitime}分钟</td>
+	     </tr>
+		 {/endif}
+		<!-- keepalive -->
+	   <tr>
+	     <td><iframe src="keepalive.php" width="0" marginwidth="0" height="0" marginheight="0" scrolling="auto" frameborder="0"></iframe></td>
+        </tr>
+	   <tr>
+	     <td><iframe width="0" marginwidth="0" height="0" marginheight="0" scrolling="Auto" frameborder="0" name="formFrame" id="formFrame"></iframe>
+	       <font color="#FF0000">提示：系统每{:base_config.kaojuan_autotime}秒自动保存一次</font></td>
+	     </tr>
+	   <tr>
+	     <td>系统将在<span id="autosave">{:base_config.kaojuan_autotime}</span>秒后自动保存您本页的答案! </td>
+	     </tr>
+		 {if}
+		 {:element_exam_shijuan->E.showadmin}
+		 {/if}
+	   <tr>
+	     <td><a href="viewteacher.php?id={:element_exam_shijuan-&gt;E.adminid}" target="_blank">查看命题人简介</a></td>
+	     </tr>
+		 {/endif}
+    </table>
+    </div></td><td valign="top">
+	<div class="box"><table width="100%" border="0" cellspacing="1" cellpadding="3"><form action="exam_do_action.php" method="post" name="form1" id="form1" target="formFrame" onsubmit="return ResetState();">
+	{foreach kaojuan k v}
+      <tr class="h">
+        <td><strong>{:k|GetShitiType @}</strong> {if}'{:timemix.[:k].st}'||'{:timemix.[:k].ed}'{/if}<font color="#FF0000">完成时间{:timemix.[:k].st} - {:timemix.[:k].ed}分钟 </font>{/endif}<br />
+          说明:{:descripmix.[:k]}</td>
+      </tr>
+	  {foreach v kk vv}	 
+      <tr class="t2">
+        <td><strong>第{:vv.th}题</strong>：{if}{:k|GetTxBaseType @}!=7 && {:k|GetTxBaseType @} !=4{/if}分值:{:vv.fen|UseFenSize @,[:fensize],2} {if}{:vv.kf}{/if}答错倒扣{:vv.kf|UseFenSize @,[:fensize],2}分{/endif}{/endif} </td>
+      </tr>
+      <tr class="t3">
+        <td>{:vv.title|nl2br @}  </td>
+      </tr>{if}{:k|GetTxBaseType @}!= 4 && {:k|GetTxBaseType @}!= 7{/if}
+      {/endif}
+	  {if}
+	  {:k|GetTxBaseType @} == 1 || {:k|GetTxBaseType @} == 4
+	  {/if}
+      <tr class="t3">
+        <td>
+		{+AZ 65 1 1}
+		{foreach vv.xx kkk vvv}
+              <input onchange="ChangeState()" name="exam[{:k}][{:vv.k}]" id="{:k}_{:vv.k}_{:vvv.k}" type="radio" value="{:vvv.k}" {if}'{:damix.[:k].[:vv.k].da}'=='{:vvv.k}'{/if}checked{/endif}>
+             <label for="{:k}_{:vv.k}_{:vvv.k}">{:kkk|chr [+AZ 65 1]}:{:vvv.xx|nl2br @}</label>
+			
+		      <br />
+		      {/foreach}
+			  {if}
+			 {:vv.kf}
+			 {/if}
+			  <input onchange="ChangeState()" name="exam[{:k}][{:vv.k}]" id="{:k}_{:vv.k}_0" type="radio" value="0">
+			  <label for="{:k}_{:vv.k}_0">我怕扣分，我不作答</label>
+			 {/endif}			  </td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:k|GetTxBaseType @} == 2
+	  {/if}
+      <tr class="t3">
+        <td>
+		{+AZ 65 1 1}
+		{foreach vv.xx kkk vvv}
+            <input onchange="ChangeState()" name="exam[{:k}][{:vv.k}][]" id="{:k}_{:vv.k}_{:vvv.k}" type="checkbox" value="{:vvv.k}" {if}{:damix.[:k].[:vv.k].da|in_array [:vvv.k],@}{/if}checked{/endif}>
+<label for="{:k}_{:vv.k}_{:vvv.k}" >{:kkk|chr [+AZ 65 1]}:{:vvv.xx|nl2br @}</label>
+		<br />
+		{/foreach}
+			{if}
+			 {:vv.kf}
+			 {/if}
+			  <input onchange="ChangeState()" name="exam[{:k}][{:vv.k}]" id="radio" type="radio" value="0" />
+              <label for="radio">我怕扣分，我不作答</label>
+{/endif} </td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:k|GetTxBaseType @} == 3
+	  {/if}
+	  <script language="javascript">
+	  addlisten({:k},{:vv.k});
+	  </script>
+      <tr class="t3">
+        <td>
+		{if}{:base_config.exam_use_ueditor}{/if}
+		{:damix.[:k].[:vv.k].da|CreateExamFCKEditor exam[[:k]][[:vv.k]],@,150,90%}
+		<script language="javascript">
+	  	editor = 1;
+	   </script>
+		{/endif}
+		{else}
+		  <textarea onchange="ChangeState()" name="exam[{:k}][{:vv.k}]" cols="40" rows="4">{:damix.[:k].[:vv.k].da}</textarea>
+		{/else}
+		</td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:vv.sun}
+	  {/if}
+	  <tr class="t3">
+        <td>{foreach vv.sun msk msv}{foreach msv mskk msvv}{:msvv|GetExamShitiView [:msk],@,exam,fun_examshiti_do}{/foreach}{/foreach}</td>
+      </tr>
+	  {/endif}
+	  {/foreach}
+	 {/foreach}
+	  <tr>
+        <td><input type="submit" value="保存" name="baocun" id="baocun" />
+          <input name="done" type="submit" id="done" value="交卷" onclick="ChangeState()" />
+          <input name="Submit" type="hidden" id="Submit" value="1"/>
+          <input name="id" type="hidden" id="id" value="{:id}" />
+          <input name="type" type="hidden" id="type" value="{:type}" /></td>
+      </tr>
+	  </form>
+	  <tr>
+	    <td>{:pagelink}</td>
+	    </tr>
+    </table>
+	</div>
+      </td>
+  </tr>
+</table>
+<script language="javascript">
+var ctimer;
+var ppast = {:ppast};	//已经过去的时间 秒数
+var total = {:total};	//总共可以做题的时间 秒数
+var alt = false;
+
+var EditorUse = false;	//使用可见可得编辑器后，将不能自动判断考卷状态。将此项置为true。
+
+var tpass = 0;	//上次保存后过去的秒数
+var save = {:base_config.kaojuan_autotime};	//自动保存间隔秒数
+init();
+function init()
+{
+	showtime();
+}
+
+function timereset() {
+	tpass = 0;
+}
+
+function showtime()
+{
+	if(tpass == save) {
+		timereset();
+		document.getElementById('baocun').click();
+	}
+	
+
+	past = ppast;
+	phour = parseInt(past / 3600);
+	pmin = parseInt((past - phour * 3600) / 60);
+	psec = past % 60;
+
+	if (pmin < 10)
+		pmin = "0" + pmin;
+	if (psec < 10)
+		psec = "0" + psec;
+
+	remain = total;
+	rhour = parseInt(remain / 3600);
+	rmin = parseInt((remain - rhour * 3600) / 60);
+	rsec = remain % 60;
+	
+	
+	if(remain == 0) {
+		ChangeState();
+		document.getElementById('done').click();
+	}
+	
+	if (rmin < 10)
+		rmin = "0" + rmin;
+	if (rsec < 10)
+		rsec = "0" + rsec;
+
+	pastshow = "<strong>" + phour + " 小时 " + pmin + " 分 " + psec + " 秒" + "</strong>";
+	remainshow = "<strong>" + rhour + " 小时 " + rmin + " 分 " + rsec + " 秒" + "</strong>";
+	document.getElementById('autosave').innerHTML = save - tpass;
+	var timer = document.getElementById('timer');
+	if (remain < 0)
+		timer.innerHTML = " <p class=\"f14b\">本次在线测试已过时间：<br /> " + "<span class=\"col_4\">" + pastshow + "&nbsp;" + "<br />剩余时间：<br /> " + "0 小时 00 分 00 秒" + "</span></p>";
+	else if (remain < 1800)
+		timer.innerHTML = "<p class=\"f14b\">本次在线测试已过时间：<br /> " + "<span class=\"col_4\">" + pastshow + "&nbsp;" + "<br />剩余时间：<br /> " + remainshow + "</span></p>";
+	else
+		timer.innerHTML = "<p class=\"f14b\">本次在线测试已过时间：<br /> " + "<span class=\"col_4\">" + pastshow + "&nbsp;" + "<br />剩余时间：<br /> " + remainshow + "</span></p>";
+	tpass ++;
+	total --;
+	ppast ++;
+	ctimer = setTimeout('showtime()',1000);
+}
+
+function MouseEvent(N,Obj){
+	if (N == 1){
+		Obj.className = 'btn1';
+		}
+	else{
+		Obj.className = 'btn';
+	}
+}
+
+var Changed = 0;
+
+var Try = 0;
+//
+var Go = '';
+
+function ChangeState() {
+	Changed = 1;
+}
+
+var needmsg = 1;
+
+function ResetState(){
+	//
+	if(CheckChanged() == 1) {
+		Changed = 0;
+		for(var e in listen) {
+			$(eval("listen."+e)).defaultValue = $(eval("listen."+e)).value;
+		}
+		Try = 0
+		return true;
+	}else {
+		if(Try == 0 && editor) {
+			Try =1;
+			setTimeout("$('baocun').click();",50);
+			return false;
+		}else {
+			if(needmsg == 1) {
+				getMsg('你没有任何答案需要保存!');
+			}
+			Try = 0 ;
+			return false;
+		}
+	}
+}
+
+function CheckChanged() {
+	/**
+	翻页自动保存时，检测答案是否有改变。在启用fckeditor时，只支持IE
+	*/
+	if({:isIE} == 0 && ({:isFF} == 0 || editor)) {
+		return 1;
+	}
+	
+	if(Changed == 1) return 1;
+	for(var e in listen) {
+		if($(eval("listen."+e)).value != $(eval("listen."+e)).defaultValue)
+		return 1;
+	}
+	return 0;
+}
+
+function examdocheck(o) {
+	if(CheckChanged() == 1) {
+		getMsg('系统正在帮你保存答案!');
+		Go = o.href;
+		document.getElementById('form1').submit();
+		return false;
+	}
+	else {
+		if(Try == 0 && editor) {
+			needmsg = 0;
+			$('baocun').click();
+			if(CheckChanged() == 1) {
+				getMsg('系统正在帮你保存答案!');
+				Go = o.href;
+				document.getElementById('form1').submit();
+				return false;
+			}
+		}
+		return true;
+	}
+}
+
+<!--
+        <!--右下脚弹出窗口开始-->
+        //window.onload = getMsg;
+        window.onresize = resizeDiv;
+		window.onscroll = resizeDiv;
+        window.onerror = function(){}
+        var divTop,divLeft,divWidth,divHeight,docHeight,docWidth,objTimer,i = 0;
+		 
+        function getMsg(msg)
+        {
+				if(Go) {
+					window.location=Go;
+				}
+                try
+                {
+                    divHeight = parseInt(window.document.getElementById("loft_win").offsetHeight,10);
+                    divWidth = parseInt(window.document.getElementById("loft_win").offsetWidth,10);
+                    docWidth = window.document.documentElement.clientWidth;
+                    docHeight = window.document.documentElement.clientHeight;
+					
+					{if}'{:base_config.exam_tishi_position}'!= 2 && '{:base_config.exam_tishi_position}'!= 3{/if}
+					//正中间	
+                    window.document.getElementById("loft_win").style.top = parseInt(window.document.documentElement.scrollTop,10) + (docHeight - divHeight)/2 + 'px';
+                    window.document.getElementById("loft_win").style.left = parseInt(window.document.documentElement.scrollLeft,10) + (docWidth - divWidth)/2+'px';
+                    {/endif}
+					{if}'{:base_config.exam_tishi_position}'== 2{/if}
+					//左下角
+					window.document.getElementById("loft_win").style.top = parseInt(window.document.documentElement.scrollTop,10) + docHeight - divHeight + 'px';
+                    window.document.getElementById("loft_win").style.left = parseInt(window.document.documentElement.scrollLeft,10) +'px';
+					{/endif}
+					{if}'{:base_config.exam_tishi_position}'== 3{/if}
+					//右下角
+					window.document.getElementById("loft_win").style.top = parseInt(window.document.documentElement.scrollTop,10) + docHeight - divHeight + 'px';
+                    window.document.getElementById("loft_win").style.left = parseInt(window.document.documentElement.scrollLeft,10) + docWidth - divWidth+'px';
+					{/endif}
+					window.document.getElementById("loft_win").style.visibility="visible";
+						
+                    window.document.getElementById('msg_show').innerHTML = msg;
+					//1.5s 自动关闭
+					setTimeout("closeDiv();",1500);
+                }
+                catch(e){}
+        }
+		
+        //初始化位置
+        function resizeDiv()
+        {
+                try
+                {
+                        divHeight = parseInt(document.getElementById("loft_win").offsetHeight,10);
+                        divWidth = parseInt(document.getElementById("loft_win").offsetWidth,10);
+                        docWidth = window.document.documentElement.clientWidth;
+                        docHeight = window.document.documentElement.clientHeight;
+						//正中间显示
+                        document.getElementById("loft_win").style.top = (docHeight - divHeight)/2 + parseInt(window.document.documentElement.scrollTop,10) + 'px';
+                        document.getElementById("loft_win").style.left = (docWidth - divWidth)/2 + parseInt(window.document.documentElement.scrollLeft,10) + 'px';
+                }
+                catch(e){}
+        }
+       
+        function closeDiv()
+        {
+                document.getElementById('loft_win').style.visibility='hidden';
+                if(objTimer) window.clearInterval(objTimer);
+        }
+        <!--右下脚弹出窗口结束-->
+        -->
+</script>
+<style type="text/css">
+<!--
+        #loft_win {border:#59CCC4 1px solid;}
+		#loft_win #msg_show{border:#FFFFFF 0px;}
+        .loft_win_head {color: #FFFFFF; font-size:13px; background-color:#59CCC4; height:25px; padding:0,5,0,5;}
+        #contentDiv {background-color:#FFFFFF; border:#0px; border-left-style:none; border-right-style:none;}
+-->
+</style>
+
+        <!--提示窗开始-->
+        <!--初状态-->
+        <DIV id="loft_win" style="Z-INDEX:99999; LEFT: 0px; VISIBILITY: hidden;WIDTH: 250px; POSITION: absolute; TOP: 0px; HEIGHT: 150px;">
+                <TABLE cellSpacing=0 cellPadding=0 width="100%" bgcolor="#FFFFFF" border=0>
+                        <TR>
+                                <td width="100%" valign="top" align="center">
+                                        <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                        <td width="70" class="loft_win_head">提示窗口</td>
+                                                        <td width="26" class="loft_win_head"> </td>
+                                                        <td align="right" class="loft_win_head">
+                                                              <span style="CURSOR: hand;font-size:12px;font-weight:bold;margin-right:4px;" title=关闭 onclick=closeDiv() >×</span>
+                                                        </td>
+                                                </tr>
+                                        </table>
+                                </td>
+                        </TR>
+                        <TR>
+                                <TD height="130" align="center" valign="middle" colSpan=3>
+                                        <div id="contentDiv">
+                                                <table width="100%" height="100%" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                                <td align="center" height="100%">
+                                                                   
+                                                                                <span id="msg_show" style="color:red; border:0px;"></span>
+                                                                      
+                                                                </td>
+                                                        </tr>
+                                                </table>
+                                        </div>
+                                </TD>
+                        </TR>
+                </TABLE>
+        </DIV>
+        
+{include exam_footer.htm 1}

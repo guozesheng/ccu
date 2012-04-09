@@ -1,0 +1,50 @@
+{include passport_header 1}
+<div>
+  <table width="100%" border="0" cellspacing="1" cellpadding="3">
+    <tr>
+      <td width="24%" valign="top">{include message_left 1} </td>
+      <td valign="top"><div class="box">
+        <table width="100%" border="0" cellspacing="1" cellpadding="3">
+          <tr>
+            <td class="h"><span class="msg_guide"><strong>短消息阅读</strong></span></td>
+          </tr>
+          <tr>
+            <td><table width="100%" border="0" cellspacing="1" cellpadding="3">
+
+                <tr class="t3">
+                  <td width="24%"><span class="key">From</span></td>
+                    <td><span class="value2">{:message.fromid_name} </span></td>
+                </tr>
+                <tr class="t3">
+                  <td><span class="key">标题</span></td>
+                    <td><span class="value2">{:message.subject} </span></td>
+                </tr>
+                <tr class="t3">
+                  <td><span class="key">内容</span></td>
+                    <td><span class="value2"> {:message.body} </span></td>
+                </tr>
+                <tr class="t3">
+                  <td>阅读</td>
+                  <td>{if}{:message.read}{/if}{:message.read|GetMyDate Y-m-d H:i:s}{/endif}{else}未读{/else}</td>
+                </tr>
+                <tr class="t3">
+                  <td><span class="key">操作</span></td>
+                    <td><span class="value2"> <a href="message.php?action=send&amp;to={:message.fromid_name}&amp;subject=RE:{:message.subject}">回复</a> {if}
+	   '{:box}'=='in' || '{:box}'=='sys'
+	   {/if} <a href="message.php?action=del&amp;id={:id}&amp;box={:box}">删除</a> {/endif}
+		{if}
+		'{:box}'=='del'
+		{/if} <a href="message.php?action=del&amp;id={:id}&amp;box={:box}">彻底删除</a> {/endif}
+		{if}
+		'{:box}'=='out'
+		{/if} <a href="message.php?action=del&amp;id={:id}&amp;box={:box}">移除发件箱</a> {/endif} </span></td>
+                </tr>
+                
+              </table></td>
+          </tr>
+        </table>
+      </div></td>
+    </tr>
+  </table>
+</div>
+{include passport_footer 1}

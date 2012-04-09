@@ -1,0 +1,27 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td width="200" bgcolor="#FFFFFF"><strong>一键清除缓存</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">说明：缓存能减少系统负载，通常无需清除缓存，缓存过期都会自动更新。<strong><br>
+    但是升级后导致页面异常时请清除模板缓存，这种情况也只在升级时会出现</strong></td>
+  </tr><form name="form1" method="post" action="{:FormToSelf}">
+  <tr>
+    <td bgcolor="#FFFFFF"><select name="cache_type" id="cache_type">
+      <option value="template">模板缓存</option>
+      <option value="easy_cache">EasyCache</option>
+      <option value="frame">Frame缓存</option>
+      <option value="rte">运行时缓存</option>
+      <option value="">全部缓存</option>
+    </select>
+      <input name="Submit" type="hidden" id="Submit" value="1">
+      <input type="submit" value="一键清除"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><input name="see" type="checkbox" id="see" value="1" checked>
+      查看详细情况</td>
+  </tr>
+  </form>
+</table>
+{include footer.htm}

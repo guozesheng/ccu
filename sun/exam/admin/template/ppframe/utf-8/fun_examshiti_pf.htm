@@ -1,0 +1,34 @@
+<table>
+<tr class="t2">
+  <td>题目{:__fun_examshiti_array.th}：分值:{:__fun_examshiti_array.fen|UseFenSize @,[:fensize],2}{if}{:__fun_examshiti_array.kf|UseFenSize @,[:fensize],2}{/if}答错倒扣{:vv.kf|UseFenSize @,[:fensize],2}分{/endif}</td>
+</tr>
+<tr class="t3">
+        <td>{:__fun_examshiti_array.title|nl2br @} </td>
+      </tr>
+	  {if}
+	  {:__fun_examshiti_k|GetTxBaseType @} == 3
+	  {/if}
+      <tr class="t3">
+        <td>我的答案: {:damix.[:__fun_examshiti_k].[:__fun_examshiti_array.k].da}</td>
+      </tr>
+      <tr class="t3">
+        <td>参考答案: {:__fun_examshiti_array.daan}</td>
+      </tr>
+      <tr class="t3">
+        <td>参考解答: {:__fun_examshiti_array.jieda}</td>
+      </tr>
+      <tr class="t3">
+        <td>打分
+          <input name="defen[{:__fun_examshiti_k}][{:__fun_examshiti_array.k}]" type="text" id="defen[{:__fun_examshiti_k}][{:__fun_examshiti_array.k}]" value="{:damix.[:__fun_examshiti_k].[:__fun_examshiti_array.k].df|UseFenSize @,[:fensize],2}" size="6">
+修改该题得分
+<input name="dafen[{:__fun_examshiti_k}][{:__fun_examshiti_array.k}]" type="checkbox" id="dafen[{:__fun_examshiti_k}][{:__fun_examshiti_array.k}]" value="1"></td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:__fun_examshiti_array.sun}
+	  {/if}
+	  <tr >
+	  <td>{foreach __fun_examshiti_array.sun sk sv} {foreach sv skk svv}{:svv|GetExamShitiView [:sk],@,[:__fun_examshiti_tag],fun_examshiti_pf}{/foreach}{/foreach}</td>
+	  </tr>
+	  {/endif}
+</table>

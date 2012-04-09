@@ -1,0 +1,48 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="5" bgcolor="#FFFFFF"><strong>专业管理</strong></td>
+  </tr>
+  <tr>
+    <td width="10%" height="24" bgcolor="#FFFFFF">专业ID</td>
+    <td width="40%" bgcolor="#FFFFFF">专业名</td>
+    <td width="20%" bgcolor="#FFFFFF">院系</td>
+    <td width="20%" bgcolor="#FFFFFF">专业代码代码</td>
+    <td width="10%" bgcolor="#FFFFFF">操作</td>
+  </tr>
+ {foreach lister_lister_lister fk fv}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"> {:fv.id}</td>
+    <td bgcolor="#FFFFFF">{:fv.pname}</td>
+    <td bgcolor="#FFFFFF">{:fv.name}</td>
+    <td bgcolor="#FFFFFF"><!--{if}{:fv.ctype}==0{/if}-->{:fv.pcode}<!--{/else}--></td>
+    <td bgcolor="#FFFFFF"><a href="professional_del.php?id={:fv.id}" onClick="if(!confirm('确定删除？不可恢复！删除专业是非常危险的操作！')) return false;">删除</a> <a href="professional_view.php?id={:fv.id}">查看</a></td>
+  </tr>{/foreach}
+  <tr>
+    <td height="24" colspan="5" bgcolor="#FFFFFF">{:pagelink}</td>
+  </tr>
+  <tr>
+    <td height="24" colspan="5" bgcolor="#FFFFFF"><a href="professional_add.php">添加专业</a></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="5" bgcolor="#FFFFFF"><strong>搜索</strong></td>
+  </tr><form name="form1" action="{:FormToSelf}">
+  <tr>
+    <td height="24" colspan="5" bgcolor="#FFFFFF">专业名称
+      <input name="pname" type="text" id="pname" value="{:pname}">
+      <input name="jq" type="checkbox" id="jq" value="1">
+      精确匹配</td>
+  </tr>
+  <tr>
+    <td height="24" colspan="5" bgcolor="#FFFFFF">专业代码
+      <input name="pcode" type="text" id="pcode" value="{:pcode}" size="10" /></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="5" bgcolor="#FFFFFF"><input name="submit" type="submit" value="搜索"></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="5" bgcolor="#FFFFFF"><strong>提示：专业一旦固定，不要随意删除。删除之后专业ID恢复需要自己到数据库去修改。</strong></td>
+  </tr>
+  </form>
+</table>
+{include footer.htm}

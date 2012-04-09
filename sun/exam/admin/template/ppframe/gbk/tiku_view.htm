@@ -1,0 +1,65 @@
+{include header.htm 1}
+<form id="form1" name="form1" action="{:FormToSelf}">
+  <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF">查看/修改题库 <a href="tiku_main.php">返回题库管理</a> </td>
+    </tr>
+    <tr>
+      <td width="180" height="24" bgcolor="#FFFFFF">题库名称:</td>
+      <td bgcolor="#FFFFFF"><input name="tiku[name]" type="text" id="tiku[name]" value="{:element_tiku.name}" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">题库描述:</td>
+      <td bgcolor="#FFFFFF"><p>
+        <textarea name="tiku[descrip]" cols="40" rows="4" id="tiku[descrip]">{:element_tiku.descrip}</textarea>
+      </p></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">是否顶级题库:</td>
+      <td bgcolor="#FFFFFF">
+        {if}{:element_tiku.istop} == 1{/if}是{/endif}
+		{else}
+		否
+		{/else}         </td>
+    </tr>
+	{if}
+	{:element_tiku.istop} == 0
+	{/if}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">上级题库:</td>
+      <td bgcolor="#FFFFFF"><select name="tiku[upid]" id="tiku[upid]">
+          <option value="0">请选择上级题库</option>
+          
+	  {foreach lister_exam_tiku k v}
+        <option value="{:v.id}" {if}{:v.id} == {:element_tiku.upid}{/if}selected{/endif}>{:v.name}</option>
+		{/foreach}
+      
+      
+      </select> 
+      当你的上级题库存储表不同的时候，请不要随意修改！      </td>
+    </tr>
+	{/endif}
+	{if}{:element_tiku.istop} == 1{/if}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">题库存储表:</td>
+      <td bgcolor="#FFFFFF">{:element_tiku.storetable}</td>
+    </tr>
+	{/endif}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">是否允许会员投稿</td>
+      <td bgcolor="#FFFFFF"><label>
+        <input name="tiku[allowpush]" type="radio" value="1" {if}{:element_tiku.allowpush}{/if}checked{/endif}/>
+是</label>
+        <label>
+        <input name="tiku[allowpush]" type="radio" value="0" {if}{:element_tiku.allowpush}==0{/if}checked{/endif}/>
+否</label></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+      <td bgcolor="#FFFFFF"><input type="submit" name="Submit" value="提交" />
+        <input name="Submit2" type="hidden" id="Submit" value="1" />
+        <input name="id" type="hidden" id="id" value="{:id}" /></td>
+    </tr>
+  </table>
+</form>
+{include footer.htm 1}

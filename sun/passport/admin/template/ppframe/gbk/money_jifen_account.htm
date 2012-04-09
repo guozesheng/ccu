@@ -1,0 +1,64 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF"><strong>积分对账单</strong> 积分对账单能发现会员积分异常！</td>
+  </tr>
+  {if}
+  {:do_success}
+  {/if}
+  <tr>
+    <td width="100" height="24" bgcolor="#FFFFFF">用户</td>
+    <td width="100" bgcolor="#FFFFFF">货币种类</td>
+    <td width="100" bgcolor="#FFFFFF">发生金额</td>
+    <td width="100" bgcolor="#FFFFFF">余额</td>
+    <td width="150" bgcolor="#FFFFFF">发生时间</td>
+    <td width="150" bgcolor="#FFFFFF">备注</td>
+  </tr>
+ {foreach lister k v}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><a href="user_view.php?id={:v.uid}">{:username}</a></td>
+    <td bgcolor="#FFFFFF">{:v.mtype|GetMoneyName @} </td>
+    <td bgcolor="#FFFFFF">{:v.num}</td>
+    <td bgcolor="#FFFFFF">{:v.yue}</td>
+    <td bgcolor="#FFFFFF">{:v.time|GetMyDate Y-m-d H:i:s,@}</td>
+    <td bgcolor="#FFFFFF">{:v.descrip}</td>
+  </tr>{/foreach}
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF">{:pagelink}</td>
+  </tr>
+  {/endif}
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF">条件</td>
+  </tr><form name="form1" action="{:FormToSelf}">
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF">用户ID：
+      <input name="uid" type="text" id="uid" value="{:uid}" size="8">
+或者用户名
+<input name="username" type="text" id="username" value="{:username}" size="15" />       
+货币种类 
+       <select name="mtype">
+	  {foreach rtc.passport_money k v}
+      <option value="{:v}" {if}{:mtype}=={:v}{/if}selected="selected"{/endif}>{:money_types.[:v]}|{:money_types.[:v]|GetMsg @}</option>
+	   {/foreach}
+    </select>    </td>
+  </tr>
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF">从 
+      <input name="datestart" type="text" id="datestart" value="{:datestart}">
+      到 
+      <input name="dateend" type="text" id="dateend" value="{:dateend}"> 
+      格式yyyymmdd </td>
+  </tr>
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF"><strong>检索项</strong> 金额
+      <input name="num" type="text" id="num" value="{:num}" size="10" /> 
+       备注
+       <input name="descrip" type="text" id="descrip" value="{:descrip}" />
+      (模糊匹配)</td>
+  </tr>
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF"><input type="submit" value="搜索"></td>
+  </tr>
+  </form>
+</table>
+{include footer.htm}

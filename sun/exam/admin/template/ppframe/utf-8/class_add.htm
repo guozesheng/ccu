@@ -1,0 +1,63 @@
+{include header.htm 1}
+<form id="form1" name="form1" action="{:FormToSelf}">
+  <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>添加试卷分类</strong> <a href="class_main.php">试卷分类管理</a></td>
+    </tr>
+    <tr>
+      <td width="180" height="24" bgcolor="#FFFFFF">分类名称</td>
+      <td bgcolor="#FFFFFF"><input name="class[name]" type="text" id="class[name]" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">分类描述</td>
+      <td bgcolor="#FFFFFF"><p>
+        <textarea name="class[descrip]" cols="40" rows="4" id="class[descrip]"></textarea>
+      </p></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">是否顶级分类</td>
+      <td bgcolor="#FFFFFF"><p>
+        <label>
+          <input name="class[istop]" type="radio" value="1">
+          是</label>
+        <label>
+          <input type="radio" name="class[istop]" value="0">
+          否</label>
+      </p></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">上级分类</td>
+      <td bgcolor="#FFFFFF">{:a|GetClassLister|GetTreeSelect @,class[upid],,id,name,请选择上级分类} </td>
+    </tr>
+	{if}
+	{:base_config.exam_cktimes_use}
+	{/if}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">此类限考次数</td>
+      <td bgcolor="#FFFFFF">最多考试
+        <input name="class[cktimes]" type="text" id="class[cktimes]" size="8" />
+次 0次不限制 </td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">此类合格指标</td>
+      <td bgcolor="#FFFFFF">合格科数不少于
+      <input name="class[oknum]" type="text" id="class[oknum]" size="8" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">此类达标后禁考</td>
+      <td bgcolor="#FFFFFF"><label>
+      <input name="class[okban]" type="radio" value="1" {if}'{:E.okban}'=='1'{/if}checked{/endif} />
+是</label>
+        <label>
+        <input type="radio" name="class[okban]" value="0" {if}'{:E.okban}'=='0'{/if}checked{/endif} />
+否</label></td>
+    </tr>
+	{/endif}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+      <td bgcolor="#FFFFFF"><input type="submit" name="Submit" value="提交" />
+        <input name="Submit" type="hidden" id="Submit" value="1"></td>
+    </tr>
+  </table>
+</form>
+{include footer.htm 1}

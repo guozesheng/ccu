@@ -1,0 +1,61 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td bgcolor="#FFFFFF"><strong>系统信息</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">顶级题库数目限制：无限制</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">下级题库数目限制：无限制</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">批量导入次数限制：无限制  </td>
+  </tr>
+</table>
+<br />
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td bgcolor="#FFFFFF"><strong>系统信息</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><strong>PPExam</strong> 版本号 {:install_mode_version} </td>
+  </tr>
+</table>
+<br />
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td bgcolor="#FFFFFF"><strong>当前在线人数</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">{:exam_num}(概数，非精确) 最大在线 {:maxrecord.0}发生在{:maxrecord.1|GetMyDate Y-m-d H:i:s,@}</td>
+  </tr>
+</table>
+<br />
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF"><strong>概念定义</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">题库</td>
+    <td bgcolor="#FFFFFF">题库用来装试题的，或者说是试题的分类。每个试题必须从属于一个题库，也可以从属于多个题库<br />
+一个题库可以有n个试题。题库有上下级关系</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">试题</td>
+    <td bgcolor="#FFFFFF">试题就是单项的题目，他是组成考卷的元素。</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">试卷</td>
+    <td bgcolor="#FFFFFF">试卷是对考卷的说明，实际上他只是一个定义，定义生成考卷的规则。</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">考卷</td>
+    <td bgcolor="#FFFFFF">考卷是按照试卷定义的规则，生成的一份具体的考卷，他是试卷规则的具体实现。是特定时候试卷的一个映像！一份考卷必然从属于一份试卷。而一份试卷可以有很多考卷。</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">试卷分类</td>
+    <td bgcolor="#FFFFFF">试卷分类，是对试卷的分类，用于检索。当试卷太多时，肯定用得到</td>
+  </tr>
+</table>
+{include footer.htm 1}

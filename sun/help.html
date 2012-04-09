@@ -1,0 +1,406 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>PPFrame帮助文档</title>
+</head>
+
+<body>
+<table width="100%" border="0" cellspacing="1" cellpadding="3">
+  <tr>
+    <td><strong>PPFrame帮助文档</strong></td>
+  </tr>
+  <tr>
+    <td><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+      <tr>
+        <td bgcolor="#FFFFFF"><strong>基础配置-基本配置</strong></td>
+      </tr>
+      <tr>
+        <td bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+          <tr>
+            <td width="20%">根域名</td>
+            <td width="40%">网站的根域名，也就是Cookie域</td>
+            <td>比如www.ppframe.com 则指定 .ppframe.com 当要使用通行证,并且使用二级域名,或者使用钩子整合论坛时需要设置,其他时候可以留空 </td>
+          </tr>
+          <tr>
+            <td>语言</td>
+            <td>语言版本</td>
+            <td>gbk utf-8 big5 之一，gbk已经就绪。</td>
+          </tr>
+          <tr>
+            <td>资源目录</td>
+            <td>资源文件目录，资源通常是图片，CSS，js文件等</td>
+            <td>比如http://www.ppframe.com/source/ 我把资源都放这了！ </td>
+          </tr>
+          <tr>
+            <td>网站目录</td>
+            <td>网站根地址</td>
+            <td>比如http://www.ppframe.com/</td>
+          </tr>
+          <tr>
+            <td>风格</td>
+            <td>PPFrame支持多风格</td>
+            <td>比如ppframe这是默认风格</td>
+          </tr>
+          <tr>
+            <td>提示信息时间</td>
+            <td>提示信息停留时间单位是秒</td>
+            <td>一般就设为2</td>
+          </tr>
+          <tr>
+            <td>时区</td>
+            <td>时区修正</td>
+            <td>中国是第8时区，填8.</td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+        <tr>
+          <td bgcolor="#FFFFFF"><strong>基础配置-后台管理</strong></td>
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+            <tr>
+              <td width="20%">后台管理根地址</td>
+              <td width="40%">后台管理的根地址</td>
+              <td>比如http://www.ppframe.com/admin/</td>
+            </tr>
+          </table></td>
+        </tr>
+      </table></td>
+  </tr>
+  
+  <tr>
+    <td><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+        <tr>
+          <td bgcolor="#FFFFFF"><strong>基础配置-通行证设置</strong></td>
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+            <tr>
+              <td width="20%">通行证根地址</td>
+              <td width="40%">通行证根地址</td>
+              <td>比如http://www.ppframe.com/passport/，可以自己指定为2级域名。</td>
+            </tr>
+            <tr>
+              <td>登录地址</td>
+              <td>通行证登录地址</td>
+              <td>根地址+login.php</td>
+            </tr>
+            <tr>
+              <td>退出地址</td>
+              <td>通行证退出地址</td>
+              <td>根地址+logout.php</td>
+            </tr>
+            <tr>
+              <td>注册地址</td>
+              <td>通行证注册地址</td>
+              <td>根地址+reg.php</td>
+            </tr>
+            <tr>
+              <td>是否开启登录验证码</td>
+              <td>登录验证码选项</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>安全密钥:</td>
+              <td>信息加密用安全密钥</td>
+              <td>如果需要跟使用钩子跟PW或者DZ同步。要保证这个密钥与PW和DZ的密钥一致。<br />
+                PW:在安全设置里能找到那个密钥。<br />
+                DZ：我对后台不熟悉，但是，这个变量可以在forumdata\cache\cache_settings.php 里找到$_DCACHE['settings']['authkey']</td>
+            </tr>
+            <tr>
+              <td>会话保持标志:</td>
+              <td>就是Cookie保存的标志</td>
+              <td>可以任意。<br />
+                PW：winduser<br />
+                DZ：autho</td>
+            </tr>
+            <tr>
+              <td>会话保持时间:</td>
+              <td>会话保持时间单位（分）</td>
+              <td>登录失效时间</td>
+            </tr>
+            <tr>
+              <td>密码加密方式:</td>
+              <td>密码加密方式</td>
+              <td>一把都是md5</td>
+            </tr>
+            <tr>
+              <td>会话检测方法:</td>
+              <td>会话检测方式，支持ppframe默认、PW、DZ三种方式。</td>
+              <td>默认ppframe，填写PW或者DZ 将采用PW或者DZ的Cookie加密方式，这可以实现Cookie共享而无需整合。 </td>
+            </tr>
+            <tr>
+              <td>用户存储表:</td>
+              <td>存储用户的表</td>
+              <td>ppframe使用 ##__passport 表，可以任意，只要具有下面的几个键。<br />
+                PW：pw_members <br />
+                DZ：cdb_members 注意自己系统的表前缀. </td>
+            </tr>
+            <tr>
+              <td>主键:</td>
+              <td>用户表的主键</td>
+              <td>ppframe主键是uid。<br />
+                PW:uid<br />
+                DZ：uid</td>
+            </tr>
+            <tr>
+              <td>密码键:</td>
+              <td>密码字段</td>
+              <td>用户表的密码字段ppframe是passport<br />
+                PW:password<br />
+                DZ:password</td>
+            </tr>
+            <tr>
+              <td>唯一键:</td>
+              <td>唯一字段一般就是用户名字段</td>
+              <td>ppframe默认是username<br />
+                PW:username<br />
+                DZ:username</td>
+            </tr>
+            <tr>
+              <td>安全问题键:</td>
+              <td>保存安全提示问题信息的字段</td>
+              <td>ppframe和PW都是 safecv <br />
+                DZ：secques</td>
+            </tr>
+            <tr>
+              <td>Cookie前缀:</td>
+              <td>Cookie码前缀，PPFrame也支持cookie前缀</td>
+              <td>ppframe和DZ都可以自己设置<br />
+                如果需要使用DZ的钩子，请自己查找DZ的Cookie前缀。<br />
+                我对DZ后台不熟悉，你可以在文件<br />
+                config.inc.php 里找到Cookie前缀的定义。 </td>
+            </tr>
+            <tr>
+              <td>PW唯一识别码:</td>
+              <td>使用PW编码方式时，从这个获得Cookie前缀在PW后台论坛营销里找到该编码。</td>
+              <td>随便鄙视下PW使用这个码获得Cookie前缀，这类似与脱裤子放屁。</td>
+            </tr>
+          </table></td>
+        </tr>
+      </table></td>
+  </tr>
+  
+  <tr>
+    <td><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+        <tr>
+          <td bgcolor="#FFFFFF"><strong>分页风格设置</strong></td>
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+            <tr>
+              <td width="20%">分页链接模式:</td>
+              <td width="40%">&lt;a href=&quot;{~~pagelink~~}&quot;&gt;{~~page~~}&lt;/a&gt; </td>
+              <td>里面{}部分被替换pagelink是链接地址，page是页码数</td>
+            </tr>
+            <tr>
+              <td>分页当前页模式:</td>
+              <td>&lt;strong&gt;{~~page~~}&lt;/strong&gt; </td>
+              <td>当前也的样式</td>
+            </tr>
+            <tr>
+              <td>分页首页模式:</td>
+              <td>&lt;a href=&quot;{~~pagelink~~}&quot;&gt;首页&lt;/a&gt; </td>
+              <td>这个将在分页最前面加上 首页 链接</td>
+            </tr>
+            <tr>
+              <td>分页末页模式:</td>
+              <td>&lt;a href=&quot;{~~pagelink~~}&quot;&gt;末页&lt;/a&gt; </td>
+              <td>这个将在分页末尾加上 尾页 链接</td>
+            </tr>
+            <tr>
+              <td>分页首部提示模式:</td>
+              <td>共{~~num~~}条/{~~page~~}页</td>
+              <td>这个将在最前面加上 共num条/page页 这里的page意思是总页数,区别与上面的当前页 </td>
+            </tr>
+            <tr>
+              <td>分页尾部提示模式:</td>
+              <td>当前第{~~cpage~~}页</td>
+              <td>在最后面加上一个当期第几页。cpage替换成当前页码</td>
+            </tr>
+          </table></td>
+        </tr>
+      </table></td>
+  </tr>
+  
+  <tr>
+    <td><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+        <tr>
+          <td bgcolor="#FFFFFF"><strong>SEO设置</strong></td>
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+            <tr>
+              <td width="20%">SEO方法</td>
+              <td width="40%">采取的URL美化方法<br />
+                1是使用url-rewrite 2是利用pathinfo+forcetype </td>
+              <td>pathinfo或者rewrite</td>
+            </tr>
+            <tr>
+              <td>是否启用加强方式</td>
+              <td>0否、1是</td>
+              <td>采用加强方式后，pathinfo方式将去掉.php后缀，这需要在apache配置文件里加上：<br />
+                  <br />
+                &lt;FilesMatch &quot;^[^\.]+$&quot;&gt;<br />
+                ForceType application/x-httpd-php<br />
+                &lt;/FilesMatch&gt;<br />
+                意思是，没有后最的文件强制为php类型。同时需要将php文件拷贝一个为与文件名相同的，没有后缀的文件比如a.php 拷贝一份成a<br />
+                linux系统可以使用符号链接。<br />
+                <br />
+                rewrite方式将会把 .php? 解析成 一个 -<br />
+                <br />
+                这需要在apache配置文件里加上:<br />
+                &lt;IfModule mod_rewrite.c&gt;<br />
+                ReWriteEngine On<br />
+                RewriteCond %{REQUEST_URI} \.html|\.htm|\.xml$<br />
+                RewriteRule  ^([^\.\?\-]+)-(.*)$ $1.php?$2 [L]<br />
+                &lt;/IfModule&gt;<br />
+                或者<br />
+                &lt;IfModule mod_rewrite.c&gt;<br />
+                  ReWriteEngine On<br />
+                  RewriteRule  ^([^\.\?\-]+)-(.*)(\.html|\.htm|\.xml)$ $1.php?$2$3 [L]<br />&lt;/IfModule&gt;<br />
+                意思是有 <font color="#FF0000">-</font> 并且以.html.htm.xml结尾的文件重写到.php?...<br />
+                <br />
+                比如 a-a-b-c-d.html<br />
+                将重写到 a.php?a-b-c-d.html</td>
+            </tr>
+          </table></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+      <tr>
+        <td bgcolor="#FFFFFF"><strong>通行证模块-基础配置</strong></td>
+      </tr>
+      <tr>
+        <td bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+          <tr>
+            <td width="20%">Passport后台地址:</td>
+            <td width="40%">模块后台地址,其他模块类似</td>
+            <td>比如http://www.ppframe.com/passport/admin/</td>
+          </tr>
+          <tr>
+            <td>Passport根地址:</td>
+            <td>模块根地址</td>
+            <td>比如http://www.ppframe.com/passport/</td>
+          </tr>
+          <tr>
+            <td>是否开放注册:</td>
+            <td>可以选择关闭注册,当你使用其他系统的用户表时最好关闭</td>
+            <td>因为ppframe不了解其他系统用户数据表的结构</td>
+          </tr>
+          <tr>
+            <td>关闭注册提示:</td>
+            <td>关闭注册可以给个提示</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>用户名最短长度:</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>密码最低长度:</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>用户名正则:</td>
+            <td>可以使用一个正则表达式来限制用户名的类型</td>
+            <td>注:ppframe不检测正则合法性,错误的配置可能导致所有人都无法注册</td>
+          </tr>
+          <tr>
+            <td>正则说明:</td>
+            <td>会在用户注册是给出提示</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>正则匹配方式:</td>
+            <td><label>ereg</label>
+或者              
+  <label>
+ preg方式匹配上面给出的正则</label></td>
+            <td>看自己习惯用什么形式的正则,ppframe都支持.但是得自己保证正则的正确性.</td>
+          </tr>
+          <tr>
+            <td>是否检测Email唯一性:</td>
+            <td>选择是后,一个Email将只能注册一次.</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>是否开启注册验证码:</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>是否开启资料修改:</td>
+            <td>当你使用其他系统的用户表时最好关闭</td>
+            <td>因为ppframe不了解其他系统用户数据表的结构</td>
+          </tr>
+          <tr>
+            <td>是否开启短消息模块:</td>
+            <td>passport自带了一个短消息模块</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="3">系统整合选项</td>
+            </tr>
+          <tr>
+            <td>整合方式:</td>
+            <td>1
+我不整合其它系统
+  2
+使用第三方数据表
+  3
+使用API接口 </td>
+            <td>1、2时，ppframe不做整合动作，1、2在实质上是一样的，只是一个标志<br />
+              选择3时，PPframe可以使用PW或者DZ的api接口整合数据，能实现跨域名跨系统的整合。</td>
+          </tr>
+          <tr>
+            <td>系统整合通信码:</td>
+            <td>系统整合使用这个密码编码，PW可以在后台通行证插件里找到。</td>
+            <td>DZ：我对后台不熟悉，但是，这个变量可以在forumdata\cache\cache_settings.php 里找到$_DCACHE['settings']['passport_key']</td>
+          </tr>
+          <tr>
+            <td colspan="3">&nbsp;</td>
+            </tr>
+          <tr>
+            <td>客户端API入口地址:</td>
+            <td>API程序入口。</td>
+            <td>DZ: yourdomain/api/passport.php<br />
+              PW: yourdomain/passport_client.php </td>
+          </tr>
+          <tr>
+            <td>整合的第三方程序:</td>
+            <td>现在只题库PW和DZ的整合</td>
+            <td>请填写pw或者dz （小写） </td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+  
+  <tr>
+    <td><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+      <tr>
+        <td bgcolor="#FFFFFF">注:如何获得utf-8和big5版.<br />
+程序安全支持所有语言版本.获得utf-8版本只需在所有template目录下进入ppframe（这是一个风格目录）目录,在下面建立一个目录名: utf-8 然后把所有的模板文件copy到utf-8目录里.将每个文件都改成utf-8编码就OK了,然后,你要将语言改成utf-8.<br />
+如果你要使用utf-8还要在安装时选择数据库编码为utf8.<br />
+官方暂时不提供对其他语言版本的支持,当程序测试稳定后会迅速提供这方面的支持.因为我已经未雨绸缪了!嘎嘎.</td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

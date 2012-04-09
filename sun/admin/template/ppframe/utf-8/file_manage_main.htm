@@ -1,0 +1,33 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td width="25%" height="24" bgcolor="#FFFFFF">文件/目录</td>
+    <td width="25%" bgcolor="#FFFFFF">大小</td>
+    <td width="25%" bgcolor="#FFFFFF">最后修改时间</td>
+    <td bgcolor="#FFFFFF">操作</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">[<a href="?">根目录</a>]</td>
+    <td bgcolor="#FFFFFF">[<a href="file_manage_do.php?do=createfile&amp;dir={:dir|urlencode @}">新建文件</a>]</td>
+    <td bgcolor="#FFFFFF">[<a href="file_manage_do.php?do=createdir&amp;dir={:dir|urlencode @}">新建目录</a>]</td>
+    <td bgcolor="#FFFFFF">当前
+      <input type="text" value="{:dir}" style="border:0; width:160px;" /></td>
+  </tr>
+  {foreach dirs fk fv}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><a href="?dir={:crunt_dir}{:fv.name|urlencode @}">{:fv.name}</a></td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">{if} {php} if({:fv.name}!='..') echo 1; {/php} {/if}[<a href="file_manage_do.php?do=rename&name={:fv.name|urlencode @}&dir={:dir|urlencode @}">改名</a>] [<a href="file_manage_do.php?do=del&name={:fv.name|urlencode @}&dir={:dir|urlencode @}">删除</a>] {/endif} </td>
+  </tr>
+  {/foreach}
+  {loop files fk fv}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">{if}{php} echo {:fv.name}=={:name}{/php}{/if}<font color="#FF0000"><a name="{:fv.name}" id="{:fv.name}"><strong>{:fv.name}</strong></a></font>{/endif} {else} {:fv.name} {/else}</td>
+    <td bgcolor="#FFFFFF">{:fv.size}K</td>
+    <td bgcolor="#FFFFFF">{:fv.mtime}</td>
+    <td bgcolor="#FFFFFF">{if}{:fv.text}{/if}[<a href="file_manage_do.php?do=edit&name={:fv.name|urlencode @}&dir={:dir|urlencode @}">编辑</a>]{/endif} [<a href="file_manage_do.php?do=rename&name={:fv.name|urlencode @}&dir={:dir|urlencode @}">改名</a>] [<a href="file_manage_do.php?do=del&name={:fv.name|urlencode @}&dir={:dir|urlencode @}">删除</a>] [<a href="file_manage_do.php?do=move&name={:fv.name|urlencode @}&dir={:dir|urlencode @}">移动</a>] </td>
+  </tr>
+  {/loop}
+</table>
+{include footer.htm}

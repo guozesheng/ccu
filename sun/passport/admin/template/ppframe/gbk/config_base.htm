@@ -1,0 +1,219 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+<form action="{:FormToSelf}" method="post">
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF">通行证基础配置</td>
+    </tr>
+  <tr>
+    <td width="22%" height="24" bgcolor="#FFFFFF">Passport后台地址</td>
+    <td bgcolor="#FFFFFF"><input name="config[admin_host_self]" type="text" id="config[admin_host_self]" value="{:base_config.admin_host_self}" />
+      (重要参数,请勿乱改,除非你知道这是什么意思)</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">Passport根地址</td>
+    <td bgcolor="#FFFFFF"><input name="config[passport_root]" type="text" id="config[passport_root]" value="{:base_config.passport_root}" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">是否开放注册</td>
+    <td bgcolor="#FFFFFF"><p>
+      <label>
+        <input name="config[reg_open]" type="radio" value="1" {if}{:base_config.reg_open}==1{/if}checked{/endif}/>
+        是</label>
+      <label>
+        <input type="radio" name="config[reg_open]" value="0" {if}{:base_config.reg_open}==0{/if}checked{/endif}/>
+        否</label>
+    </p></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">新注册帐号默认有效期</td>
+    <td bgcolor="#FFFFFF"><input name="config[passport_reg_expired]" type="text" id="config[passport_reg_expired]" value="{:base_config.passport_reg_expired}" size="10" />
+      天 0 为无限制 </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">关闭注册提示</td>
+    <td bgcolor="#FFFFFF"><textarea name="config[why_closereg]" cols="40" rows="4" id="config[why_closereg]">{:base_config.why_closereg}</textarea></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">全模块IP限制</td>
+    <td bgcolor="#FFFFFF"><label>
+      <input name="config[ip_ban]" type="radio" value="0" {if}'{:base_config.ip_ban}'==0{/if}checked{/endif}/> 
+      否
+</label>
+      <label>
+      <input type="radio" name="config[ip_ban]" value="1" {if}'{:base_config.ip_ban}'==1{/if}checked{/endif}/> 
+      是</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">注册IP限制</td>
+    <td bgcolor="#FFFFFF"><label>
+      <input name="config[ip_ban_login]" type="radio" value="0" {if}'{:base_config.ip_ban_login}'==0{/if}checked{/endif}/>
+否 </label>
+      <label>
+      <input type="radio" name="config[ip_ban_login]" value="1" {if}'{:base_config.ip_ban_login}'==1{/if}checked{/endif}/>
+是</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">登陆IP限制</td>
+    <td bgcolor="#FFFFFF"><label>
+      <input name="config[ip_ban_reg]" type="radio" value="0" {if}'{:base_config.ip_ban_reg}'==0{/if}checked{/endif}/>
+否 </label>
+      <label>
+      <input type="radio" name="config[ip_ban_reg]" value="1" {if}'{:base_config.ip_ban_reg}'==1{/if}checked{/endif}/>
+是</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">过期用户禁止登陆</td>
+    <td bgcolor="#FFFFFF"><label>
+    <input name="config[expired_ban]" type="radio" value="0" {if}'{:base_config.expired_ban}'==0{/if}checked{/endif}/>
+否 </label>
+      <label>
+      <input type="radio" name="config[expired_ban]" value="1" {if}'{:base_config.expired_ban}'==1{/if}checked{/endif}/>
+是</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">用户名最短长度</td>
+    <td bgcolor="#FFFFFF"><input name="config[username_len]" type="text" id="config[username_len]" value="{:base_config.username_len}" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">密码最低长度</td>
+    <td bgcolor="#FFFFFF"><label></label><label>
+      <input name="config[pass_len]" type="text" id="config[pass_len]" value="{:base_config.pass_len}" />
+    </label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">用户名正则</td>
+    <td bgcolor="#FFFFFF"><label></label><label>
+      <input name="config[username_pattern]" type="text" id="config[username_pattern]" value="{:base_config.username_pattern}" />
+    </label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">正则说明</td>
+    <td bgcolor="#FFFFFF"><textarea name="config[username_pattern_descrip]" cols="40" rows="3" id="config[username_pattern_descrip]">{:base_config.username_pattern_descrip}</textarea></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">正则匹配方式</td>
+    <td bgcolor="#FFFFFF"><label>
+    <input type="radio" name="config[pattern_method]" value="ereg"  {if}'{:base_config.pattern_method}'=='ereg'{/if}checked{/endif}/>
+ereg</label>
+      <label>
+      <input type="radio" name="config[pattern_method]" value="preg"  {if}'{:base_config.pattern_method}'=='preg'{/if}checked{/endif}/>
+preg</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">注册禁用词语 &quot;,&quot; 分割多个</td>
+    <td bgcolor="#FFFFFF"><textarea name="config[username_ban]" cols="40" rows="3" id="config[username_ban]">{:base_config.username_ban}</textarea></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">新用户默认用户组</td>
+    <td bgcolor="#FFFFFF">{foreach _usergroup k v}
+      <input name="config[default_group]" type="radio" id="radio" value="{:v.id}" {if}{:base_config.default_group}=={:v.id}{/if}checked="checked"{/endif} />
+{:v.name}
+	{/foreach} </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">是否检测Email唯一性</td>
+    <td bgcolor="#FFFFFF"><label>
+    <input type="radio" name="config[email_check]" value="1" {if}{:base_config.email_check}==1{/if}checked{/endif}/>
+是</label>
+      <label>
+      <input type="radio" name="config[email_check]" value="0" {if}{:base_config.email_check}==0{/if}checked{/endif}/>
+否</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">是否开启注册验证码</td>
+    <td bgcolor="#FFFFFF"><label></label><label>
+    <input type="radio" name="config[reg_gdcode]" value="1"  {if}{:base_config.reg_gdcode}==1{/if}checked{/endif}/>
+是</label>
+      <label>
+      <input type="radio" name="config[reg_gdcode]" value="0"  {if}{:base_config.reg_gdcode}==0{/if}checked{/endif}/>
+否</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">是否开启资料修改</td>
+    <td bgcolor="#FFFFFF"><label>
+      <input type="radio" name="config[passport_modify]" value="1"  {if}{:base_config.passport_modify}==1{/if}checked{/endif}/>
+是</label>
+      <label>
+      <input type="radio" name="config[passport_modify]" value="0"  {if}{:base_config.passport_modify}==0{/if}checked{/endif}/>
+否</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">启用充值卡充值</td>
+    <td bgcolor="#FFFFFF"><label>
+      <input type="radio" name="config[passport_moneycard_use]" value="1"  {if}{:base_config.passport_moneycard_use}==1{/if}checked{/endif}/>
+是</label>
+      <label>
+      <input type="radio" name="config[passport_moneycard_use]" value="0"  {if}{:base_config.passport_moneycard_use}==0{/if}checked{/endif}/>
+否</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">启用充值验证码</td>
+    <td bgcolor="#FFFFFF"><label>
+      <input type="radio" name="config[passport_moneycard_gdcode]" value="1"  {if}{:base_config.passport_moneycard_gdcode}==1{/if}checked{/endif}/>
+是</label>
+      <label>
+      <input type="radio" name="config[passport_moneycard_gdcode]" value="0"  {if}{:base_config.passport_moneycard_gdcode}==0{/if}checked{/endif}/>
+否</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">充值卡充值选项</td>
+    <td bgcolor="#FFFFFF"><label>
+      <input type="radio" name="config[passport_moneycard_dotype]" value="1"  {if}{:base_config.passport_moneycard_dotype}==1{/if}checked{/endif}/> 
+      只使用密码验证充值
+</label>
+      <label>
+      <input type="radio" name="config[passport_moneycard_dotype]" value="0"  {if}{:base_config.passport_moneycard_dotype}==0{/if}checked{/endif}/>
+      同时验证卡号和密码（推荐,更安全）      </label></td>
+  </tr>
+  
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF">系统整合选项</td>
+    </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">整合方式</td>
+    <td bgcolor="#FFFFFF"><input type="radio" name="config[passport_method]" value="0"  {if}{:base_config.passport_method}==0{/if}checked{/endif}/>
+      我不整合其它系统
+       <!-- <input type="radio" name="config[passport_method]" value="1"  {if}{:base_config.passport_method}==1{/if}checked{/endif}/>
+      使用第三方数据表 -->
+        <input type="radio" name="config[passport_method]" value="2"  {if}{:base_config.passport_method}==2{/if}checked{/endif}/>
+      使用API接口 </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">系统整合通信码</td>
+    <td bgcolor="#FFFFFF"><input name="config[passport_api_hash]" type="text" id="config[passport_api_hash]" value="{:base_config.passport_api_hash}" /></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF">以PPframe作为服务端整合API选项(选择我使用API接口)</td>
+    </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">客户端API入口地址</td>
+    <td bgcolor="#FFFFFF"><input name="config[passport_api_address]" type="text" id="config[passport_api_address]" value="{:base_config.passport_api_address}" />
+      <br />
+      dz yourdomain/api/passport.php pw yourdomain/passport_client.php </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">整合的第三方程序</td>
+    <td bgcolor="#FFFFFF"><input name="config[passport_api_program]" type="text" id="config[passport_api_program]" value="{:base_config.passport_api_program}" />
+      pw or dz </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">认证服务器功能</td>
+    <td bgcolor="#FFFFFF"><input type="radio" name="config[passport_server]" value="0"  {if}{:base_config.passport_server}==0{/if}checked{/endif}/>
+不使用
+  <input type="radio" name="config[passport_server]" value="1"  {if}{:base_config.passport_server}==1{/if}checked{/endif}/>
+      作为服务端 
+      <input type="radio" name="config[passport_server]" value="2"  {if}{:base_config.passport_server}==2{/if}checked{/endif}/>
+作为客户端 </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF"><input type="submit" value="提交" />
+      <input name="Submit" type="hidden" id="Submit" value="1" /></td>
+  </tr>
+  </form>
+</table>
+{include footer.htm 1}

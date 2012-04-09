@@ -1,0 +1,123 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>批量处理会员</strong> <a href="user_main.php">会员管理</a> </td>
+  </tr><form action="{:FormToSelf}" method="post" name="form1" target="BatMain">
+  
+  <tr>
+    <td width="100" height="24" bgcolor="#FFFFFF">用户名</td>
+    <td width="300" bgcolor="#FFFFFF"><input name="input[username]" type="text" id="input[username]"> 
+      模式匹配</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">实名认证</td>
+    <td bgcolor="#FFFFFF"><input type="radio" name="input[u_namecheck]" value="1" />
+      是 
+      <input type="radio" name="input[u_namecheck]" value="0" />
+      否</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">已过期</td>
+    <td bgcolor="#FFFFFF"><input name="input[u_expired]" type="checkbox" id="input[u_expired]" value="1" size="10" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">用户组</td>
+    <td bgcolor="#FFFFFF"> {foreach _usergroup k v}
+      <input name="input[group]" type="radio" id="input[group]" value="{:v.id}" />
+      {:v.name}
+	{/foreach} </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">上次登陆</td>
+    <td bgcolor="#FFFFFF"><input name="input[u_lastlogin]" type="text" id="input[u_lastlogin]" value="0" size="6" />
+      天前</td>
+  </tr>
+  {if}
+  {:rtc.pass_school_ban} != 1
+  {/if}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">院系</td>
+    <td bgcolor="#FFFFFF">{:a|GetCollegesLister|GetTreeSelect @,input[u_cid],,id,name,请选择院系,onchange="loadZhuanye();loadClass();"}  </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">专业</td>
+    <td bgcolor="#FFFFFF"><span id="st_zhuanye">{:a|GetProfessionalLister|GetTreeSelect @,input[u_pid],,id,pname,请选择专业}</span></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">年级</td>
+    <td bgcolor="#FFFFFF"><select name="input[grade]" id="input[grade]" onchange="loadClass()">
+      <option value="">请选择年级</option>
+      
+	  {foreach grades k v}
+        
+      <option value="{:v}" {if}'{:v}'=='{:grade}'{/if}selected{/endif}>{:v}级</option>
+      
+	{/foreach}
+      
+    </select></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">自然班级</td>
+    <td bgcolor="#FFFFFF"><span id="st_class">{:a|GetStudentClassList 0|GetTreeSelect @,input[class],,id,classname,请选择班级} </span></td>
+  </tr>
+  {/endif}
+  {if}
+  {:rtc.pass_buss_ban} != 1
+  {/if}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">部门</td>
+    <td bgcolor="#FFFFFF">{:a|GetBussTreeList|GetTreeSelect @,input[u_bid],[:input.u_bid],id,name,请选择部门}</td>
+  </tr>
+  {/endif}
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>自定义字段</strong></td>
+    </tr>
+  {foreach selfdef_fields k v}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">{:v.0|GetMsg @}</td>
+    <td bgcolor="#FFFFFF"><input name="input[{:v.0}]" type="text" id="input[{:v.0}]" {if}'{:v.0|ereg _no_,@}' && '{:passport-&gt;U.[:v.0]}'{/if}disabled="disabled"{/endif}/></td>
+  </tr>
+  {/foreach}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><strong>操作</strong></td>
+    <td bgcolor="#FFFFFF"><p>
+      <label>
+        <input name="do" type="radio" value="1" checked="checked" />
+        限制登陆</label>
+      <label>
+        <input type="radio" name="do" value="2" onclick="warn(this,'硬删除之后用户将永久丢失，不可恢复！');"/>
+        硬删除(如非必要禁止使用！)</label>
+    </p></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">我先测试</td>
+    <td bgcolor="#FFFFFF"><input name="only_test" type="checkbox" id="only_test" value="1" checked="checked" onclick="rwarn(this,'确认之后去掉测试！');" /></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF"><input type="submit" value="处理" />
+      <input name="Submit" type="hidden" id="Submit" value="1" /></td>
+  </tr>
+  </form>
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF"><iframe src="" name="BatMain" width="99%" marginwidth="0" height="400" marginheight="0" scrolling="auto" frameborder="0"></iframe></td>
+  </tr>
+</table>
+<script language="javascript">
+function loadZhuanye() {
+	if(parseInt($('input[u_cid]').value) > 0) {
+		var url = 'ajax_loadzhuanye.php?cid=' + $('input[u_cid]').value;
+		ajaxLoadUrl(url,$('st_zhuanye'));
+	}
+}
+
+function loadClass() {
+	var cid = parseInt($('input[u_cid]').value);
+	var grade = parseInt($('input[grade]').value);
+	if(cid > 0 || grade) {
+		var url = 'ajax_loadclass.php?cid=' + cid + '&grade=' + grade;
+		ajaxLoadUrl(url,$('st_class'));
+	}
+}
+</script>
+{include footer.htm}

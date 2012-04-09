@@ -1,0 +1,17 @@
+{include exam_header.htm 1}
+<div class="box"><table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+  <tr class="h">
+    <td valign="top"><strong>出题人简介</strong></td>
+  </tr>
+  <tr>
+    <td valign="top">姓名 {:E.name} </td>
+  </tr>
+  <tr>
+    <td valign="top">联系方式 {if}{:E.email}{/if}Email {:E.email}{/endif} {if}{:E.telphone}{/if}电话 {:E.telphone}{/endif} {if}{/if}{if}{:E.ceilphone}{/if}手机 {:E.ceilphone}{/endif}  {/endif} </td>
+  </tr>
+  <tr>
+    <td valign="top">{:E.u_discript}</td>
+  </tr>
+</table>
+</div>
+{include exam_footer.htm 1}

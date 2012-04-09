@@ -1,0 +1,3 @@
+用户名,姓名,得分,总分,班级,Email
+{foreach download k v}{:v.username},{:v.u_name},{:v.sorce|UseFenSize @,[:fensize],2},{:v.totalsorce|UseFenSize @,[:fensize],2},{:stdclass.[:v.class].classname},{:v.email}
+{/foreach}

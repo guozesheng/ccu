@@ -1,0 +1,147 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td valign="top" bgcolor="#FFFFFF">考卷查看 <a href="kaojuan_main.php">[返回考卷管理]</a></td>
+  </tr>
+  <tr>
+    <td valign="top" bgcolor="#FFFFFF">如果考试题目太多查看会很慢，但是后台不好引入缓存！（可以释放空间，释放后不可查看考题，只能查看得分情况）解决方案AJAX</td>
+  </tr>
+  <tr>
+    <td valign="top" bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+      <tr>
+        <td width="120">考卷名称:</td>
+        <td>{if}{:kaojuan.name}{/if}{:kaojuan.name}{/endif}{else}Create {:kaojuan.time|GetMyDate Y-m-d H:i,@}{/else}</td>
+      </tr>
+      <tr>
+        <td>考生：</td>
+        <td>{:kaojuan.username}(ID:{:kaojuan.author})</td>
+      </tr>
+      <tr>
+        <td>所属试卷:</td>
+        <td>{:shijuan.title}</td>
+      </tr>
+      <tr>
+        <td>考卷状态:</td>
+        <td>
+		{if}
+		{:kaojuan.state} == 1
+		{/if}
+		未开始 <a href="kaojuan_do_main.php?id={:id}">作废考卷</a>		{/endif}
+		{if}
+		{:kaojuan.state} == 2
+		{/if}
+		测试中 <a href="kaojuan_do_main.php?id={:id}">没收试卷</a>
+		{/endif}
+		{if}
+		{:kaojuan.state} == 3
+		{/if}
+		已结束 <a href="kaojuan_do_main.php?id={:id}">主观题评分</a>
+		{/endif}
+		{if}
+		{:kaojuan.state} == 4 
+		{/if}
+		已评分 {if}{:qingkong}==0{/if}<a href="kaojuan_do_main.php?id={:id}">评分/空间释放</a>{/endif}
+		{/endif}
+		{if}
+		{:kaojuan.state} == 5
+		{/if}
+		已过期废卷
+		{/endif}
+		{if}
+		{:kaojuan.state} == 6
+		{/if}
+		已清空废卷
+		{/endif}
+		{if}
+		{:kaojuan.state} == 7
+		{/if}
+		已评分并清空
+		{/endif}
+		{if}
+		{:qingkong}
+		{/if}
+		考卷信息已清空
+		{/endif}		</td>
+      </tr>
+      <tr>
+        <td>考卷答题时间:</td>
+        <td>{:shijuan.dotime} 分钟</td>
+      </tr>
+      <tr>
+        <td>最短答题时间:</td>
+        <td>{:shijuan.limitime} 分钟</td>
+      </tr>
+	  {if}
+	  {:shijuan.start} || {:shijuan.end}
+	  {/if}
+      <tr>
+        <td>考卷有效期:</td>
+        <td>{if}{:shijuan.start}{/if}起:{:shijuan.start|GetMyDate Y-m-d H:i:s,@}{/endif} {if}{:shijuan.end}{/if}止:{:shijuan.end|GetMyDate Y-m-d H:i:s,@}{/endif} </td>
+      </tr>
+	  {/endif}
+	  <tr>
+        <td>考卷总分:</td>
+        <td>{:kaojuan.totalsorce|UseFenSize @,[:fensize],2}</td>
+      </tr>
+      <tr>
+        <td>已评得分:</td>
+        <td>{:kaojuan.sorce|UseFenSize @,[:fensize],2}</td>
+      </tr>
+      <tr>
+        <td>开始时间：</td>
+        <td>{if}{:kaojuan.start}{/if}{:kaojuan.start|GetMyDate Y-m-d H:i:s,@}{/endif}{else}未开始{/else}</td>
+      </tr>
+      <tr>
+        <td>结束时间：</td>
+        <td>{if}{:kaojuan.end}{/if}{:kaojuan.end|GetMyDate Y-m-d H:i:s,@}{/endif}{else}未结束{/else}</td>
+      </tr>
+      <tr>
+        <td>选题时间：</td>
+        <td>{:kaojuan.time|GetMyDate Y-m-d H:i:s,@}</td>
+      </tr>
+      <tr>
+        <td>选题IP：</td>
+        <td>{:kaojuan.ip}</td>
+      </tr>
+	  <tr>
+        <td>解说:</td>
+        <td>{:shijuan.overdescrip}</td>
+      </tr>
+	  {if}
+	  {:kaojuan.state} == 3
+	  {/if}
+      <tr>
+        <td>备注:</td>
+        <td>可能还有主观题未评分,上述得分可能不是最终得分</td>
+      </tr>
+	  {/endif}
+    </table></td>
+  </tr>
+  <tr>
+    <td valign="top" bgcolor="#FFFFFF">
+	<script language="javascript">
+	loaded = false;
+	function loadkaojuan(type,page){
+		container = $('kaojuan');		
+		if(true){
+			var ajax = new Ajax(container);
+			ajax.doOpen('GET','ajax_load_kaojuan.php?id={:id}&type=' + type + '&page=' + page);
+			ajax.doSend();
+			if(!loaded) {
+				$('upspan').innerHTML = '<strong>查看考卷</strong>';
+			}
+			loaded=true;
+		}
+		if(container.style.display != 'block') {
+			container.style.display = 'block';
+		}
+	}
+	</script>
+	<span id="upspan"><a href="javascript:;" onclick="loadkaojuan();return false;">查看考卷</a></span>
+	</td>
+  </tr>
+  <tr id="kjtr">
+    <td valign="top" bgcolor="#FFFFFF"><div id="kaojuan" style="display:none"></div></td>
+  </tr>
+</table>
+{include footer.htm 1}

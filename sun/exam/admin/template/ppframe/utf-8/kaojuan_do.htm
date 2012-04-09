@@ -1,0 +1,194 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td valign="top" bgcolor="#FFFFFF">考卷操作 <a href="kaojuan_main.php">[返回考卷管理]</a></td>
+  </tr>
+  <tr>
+    <td valign="top" bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+      <tr>
+        <td width="120">考卷名称:</td>
+        <td>{if}{:kaojuan.name}{/if}{:kaojuan.name}{/endif}{else}Create {:kaojuan.time|GetMyDate Y-m-d H:i,@}{/else}</td>
+      </tr>
+      <tr>
+        <td>所属试卷:</td>
+        <td>{:shijuan.title}</td>
+      </tr>
+      <tr>
+        <td>考卷状态:</td>
+        <td>
+		{if}
+		{:kaojuan.state} == 1
+		{/if}
+		未开始 		{/endif}
+		{if}
+		{:kaojuan.state} == 2
+		{/if}
+		测试中 
+		{/endif}
+		{if}
+		{:kaojuan.state} == 3
+		{/if}
+		已结束 
+		{/endif}
+		{if}
+		{:kaojuan.state} == 4
+		{/if}
+		已评分 
+		{/endif}
+		{if}
+		{:kaojuan.state} == 5
+		{/if}
+		已过期废卷
+		{/endif}
+		{if}
+		{:kaojuan.state} == 6
+		{/if}
+		已清空废卷
+		{/endif}
+		{if}
+		{:kaojuan.state} == 7
+		{/if}
+		已评分并清空
+		{/endif}
+		{if}
+		'{:kaojuan.content}' == ''
+		{/if}
+		考卷信息已清空
+		{/endif}		</td>
+      </tr>
+      <tr>
+        <td>考卷答题时间:</td>
+        <td>{:shijuan.dotime} 分钟</td>
+      </tr>
+      <tr>
+        <td>最短答题时间:</td>
+        <td>{:shijuan.limitime} 分钟</td>
+      </tr>
+	  {if}
+	  {:shijuan.start} || {:shijuan.end}
+	  {/if}
+      <tr>
+        <td>考卷有效期:</td>
+        <td>{if}{:shijuan.start}{/if}起:{:shijuan.start|GetMyDate Y-m-d H:i:s,@}{/endif} {if}{:shijuan.end}{/if}止:{:shijuan.end|GetMyDate Y-m-d H:i:s,@}{/endif} </td>
+      </tr>{/endif}
+      <tr>
+        <td>考卷总分:</td>
+        <td>{:kaojuan.totalsorce|UseFenSize @,[:fensize],2}</td>
+      </tr>
+      <tr>
+        <td>已评得分:</td>
+        <td>{:kaojuan.sorce|UseFenSize @,[:fensize],2}</td>
+      </tr>
+	  {if}
+	  {:kaojuan.state} == 3
+	  {/if}
+      <tr>
+        <td>备注:</td>
+        <td>可能还有主观题未评分,上述得分可能不是最终得分</td>
+      </tr>
+	  {/endif}
+    </table></td>
+  </tr>
+  <tr>
+    <td valign="top" bgcolor="#FFFFFF"><strong>可执行操作</strong></td>
+  </tr>
+  {if}
+  {:kaojuan.state} == 1
+  {/if}
+  <tr>
+    <td valign="top" bgcolor="#FFFFFF"><a href="?id={:id}&do=1">作废考卷</a></td>
+  </tr>
+  {/endif}
+  {if}
+  {:kaojuan.state} == 2
+  {/if}
+  <tr>
+    <td valign="top" bgcolor="#FFFFFF"><a href="?id={:id}&do=2"></a>
+      <table width="100%" border="0" cellspacing="1" cellpadding="3">
+        <form name="form1" method="post" action="{:FormToSelf}">
+		<tr>
+          <td>判为0分
+            <input name="lingfen" type="checkbox" id="lingfen" value="1">
+            或者 扣 
+            <input name="koufen" type="text" id="koufen" size="6"> 
+            分 </td>
+        </tr>
+		<tr>
+		  <td><input type="submit" value="没收试卷">
+		    <input name="do" type="hidden" id="do" value="2">
+            <input name="id" type="hidden" id="id" value="{:id}"></td>
+		  </tr>
+		</form>
+    </table></td>
+  </tr>
+  {/endif}
+  {if}
+  ({:kaojuan.state} == 3 || {:kaojuan.state}==4 ) && {:pingfen_aviliable}
+  {/if}
+  <tr>
+    <td valign="top" bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+      <tr>
+	     <td>主观题评分</td>
+	   </tr>
+	<form name="form1" method="post" action="{:FormToSelf}">
+	   {foreach data k v}
+	  <tr>
+        <td><strong>{:k|GetShitiType @}</strong></td>
+      </tr>
+	 {foreach v kk vv}
+	   <tr>
+        <td>题目：{:vv.title} 总分:{:vv.fen|UseFenSize @,[:fensize],2}</td>
+      </tr>
+	  {if}
+	  {:k|GetTxBaseType @} == 3
+	  {/if}
+      <tr>
+        <td>Answer:{:damix.[:k].[:vv.k].da}</td>
+      </tr>
+      <tr>
+        <td>参考答案: {:vv.daan}</td>
+      </tr>
+      <tr>
+        <td>参考解答: {:vv.jieda}</td>
+      </tr>
+      <tr>
+        <td>打分
+          <input name="defen[{:k}][{:vv.k}]" type="text" id="defen[{:k}][{:vv.k}]" value="{:damix.[:k].[:vv.k].df|UseFenSize @,[:fensize],2}" size="6" />
+修改该题得分
+<input name="dafen[{:k}][{:vv.k}]" type="checkbox" id="dafen[{:k}][{:vv.k}]" value="1" /></td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:vv.sun}
+	  {/if}
+	  <tr>
+	  <td> {foreach vv.sun msk msv}{foreach msv mskk msvv}{:msvv|GetExamShitiView [:msk],@,exam,fun_examshiti_pf}{/foreach}{/foreach} </td>
+	  </tr>
+	  {/endif}
+	  {/foreach}
+	  {/foreach}
+	  <tr>
+	    <td><input type="submit" value="提交评分">
+          <input name="do" type="hidden" id="do" value="3">
+          <input name="id" type="hidden" id="id" value="{:id}"></td>
+	    </tr>
+	  </form>
+    </table></td>
+  </tr>
+  {/endif}
+  {if}
+  {:kaojuan.state} == 4 && '{:kaojuan.content}'
+  {/if}
+  <tr>
+    <td valign="top" bgcolor="#FFFFFF"><a href="?id={:id}&do=4" onclick="if(!confirm('确定要清空？清空后所有考试信息都将丢弃，只记录考试得分！')) return false;">空间释放</a></td>
+  </tr>
+  {/endif}
+  {if}
+  {:kaojuan.state} == 5
+  {/if}
+  <tr>
+    <td valign="top" bgcolor="#FFFFFF">&nbsp;</td>
+  </tr>
+  {/endif}
+</table>
+{include footer.htm 1}

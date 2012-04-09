@@ -1,0 +1,48 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td width="1200" height="24" bgcolor="#FFFFFF"><strong>充值卡生成</strong> <a href="money_card_main.php">查看充值卡</a></td>
+  </tr>
+  
+  <form name="form1" action="{:FormToSelf}">
+  
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">货币
+      <select name="mtype" id="mtype">
+        
+        
+	  {foreach rtc.passport_money k v}
+      
+        
+        <option value="{:v}" {if}'{:mtype}'=='{:v}'{/if}selected="selected"{/endif}>{:money_types.[:v]}|{:money_types.[:v]|GetMsg @}</option>
+        
+        
+	   {/foreach}
+    
+      
+      </select>
+充值卡金额
+<input name="mnum" type="text" id="mnum" value="{:mnum}" size="6" /> 
+有效期
+<select name="timeout" id="timeout">
+  <option value="0">永久</option>
+  <option value="1">1个月</option>
+  <option value="3">3个月</option>
+  <option value="6">6个月</option>
+  <option value="12">1年</option>
+  <option value="36">3年</option>
+</select>
+</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">生成数量
+      <input name="num" type="text" id="num" value="100" size="6" />
+      （注意：一次生成太多可能会很慢！）</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><input type="submit" value="生成" />
+      <input name="Submit" type="hidden" id="Submit" value="1" /></td>
+  </tr>
+  </form>
+</table>
+{include footer.htm}

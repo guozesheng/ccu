@@ -1,0 +1,34 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td width="800" height="24" bgcolor="#FFFFFF">试题报错管理</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">删除对 <strong>{:elememt_exam_errorreport-&gt;E.title}</strong> 的报错 删除之前请确认已修改或者无错！ </td>
+  </tr><form name="form1" method="post" action="{:FormToSelf}">
+  {if}
+  {:base_config.exam_reportmoney_num}
+  {/if}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><p>
+      <label>
+        给予积分奖励 
+        <input name="jiafen" type="radio" value="1" checked>
+        是</label>
+      <label>
+        <input type="radio" name="jiafen" value="0">
+        否</label>
+      给予 {:base_config.exam_reportmoney_num} + 
+      <input name="moneyadd" type="text" id="moneyadd" size="4">
+      {:base_config.exam_reportmoney|GetMoneyName @}
+      核实之后给予奖励或者惩罚<br>
+    </p>      </td>
+  </tr>
+  {/endif}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><input type="submit" value="提交">
+      <input name="Submit" type="hidden" id="Submit" value="1">
+      <input name="id" type="hidden" id="id" value="{:id}"></td>
+  </tr></form>
+</table>
+{include footer.htm 1}

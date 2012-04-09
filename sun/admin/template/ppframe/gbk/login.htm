@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta http-equiv="Window-Target" contect="_top">
+<title>PPFrame后台管理入口</title>
+<style type="text/css">
+body{font-size:12px;}
+</style>
+<script type="text/javascript" language="javascript">
+//<![CDATA[
+// show login form in top frame
+if (top != self) {
+    window.top.location.href=location;
+}
+//]]>
+</script>
+</head>
+
+<body style="margin-top:100px;">
+<table width="640" border="0" align="center" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <form id="form1" name="form1" method="post" action="?">
+  <tr>
+    <td height="32" colspan="2" align="center" bgcolor="#00CCCC"><strong>PPFrame后台管理入口</strong></td>
+    </tr>
+  <tr>
+    <td width="220" height="32" align="center" bgcolor="#D7D1DE">用户名:</td>
+    <td bgcolor="#D7D1DE"><input name="username" type="text" id="username" /></td>
+  </tr>
+  <tr>
+    <td height="32" align="center" bgcolor="#D7D1DE">密码:</td>
+    <td bgcolor="#D7D1DE"><input name="password" type="password" id="password" /></td>
+  </tr>
+  {if}
+  {:rtc.admin_gdcheck}
+  {/if}
+  <tr>
+    <td height="32" align="center" bgcolor="#D7D1DE">验证码:</td>
+    <td bgcolor="#D7D1DE"><input name="gdcode" type="text" id="gdcode" size="8" />
+	  <img src="{:rtc.host}ck.php{:checknum_no_cookie}" alt="" width="80" height="22" align="absmiddle" style="cursor:pointer" onclick="this.src='{:rtc.host}ck.php{:checknum_no_cookie}'" /></td>
+  </tr>
+  {/endif}
+  <tr>
+    <td height="32" colspan="2" align="center" bgcolor="#D7D1DE">
+      <input type="submit" name="Submit" value="提交" />
+      <input name="Submit" type="hidden" id="Submit" value="1" />      <input name="gurl" type="hidden" id="gurl" value="{:gurl}" />
+      <input name="{$ckecknum_ckckey}" type="hidden" id="{$ckecknum_ckckey}" value="{$checknum_key}" /></td>
+  </tr></form>
+</table>
+
+<table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+  <tr>
+    <td align="center"><span>powered by <a href="http://www.ppframe.com/" target="_blank">ppframe</a></span> </td>
+  </tr>
+</table>
+</body>
+</html>

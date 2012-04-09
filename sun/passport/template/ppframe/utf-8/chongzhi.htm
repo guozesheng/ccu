@@ -1,0 +1,64 @@
+{include passport_header 1}
+<div>
+  <table width="100%" border="0" cellspacing="1" cellpadding="3">
+    <tr>
+      <td width="24%" valign="top">{include left 1} </td>
+      <td valign="top"><div class="box">
+        <table width="100%" border="0" cellspacing="1" cellpadding="3">
+          <tr>
+            <td class="h"><a href="jifen.php">查看积分</a> <strong>积分充值</strong> <a href="order.php">查看订单</a></td>
+          </tr><form action="{:FormToSelf}" method="post" target="_blank">
+          <tr class="t2">
+            <td> 在线支付金额
+              <input name="chongzhi_num" type="text" id="chongzhi_num" size="15" />
+RMB
+<input name="Submit" type="hidden" id="Submit" value="1" />
+<input type="submit" value="充值" /></td>
+            </tr></form>
+          <tr>
+            <td> 当前汇率 1 RMB = {:rtc.passport_moneyhuilv} <strong>{:rtc.passport_onlinemoney|GetMoneyName @}</strong> </td>
+            </tr>
+          <tr>
+            <td> 最低充值 {:rtc.passport_chongzhi_min} RMB </td>
+          </tr>
+		  {if}
+		  {:base_config.passport_moneycard_use}
+		  {/if}
+		  <form id="form1" name="form1" method="post" action="money_card.php">
+          <tr class="t2">
+            <td>充值卡充值</td>
+          </tr>
+		  {if}
+		  !'{:base_config.passport_moneycard_dotype}'
+		  {/if}
+          <tr>
+            <td>充值卡卡号：
+              <input name="cardno" type="text" id="cardno" /></td>
+          </tr>
+		  {/endif}
+          <tr>
+            <td>充值卡密码：
+              <input name="password" type="text" id="password" /></td>
+          </tr>
+		  {if}
+		  {:base_config.passport_moneycard_gdcode}
+		  {/if}
+          <tr>
+            <td>验证码：
+              <input name="gdcode" type="text" id="gdcode" size="8" />
+              <img src="{:rtc.passport_root}ck.php{:checknum_no_cookie}" alt="" width="80" height="22" align="absmiddle" style="cursor:pointer" onclick="this.src='{:rtc.passport_root}ck.php{:checknum_no_cookie}'" />
+              <input name="{$ckecknum_ckckey}" type="hidden" id="{$ckecknum_ckckey}" value="{$checknum_key}" /></td>
+          </tr>
+		  {/endif}
+          <tr>
+            <td>
+              <input type="submit" value="充值" />
+              <input name="do" type="hidden" id="do" value="1" />            </td>
+          </tr></form>
+		  {/endif}
+        </table>
+      </div></td>
+    </tr>
+  </table>
+</div>
+{include passport_footer 1}

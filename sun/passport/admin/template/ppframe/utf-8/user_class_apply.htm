@@ -1,0 +1,72 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF"><strong>班级申请管理</strong></td>
+  </tr>
+  <tr>
+    <td width="200" height="24" bgcolor="#FFFFFF">班级名</td>
+    <td width="100" bgcolor="#FFFFFF">年级</td>
+    <td width="100" bgcolor="#FFFFFF">属性</td>
+    <td width="100" bgcolor="#FFFFFF">申请人</td>
+    <td width="100" bgcolor="#FFFFFF">申请时间</td>
+    <td width="100" bgcolor="#FFFFFF">操作</td>
+  </tr>
+ {foreach lister_classsh fk fv}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"> <a href="user_class_view.php?id={:fv.classid}">{:fv.classname}</a>({:fv.classid})</td>
+    <td bgcolor="#FFFFFF">{:fv.grade}</td>
+    <td bgcolor="#FFFFFF"><!--{if}{:fv.ctype}==0{/if}-->自然班<!--{/endif}{else}-->课程班<!--{/else}--></td>
+    <td bgcolor="#FFFFFF"><a href="user_view.php?id={:fv.uid}">{:fv.username}</a></td>
+    <td bgcolor="#FFFFFF">{:fv.time|GetMyDate Y-m-d H:i,@} </td>
+    <td bgcolor="#FFFFFF"><a href="user_class_applydo.php?id={:fv.id}&action=del" onClick="if(!confirm('确定删除？不可恢复')) return false;">删除</a>   <!--{if}{:fv.sh}==0{/if}--><a href="user_class_applydo.php?id={:fv.id}&action=pass">通过</a> <a href="user_class_applydo.php?id={:fv.id}&action=refuse">拒绝</a><!--{/endif}--></td>
+  </tr>{/foreach}
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF">{:pagelink}</td>
+  </tr>
+  <tr></tr>
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF"><strong>搜索</strong></td>
+  </tr><form name="form1" action="{:FormToSelf}">
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF">班级名：
+      <input name="classname" type="text" id="classname" value="{:classname}">
+      <input name="jq" type="checkbox" id="jq" value="1">
+      精确匹配 用户名
+      <input name="username" type="text" id="username" value="{:username}">
+      <input name="jq2" type="checkbox" id="jq2" value="1">
+精确匹配</td>
+  </tr>
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF">年级
+      <select name="grade" id="grade">
+	  <option value="">请选择年级</option>
+	  {foreach grades k v}
+        <option value="{:v}" {if}'{:v}'=='{:grade}'{/if}selected{/endif}>{:v}级</option>
+	{/foreach}
+      </select>
+      <label>
+        <input name="ctype" type="radio" value="0" {if}'{:ctype}'=='0'{/if}checked{/endif}>
+        自然班</label>
+        <label>
+        <input type="radio" name="ctype" value="1" {if}{:ctype}{/if}checked{/endif}>
+        课程班</label>      </td>
+  </tr>
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF"><p>
+      <label>
+        <input type="radio" name="sh" value="0" {if}'{:sh}'=='0'{/if}checked{/endif}>
+        未处理</label>
+      <label>
+        <input type="radio" name="sh" value="1" {if}'{:sh}'=='1'{/if}checked{/endif}>
+        已通过</label>
+      <label>
+        <input type="radio" name="sh" value="2" {if}'{:sh}'=='2'{/if}checked{/endif}>
+        已拒绝</label>
+    </p></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="6" bgcolor="#FFFFFF"><input name="submit" type="submit" value="搜索"></td>
+  </tr>
+  </form>
+</table>
+{include footer.htm}

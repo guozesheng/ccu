@@ -1,0 +1,18 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><a href="class_main.php">试卷分类管理</a></td>
+  </tr>
+  <form action="{:FormToSelf}">
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">{:a|GetClassLister|GetTreeList @,fun_gettreelist_class}</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><input type="submit" name="Submit" value="修改排序" /></td>
+  </tr>
+  </form>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><a href="class_add.php">添加试卷分类</a></td>
+  </tr>
+</table>
+{include footer.htm 1}

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{:base_config.exam_title}-{:title} - powered by ppframe.com</title>
+<link type="text/css" rel="stylesheet" href="{:rtc.sourceurl}css/{:rtc.language}/base_{:rtc.style|GetStyle}.css" />
+<link type="text/css" rel="stylesheet" href="{:rtc.sourceurl}exam/{:rtc.language}/{:rtc.style|GetStyle}.css" />
+<script src="{:rtc.sourceurl}ajax.js">
+</script>
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" oncopy="document.selection.empty()">
+<div id="root">
+<div id="header">
+<div class="topbar tright">
+<span>
+<a href="http://www.ppframe.com/" target="_blank">首页</a> | <a href="http://blog.ppframe.com/" target="_blank">博客</a> | <a href="{:rtc.passport_root}" target="_blank">通行证</a> | <a href="http://bbs.ppframe.com/" target="_blank">论坛</a></span></div>
+<table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+  <tr>
+    <td height="50"><a href="{:base_config.exam_root}"><img src="images/{:rtc.style|GetStyle}/logo.gif" alt="在线考试系统" /></a></td>
+  </tr>
+</table>
+<div class="guide" id="userstate" name="userstate">
+{if}
+{:exam_user->U_ID}>0
+{/if}
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>&nbsp;</td>
+		<td width="100">{:exam_user->U_Uname}</td>
+        <td width="100"><a href="{:go|GetLogouturl}">退出</a></td>
+		<td width="100"><a href="my_kaojuan.php">我的考卷</a></td>
+		{if}{:base_config.exam_allowpush}{/if}
+		<td width="100"><a href="my_shiti.php">我要出题</a></td>
+		{/endif}
+		<td width="100"><a href="{:rtc.passport_root}">我的通行证</a></td>
+  </tr>
+</table>
+{/endif}
+{else}
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>&nbsp;</td>
+	    <td width="600"><form action="{:rtc.passport_login}" method="POST">用户名
+	      <input name="username" type="text" id="username" value="{:exam_user-&gt;U_Uname}" size="10" />
+	      密　码
+          <input name="password" type="password" id="password" size="10" />
+	      {if}
+	      {:rtc.login_gdcode}
+	      {/if}
+	      验证码
+          <input name="gdcode" type="text" id="gdcode" size="8" />
+          <img src="{:rtc.passport_root}ck.php{:checknum_no_cookie}" alt="" width="80" height="22" align="absmiddle" style="cursor:pointer" onclick="this.src='{:rtc.passport_root}ck.php{:checknum_no_cookie}'" />
+          <input name="{$ckecknum_ckckey}" type="hidden" id="{$ckecknum_ckckey}" value="{$checknum_key}" />
+	      {/endif}
+          <input name="Submit" type="hidden" id="Submit" value="1" />
+          <input name="return" type="hidden" id="return" value="{:go|GetRtFullUrl}" />          <input name="submit" type="submit" value=" 登录 "/> <a href="{:go|GetRegurl}">注册</a>  
+	    </form>   
+	      </td>
+     </tr>
+    </table>
+{/else}
+</div>
+<div id="main">

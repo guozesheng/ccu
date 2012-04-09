@@ -1,0 +1,40 @@
+{include passport_header 1}
+<div>
+  <table width="100%" border="0" cellspacing="1" cellpadding="3">
+    <tr>
+      <td width="24%" valign="top">{include left 1} </td>
+      <td valign="top"><div class="box">
+        <table width="100%" border="0" cellspacing="1" cellpadding="3">
+          
+            <tr>
+              <td class="h"><strong>积分转换</strong> <a href="jifen.php">查看积分</a> <a href="chongzhi.php">积分充值</a> <a href="order.php">查看订单</a></td>
+            </tr>
+            <tr>
+              <td>{foreach _jifen_change k v}
+                <table width="100%" border="0" cellspacing="1" cellpadding="3">
+                  <tr class="t2">
+                    <td>{:v.fn}{:v.f|GetMoneyName @} =&gt; {:v.tn}{:v.t|GetMoneyName @}  </td>
+                  </tr><form name="form1" method="post" action="{:FormToSelf}">
+                  <tr class="t3">
+                    <td>
+                      您有{:element_passport_money.money[:v.f]}{:v.f|GetMoneyName @}可以转换
+                        <input name="num" type="text" id="num" size="10">
+                      <input name="change" type="hidden" id="change" value="{:v.f}_{:v.t}">
+                      <input name="Submit" type="hidden" id="Submit" value="1">                    
+                      <input type="submit" value="转换"></td>
+                  </tr>
+                  </form>
+					
+                
+                </table> 
+              {/foreach}</td>
+            </tr>
+			<tr>
+			 <td>注:积分转换总是取整!</td>
+                  </tr>
+          </table>
+      </div></td>
+    </tr>
+  </table>
+</div>
+{include passport_footer 1}

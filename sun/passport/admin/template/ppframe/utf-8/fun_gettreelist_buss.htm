@@ -1,0 +1,4 @@
+<li>{:_f_a.name}  &nbsp;&nbsp;  <a href="user_main.php?input[u_bid]={:_f_a.id}">查看用户</a> &nbsp;&nbsp; <a href="user_buss_view.php?id={:_f_a.id}">查看</a> &nbsp;&nbsp; <a href="user_buss_del.php?id={:_f_a.id}" onClick="if(!confirm('真的要删除？所有子部门都将被删除而且无法恢复!')) return false;">删除</a> 
+ &nbsp;&nbsp;  排序值
+    <input name="input[{:_f_a.id}]" type="text" id="input[{:_f_a.id}]" value="{:_f_a.orderkey}" size="4">
+</li>

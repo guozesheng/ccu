@@ -1,0 +1,20 @@
+{include exam_header.htm 1}
+<div class="box"><table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+  <tr class="h">
+    <td valign="top">强制交卷</td>
+  </tr>
+  <tr class="t2">
+    <td valign="top">系统检测到您的考卷还未完成,是否强制交卷?</td>
+  </tr><form name="form1" method="post" action="{:FormToSelf}">
+  <tr class="t3">
+    <td valign="top"><input type="submit" value="是的，我要强制交卷">
+      <input name="Submit" type="hidden" id="Submit" value="1">
+      <input name="id" type="hidden" id="id" value="{:id}">
+      <input name="jd" type="hidden" id="jd" value="{:jd}" /></td>
+  </tr>
+</form> 
+ <tr>
+    <td valign="top"><a href="exam_do.php?id={:id}">我要返回继续答题</a></td>
+  </tr>
+</table></div>
+{include exam_footer.htm 1}

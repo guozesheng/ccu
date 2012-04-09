@@ -1,0 +1,118 @@
+PPF 模板标记向导：
+1 变量调用：
+使用模板标记{:变量标记}或者{$变量标记}调用
+1.1 变量标记说明
+1）宏变量
+define('MODULE','PPFrame');
+可以使用{:MODULE}或者{$来调用} MODULE来调用，注意：宏变量是最优先调用的。
+如果同时有define('MODULE','PPFrame');和$MODULE='a',上述调用是分不清楚的，会返回PPFrame
+2）普通变量
+$ppframe = 'PPFrame';
+使用{:ppframe}或者{$ppframe}来调用
+3）数组
+$ppframe = array(
+	'key' => 'ppframe'
+);
+使用{:ppframe.key}来调用$ppframe[key]
+4）对象
+$ppframe = new Object();
+$ppframe -> Key = 'ppframe';
+则使用{:ppframe->Key}来调用 $ppframe -> Key
+
+上述调用可以无限传递。
+{:ppframe.a->key.b} 调用$ppframe[a]->key[b]
+{:ppframe->p.a} 调用$ppframe->p[a]
+
+说明：{ } 中可以再次使用变量定义，界定符变成[ ]
+比如
+$ppframe = array(
+	'key' => 'ppframe',
+);
+$a = 'key';
+{:ppframe.[:a]} 调用$ppframe[key]
+
+注意：变量调用只能调用$GLOBALS 域，局部变量调用不到。
+
+1.2 对变量使用函数处理。
+使用标记{:变量标记|处理函数 变量列表,变量列表,,,}
+比如:
+$ppframe = array(
+	'key' => 'ppframe'
+);
+{:ppframe.key|substr @,0,2} 调用变量$ppframe[key]并对这个变量运行函数substr(@,0,2)再返回。
+@代表这个变量本身。即：substr($ppframe[key],0,2)。
+说明：| 表示调用函数，后面紧接的是函数名 然后紧接一个空格。后面是变量列表，用“,”分隔。
+函数变量也可以再次调用变量用[:变量标记]来调用。
+函数后面可以再接函数，比如
+{:ppframe.key|substr @,0,2|substr @,0,1}
+表示substr(substr($ppframe[key],0,2),0,1)
+对于函数名，可以是普通函数名，还可以是类的成员函数，对象的成员函数。后两类，使用
+classname::function和object::function来调用
+
+注意：函数参数，只能是普通变量，不能是数组，或者对象。
+比如:
+$ppframe = array(
+	'key' => 'ppframe'
+);
+{:a|array_key_exists 'key',[:ppframe]} 这是错误的，这并不能正确调用array_key_exists('key',$ppframe);实际调用是array_key_exists('key','array');这当然是错误的。
+{:ppframe|array_key_exists 'key',@}才能正确调用。
+也就是说，在函数参数里面使用变量解析是，不能使数组、对象、资源等类型，而只能使用@ 回调。
+
+2 流程控制
+{if}
+if条件
+{/if}
+if 条件为真时显示这一块
+{/endif}
+{else}
+否则显示这一块
+{/else}
+
+{if} 和 {else} 内都能嵌套，并且能使用任何标记。
+技巧：
+<!--{if}-->
+if条件
+<!--{/if}-->
+if 条件为真时显示这一块
+<!--
+{/endif}
+{else}
+-->
+否则显示这一块
+<!--{/else}-->
+可以像这样加入html注释标记，不影响功能，但是模板上看到的效果是可见可得的。
+3 循环
+
+{foreach 数组变量 key var}
+中间代码将循环显示
+这中间可以使用{:key}、{:var} 来分别调用循环产生的key和var
+{/foreach}
+
+同时还可以用loop标签来获得一摸一样的效果。
+foreach/loop 标签可以嵌套，并且里面可以使用其他任何标签。
+4 注释
+{*注释内容}或者
+{notes}
+注释内容
+{/notes}
+没什么好说的，也基本不会用。
+5 包含文件
+{include 模板文件名 是否解析}
+比如
+{include exam_header.htm 1}
+表示包含模板 exam_header.htm 并且解析它。
+模板文件名在使用系统函数GetTemplate来搜索，所以可以省略扩展名。在扩展名省略的情况下，将使用扩展名.htm
+{include exam_header.htm}
+则表示包含模板 exam_header.htm 但是不解析它
+6通用调用
+使用
+{@函数名 变量列表,变量列表,,,}
+来调用一个函数，内容被替换为函数的返回值。
+这个跟变量调用后面的函数处理基本一样。事实上所有的通用调用都可以使用
+{:a|函数名 变量列表,变量列标,,,}来调用，a可以是随便什么，没有任何意义当后面的变量列表没有使用@来回调它的时候。
+7 运行一般简单PHP语句
+使用
+{php}
+合法的php语句
+{/php}
+来运行简单PHP语句，这个方法不推荐，结果不可预知。不要妄图使用这个功能来改变系统变量，他不是在全局域下运行的。除非使用$GLOBALS显式改变特定变量的值。

@@ -1,0 +1,17 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><a href="tiku_main.php">题库管理</a></td>
+  </tr>
+<form action="{:FormToSelf}">
+  <tr>
+  	<td height="24" bgcolor="#FFFFFF">
+  {:a|GetTiKuLister|GetTreeList @,fun_gettreelist_tiku}</td>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><input type="submit" name="Submit" value="修改排序" /></td>
+  <tr>
+</form>
+    <td height="24" bgcolor="#FFFFFF"><a href="tiku_add.php">添加题库</a></td>
+  </tr>
+</table>
+{include footer.htm 1}

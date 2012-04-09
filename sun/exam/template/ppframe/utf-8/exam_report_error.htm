@@ -1,0 +1,74 @@
+{include exam_header.htm 1}
+<div class="box"><table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+  <tr class="h">
+    <td colspan="2" valign="top">试题报错！</td>
+  </tr>
+  {if}
+  {:base_config.exam_reportmoney_num}
+  {/if}
+  <tr class="t2">
+    <td colspan="2" valign="top">目前试题报错被核实后有 {:base_config.exam_reportmoney_num}{:base_config.exam_reportmoney|GetMoneyName @} 奖励</td>
+  </tr>
+  {/endif}
+  <tr class="t3">
+    <td width="20%" valign="top">题目</td>
+    <td valign="top">{:element_exam_shiti.title|cn_substr @,250}</td>
+  </tr>
+  	{if}
+	{:type|GetTxBaseType @} != 3
+	{/if}
+  <tr>
+    <td valign="top">选项及其原答案<br>
+      请看清楚了再提交，也许你的报错我们已经更改了，请勿重复报错！</td>
+    <td valign="top"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+      {foreach element_exam_shiti.xx k v}
+      <tr>
+        <td>{:v.xx}
+          
+          {if}{:type|GetTxBaseType @}==2{/if}
+          <input name="shiti[da][]" type="checkbox" id="shiti[da][]" value="{:k}" {:checked.daan.[:k]} disabled="disabled">
+          {/endif}
+          {if}{:type|GetTxBaseType @}==1 {/if}
+          <input name="shiti[da]" type="radio" value="{:k}" {if}{:element_exam_shiti.daan} == {:k}{/if}checked{/endif} disabled="disabled">
+          {/endif}
+		  </td>
+      </tr>
+      {/foreach}
+    </table></td>
+  </tr>
+  {/endif}
+  {if}
+	{:type|GetTxBaseType @}==3
+	{/if}
+  <tr class="t3">
+    <td valign="top">答案</td>
+    <td valign="top">{:element_exam_shiti.daan}</td>
+  </tr>
+  {/endif}
+  <tr class="t3">
+    <td valign="top">解答</td>
+    <td valign="top">{:element_exam_shiti.jieda}&nbsp;</td>
+  </tr>
+  
+  <form name="form1" method="post" action="{:FormToSelf}">
+  <tr class="t3">
+    <td valign="top">报错原因<br>
+      请说明详细情况和正确答案以供我们参考</td>
+    <td valign="top">
+      <textarea name="why" cols="60" rows="5" id="why"></textarea>    </td>
+  </tr>
+  <tr class="t3">
+    <td valign="top">&nbsp;</td>
+    <td valign="top"><input type="submit" value="提交">
+      <input name="Submit" type="hidden" id="Submit" value="1">
+      <input name="id" type="hidden" id="id" value="{:id}">
+      <input name="tiku" type="hidden" id="tiku" value="{:tiku}"></td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top">请不要恶意报错，否则可能受到惩罚！</td>
+    </tr>
+</form>
+  
+</table>
+</div>
+{include exam_footer.htm 1}

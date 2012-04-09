@@ -1,0 +1,79 @@
+{include exam_header.htm 1}
+<div class="box"><table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+  <tr class="h">
+    <td valign="top">考卷查看</td>
+  </tr>
+  <tr>
+    <td valign="top"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+      <tr class="t3">
+        <td width="120">考卷名称:</td>
+        <td>{if}{:kaojuan.name}{/if}{:kaojuan.name}{/endif}{else}Create {:kaojuan.time|GetMyDate Y-m-d H:i,@}{/else}</td>
+      </tr>
+      <tr class="t3">
+        <td>所属试卷:</td>
+        <td><a href="shijuan_view.php?id={:shijuan.id}">{:shijuan.title}</a></td>
+      </tr>
+      <tr class="t3">
+        <td>考卷状态:</td>
+        <td>
+		<!--{if}
+		{:kaojuan.state} == 1
+		{/if}-->
+		未开始  <a href="exam_do.php?id={:id}">立刻进入测试</a>
+		<!--{/endif}{if}
+		{:kaojuan.state} == 2
+		{/if}-->
+		测试中 <a href="exam_do.php?id={:id}">立刻进入测试</a>
+		<!--{/endif}{if}
+		{:kaojuan.state} == 3
+		{/if}-->
+		已结束 <!--{if}{:base_config.exam_word_down}{/if}--> <a href="exam_down_word.php?id={:id}">下载WORD格式考卷</a> <!--{/endif}--> <a href="exam_do_view.php?id={:id}">查看结果</a>
+		<!--{/endif}{if}
+		{:kaojuan.state} == 4
+		{/if}-->
+		已评分 <a href="exam_do_view.php?id={:id}">查看结果</a> <!--{if}{:base_config.exam_word_down}{/if}--> <a href="exam_down_word.php?id={:id}">下载WORD格式考卷</a>  <!--{/endif}-->  <a href="exam_prove.php?id={:id}">考试证明</a>	
+		<!--{/endif}{if}
+		{:kaojuan.state} == 5
+		{/if}-->
+		已过期废卷
+		<!--{/endif}-->	
+		<!--{/endif}{if}
+		{:kaojuan.state} == 6
+		{/if}-->
+		已过期废卷
+		<!--{/endif}-->	
+		<!--{/endif}{if}
+		{:kaojuan.state} == 7
+		{/if}-->
+		已评分并清空 <a href="exam_do_view.php?id={:id}">查看结果</a>  <a href="exam_prove.php?id={:id}">考试证明</a>
+		<!--{/endif}-->	
+			</td>
+      </tr>
+      <tr class="t3">
+        <td>考卷答题时间:</td>
+        <td>{:shijuan.dotime} 分钟</td>
+      </tr>
+      <tr class="t3">
+        <td>最短答题时间:</td>
+        <td>{:shijuan.limitime} 分钟</td>
+      </tr>
+	  {if}
+	  {:shijuan.start} || {:shijuan.end}
+	  {/if}
+      <tr class="t3">
+        <td>考卷有效期:</td>
+        <td>{if}{:shijuan.start}{/if}起:{:shijuan.start|GetMyDate Y-m-d H:i:s,@}{/endif} {if}{:shijuan.end}{/if}止:{:shijuan.end|GetMyDate Y-m-d H:i:s,@}{/endif} </td>
+      </tr>
+	  {/endif}
+      <tr class="t3">
+        <td>说明：</td>
+        <td>{:shijuan.descrip}</td>
+      </tr>
+	  {if}
+	  {:kaojuan.state} == 1 || {:kaojuan.state} == 2
+	  {/if}
+	  {/endif}
+    </table></td>
+  </tr>
+</table></div>
+{include exam_footer.htm 1}

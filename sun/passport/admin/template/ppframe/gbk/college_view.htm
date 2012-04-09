@@ -1,0 +1,28 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>查看/修改院系</strong> <a href="college_main.php">院系管理</a></td>
+  </tr>
+  <form name="form1" action="{:FormToSelf}">
+  <tr>
+    <td width="125" height="24" bgcolor="#FFFFFF">院系全称</td>
+    <td width="660" bgcolor="#FFFFFF"><input name="input[name]" type="text" id="input[name]" value="{:E.name}"></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">院系代码</td>
+    <td bgcolor="#FFFFFF"><input name="input[code]" type="text" id="input[code]" value="{:E.code}" size="10" />
+      自己保证唯一性，程序不做检测</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">院系简介</td>
+    <td bgcolor="#FFFFFF"><textarea name="input[discript]" cols="80" rows="5" id="input[discript]">{:E.discript}</textarea></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF"><input type="submit" value="修改" />
+      <input name="Submit" type="hidden" id="Submit" value="1" />
+      <input name="id" type="hidden" id="id" value="{:id}" /></td>
+  </tr>
+  </form>
+</table>
+{include footer.htm}

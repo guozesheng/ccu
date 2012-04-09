@@ -1,0 +1,47 @@
+<table>
+
+<tr>
+        <td>题目{:__fun_examshiti_array.th}：{:__fun_examshiti_array.title|nl2br @} {if}{:__fun_examshiti_k|GetTxBaseType @} != 7{/if}得分:{if}{:damix.[:__fun_examshiti_k].[:__fun_examshiti_array.k].df}{/if}{:damix.[:__fun_examshiti_k].[:__fun_examshiti_array.k].df|UseFenSize @,[:fensize],2}{/endif}{if}'{:damix.[:__fun_examshiti_k].[:__fun_examshiti_array.k].df}'=='0'{/if}0{/endif}{if}'{:damix.[:__fun_examshiti_k].[:__fun_examshiti_array.k].df}'==''{/if}未评{/endif}{if}{:__fun_examshiti_k|GetTxBaseType @}!= 4{/if}/{:__fun_examshiti_array.fen|UseFenSize @,[:fensize],2}{/endif}{/endif}</td>
+  </tr>{if}{:__fun_examshiti_k|GetTxBaseType @}!= 4 && {:__fun_examshiti_k|GetTxBaseType @}!= 7{/if}
+	  {/endif}
+	  {if}
+	  {:__fun_examshiti_k|GetTxBaseType @} == 1 || {:__fun_examshiti_k|GetTxBaseType @} == 4
+	  {/if}
+      <tr>
+        <td>
+		
+		{foreach __fun_examshiti_array.xx kkk vvv}
+              <input id="{:__fun_examshiti_k}_{:__fun_examshiti_array.k}_{:vvv.k}" type="radio" disabled="disabled" {if}'{:damix.[:__fun_examshiti_k].[:__fun_examshiti_array.k].da}'=='{:vvv.k}'{/if}checked{/endif}>
+             <label for="{:__fun_examshiti_k}_{:vv.k}_{:vvv.k}">{:vvv.xx|nl2br @} {if}'{:__fun_examshiti_array.daan}'=='{:vvv.k}'{/if}<font color="#FF0000">√</font>{/endif} {if}{:k|GetTxBaseType @}== 4{/if}选择得{:vvv.fen}分{/endif}</label>
+		     <br />
+        {/foreach}			  </td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:__fun_examshiti_k|GetTxBaseType @} == 2
+	  {/if}
+      <tr>
+        <td>
+		{foreach __fun_examshiti_array.xx kkk vvv}
+            <input id="{:__fun_examshiti_k}_{:__fun_examshiti_array.k}_{:vvv.k}" type="checkbox" disabled="disabled" {if}{:damix.[:__fun_examshiti_k].[:__fun_examshiti_array.k].da|in_array [:vvv.k],@}{/if}checked{/endif}>
+<label for="{:__fun_examshiti_k}_{:__fun_examshiti_array.k}_{:vvv.k}">{:vvv.xx|nl2br @}</label>
+{if}{:__fun_examshiti_array.daan|in_array [:vvv.k],@}{/if} <font color="#FF0000">√</font> {/endif} <br />
+		{/foreach}		</td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:__fun_examshiti_k|GetTxBaseType @} == 3
+	  {/if}
+      <tr>
+        <td>答案:{:damix.[:__fun_examshiti_k].[:__fun_examshiti_array.k].da}<br />
+          解答:{:__fun_examshiti_array.jieda}</td>
+      </tr>
+	  {/endif}
+	  {if}
+	  {:__fun_examshiti_array.sun}
+	  {/if}
+	  <tr >
+	  <td>{foreach __fun_examshiti_array.sun sk sv} {foreach sv skk svv}{:svv|GetExamShitiView [:sk],@,[:__fun_examshiti_tag],fun_examshiti_view}{/foreach}{/foreach}</td>
+	  </tr>
+	  {/endif}
+</table>

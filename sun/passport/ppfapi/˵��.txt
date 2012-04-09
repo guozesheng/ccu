@@ -1,0 +1,42 @@
+PPFAPI
+是由PPFrame定义的通行证整合接口。
+该接口突破了原始的二联整合的限制，使用PPFAPI整合可以整合无限多个客户端。
+
+通过此协议接口，
+PPFrame 可以整合任何系统！并且可以被任何系统整合！
+如果你有足够的聪明才智，还可以使用PPFAPI作为中间桥梁来整合两个没有整合的系统。
+
+从此完全告别系统整合的烦恼！
+
+
+以 “_” 开头的文件夹内都是整合资源。
+你可以从中找到整合不同系统需要的源代码。都是GBK版本，其它版本理论上只需转码即可。
+
+安装PPFAPI步骤：
+1、把ppfapi文件夹拷贝到网站根目录或者member目录（请看对应程序的说明，到_server 和 _client下面找）
+
+目标程序作为客户端：
+2、从 _ppframe文件夹找到自己程序的ppframe.php拷贝到ppfapi目录下覆盖
+3、从 _client文件夹内的 _mod 文件夹内找到要整合程序目录，将目录内的ppf_login.php 与ppf_logout.php 拷贝到 ppfapi/mod 目录下
+4、配置 ppfapi/config 目录下的 c_client.php
+配置说明：
+key： 加密传输的密钥，要与 服务端的 c_server.php 中配置的 Clients 中的Key 完全相同。
+language： 客户端的语言版本。
+fields： 是客户端用户表字段与服务端用户表字段的对应表。（非常重要！）不知道对应关系的到论坛发帖寻求助。
+
+目标作为服务端：
+2、从 _server文件夹内的找到要整合程序文件夹，从里面找到PPFrame已经帮您修改好的系统源文件。覆盖系统对应的文件。（可能只有部分版本的源文件，可以对照修改，内含注释，搜索ppfapi即可找到修改的部分）
+3、配置ppfapi/config 目录下的 c_server.php
+配置说明：
+language： 服务端的语言版本。PPFAPI根据服务端和客户端语言版本自动进行转码。
+server： 服务端的Server API地址。一般是 yourdomain/ppfapi/server.php
+clients： 这是一个客户端列表数组。以1为数组起始键。依次连续递增。从第二个起，可以省略数组键值。
+	array(
+		key : 该Client的数据传输加密密钥，必须与Client中c_client.php中的key完全一致
+		api : 该Client的api接受地址。一般是 clientdomain/ppfapi/client.php
+	)
+注意看 _erver 文件夹下面的说明，不要把ppfapi放错了目录！
+
+可以挂接多个Client，串联整合。
+
+注意：完成整合后，请自己到被整合的客户端，将登陆、注册、退出地址更改为服务端的登陆、注册、退出地址。

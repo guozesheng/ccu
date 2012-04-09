@@ -1,0 +1,24 @@
+{include header.htm 1}
+<form action="{:FormToSelf}" method="post" name="form1" id="form1">
+  <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><strong>{:element_exam_shijuan-&gt;E.title} </strong> 生成 <a href="shijuan_main.php">试卷管理</a></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><input name="open" type="checkbox" id="open" value="1" checked="checked" />
+      生成后开放测试  </td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><input name="submit" type="submit" value="提交" />
+        <input name="Submit" type="hidden" id="Submit" value="1" />
+        <input name="id" type="hidden" id="id" value="{:id}" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">提示：如果你是第二次生成，并且生成后考卷数据还是旧的，那么到后台首页清空一下<strong>Frame缓存</strong>。一般情况下，这是不必要的。</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><strong>警告：如果是二次生成，再次生成后将迅速影响到使用这份试卷测试的所有考卷。已经开放测试的试卷如非必要不要再做此操作！</strong></td>
+    </tr>
+  </table>
+</form>
+{include footer.htm 1}

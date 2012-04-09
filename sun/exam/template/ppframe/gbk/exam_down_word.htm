@@ -1,0 +1,72 @@
+<meta http-equiv="Content-Type" content="text/html; charset={:rtc.language}" />
+<title>{:title}</title>
+<style>
+<!--
+font-family{"方正舒体", "黑体", "华文行楷", "华文新魏";}
+.t2{background:#F7F7F7 0 -300px repeat-x;color:#659b28;}
+.t2 td,.t2 th{line-height:18px;border-bottom:1px solid #D6E8CB;padding:2px 6px 0px;}
+.t2 a{color:#659b28;margin:2px 2px 0}
+
+.t3 td,.t3 th{border-bottom:1px solid #D4EFF7;padding:.3em .6em}
+.t3 th{text-align:left;font-weight:normal;}
+-->
+</style>
+<base href="{:base_config.exam_root}" />
+
+考生:{:exam_user->U_Uname}  得分：{:element_exam_kaojuan->E.sorce} 总分：{$element_exam_kaojuan->E.totalsorce}
+<br>
+试卷:{:element_exam_shijuan->E.title}<br>
+
+        {foreach data k v}
+<strong>{:k|GetShitiType @}</strong><br>
+
+        {foreach v kk vv}
+<br>
+<strong>第{:vv.th}题</strong>：{:vv.title} {if}{:k|GetTxBaseType @} != 7{/if}得分:{if}{:damix.[:k].[:vv.k].df}{/if}{:damix.[:k].[:vv.k].df|UseFenSize @,
+
+[:fensize],2}{/endif}{if}'{:damix.[:k].[:vv.k].df}'=='0'{/if}0{/endif}{if}'{:damix.[:k].[:vv.k].df}'==''{/if}未评{/endif}{if}{:k|GetTxBaseType @}!= 4{/if}/
+
+{:vv.fen|UseFenSize @,[:fensize],2}{/endif}{/endif} {if}'{:damix.[:k].[:vv.k].df}'!= '{:vv.fen}'{/if}<font color="#FF0000"><strong>答错了</strong>！</font>
+
+{/endif} 
+<br>
+        {if}
+        {:k|GetTxBaseType @} == 1 || {:k|GetTxBaseType @} == 4
+        {/if}
+{+AZ 65 1 1}
+      {foreach vv.xx kkk vvv}
+      {if}'{:damix.[:k].[:vv.k].da}'=='{:vvv.k}'{/if}●{/endif}{else}○{/else}  {:kkk|chr [+AZ 65 1]}:{:vvv.xx} {if}'{:vv.daan}'=='{:vvv.k}'{/if}<font 
+
+color="#FF0000">√</font>{/endif} {if}{:k|GetTxBaseType @}== 4{/if}选择得{:vvv.fen|UseFenSize @,[:fensize],2}分{/endif}<br />
+      {/foreach} 
+      <br>
+解答:{:vv.jieda} 
+        {/endif}
+        {if}
+        {:k|GetTxBaseType @} == 2
+        {/if}
+{foreach vv.xx kkk vvv}
+      {if}{:damix.[:k].[:vv.k].da|in_array [:vvv.k],@}{/if}■{/endif}{else}□{/else} {:vvv.xx} {if}{:vv.daan|in_array [:vvv.k],@}{/if} <font color="#FF0000">
+
+√</font> {/endif} <br />
+      {/foreach}
+      <br>
+解答:{:vv.jieda}
+        {/endif}
+        {if}
+        {:k|GetTxBaseType @} == 3
+        {/if}
+Answer:{:damix.[:k].[:vv.k].da}<br>
+参考答案: {:vv.daan} <br>
+参考解答:{:vv.jieda}
+        {/endif}
+
+          {if}
+      {:vv.sun}
+      {/if}
+	  <div style="border:1px solid #B6D9E3;margin:4px auto 8px;">
+{foreach vv.sun msk msv}{foreach msv mskk msvv}{:msvv|GetExamShitiView [:msk],@,exam,fun_examdown_view}{/foreach}{/foreach}
+	</div>
+      {/endif}
+          {/foreach}
+          {/foreach}

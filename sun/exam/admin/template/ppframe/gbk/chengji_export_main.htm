@@ -1,0 +1,63 @@
+{include header.htm 1}
+<form action="{:FormToSelf}" name="form1" id="form1" method="post">
+  <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>查看成绩导出</strong></td>
+    </tr>
+    <tr>
+      <td width="180" height="24" bgcolor="#FFFFFF">分类</td>
+      <td bgcolor="#FFFFFF"> <span id="st_fenlei">{:a|GetClassLister|GetTreeSelect @,input_class,[:input_class],id,name}</span> * </td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">院系</td>
+      <td bgcolor="#FFFFFF">{:a|GetCollegesLister|GetTreeSelect @,input[u_cid],,id,name,请选择院系,onchange="loadZhuanye();loadClass();return false;"} </td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">专业</td>
+      <td bgcolor="#FFFFFF"><span id="st_zhuanye">{:a|GetProfessionalLister|GetTreeSelect @,input[u_pid],,id,pname,请选择专业,disabled}</span></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">年级</td>
+      <td bgcolor="#FFFFFF">{:a|GetGrades|GetEasySelect @,input[grade],[:view_user.grade],请选择年级,onchange="loadClass();return false;"}</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">班级</td>
+      <td bgcolor="#FFFFFF"><span id="st_class">{:a|GetStudentClassList 0|GetTreeSelect @,input[stclass],,id,classname,请选择班级,disabled} </span></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><strong>仅统计合格数</strong></td>
+      <td bgcolor="#FFFFFF"><input name="only_hege" type="checkbox" id="only_hege" value="1" checked="checked" /></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+      <td bgcolor="#FFFFFF"><input type="submit" value="提交" />
+        <input name="Submit" type="hidden" id="Submit" value="1"></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><strong>提示</strong></td>
+      <td bgcolor="#FFFFFF">你可以修改模板文件chengji_export_main_template.htm自己定义导出的用户字段</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF"><strong>注意</strong></td>
+      <td bgcolor="#FFFFFF">此项导出功能只导出用户参加考试的次数，如果选中仅统计合格数，则导出的是用户合格数。</td>
+    </tr>
+  </table>
+</form>
+<script language="javascript">
+function loadZhuanye() {
+	if(parseInt($('input[u_cid]').value) > 0) {
+		var url = 'ajax_loadzhuanye.php?cid=' + $('input[u_cid]').value;
+		ajaxLoadUrl(url,$('st_zhuanye'));
+	}
+}
+
+function loadClass() {
+	var cid = parseInt($('input[u_cid]').value);
+	var grade = parseInt($('input[grade]').value);
+	if(cid > 0 || grade) {
+		var url = 'ajax_loadclass.php?cid=' + cid + '&grade=' + grade;
+		ajaxLoadUrl(url,$('st_class'));
+	}
+}
+</script>
+{include footer.htm 1}

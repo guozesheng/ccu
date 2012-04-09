@@ -1,0 +1,21 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><a href="user_buss_main.php">部门管理</a></td>
+  </tr>
+  <form action="{:FormToSelf}">
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">{:a|GetBussTreeList|GetTreeList @,fun_gettreelist_buss}</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><input type="submit" name="Submit" value="修改排序" /></td>
+  </tr>
+  </form>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"><a href="user_buss_add.php">添加部门</a></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">此版本中 <strong>部门模型</strong> 并没有添加到用户管理中，这里只是下次版本更新的准备工程！ </td>
+  </tr>
+</table>
+{include footer.htm 1}

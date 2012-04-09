@@ -1,0 +1,161 @@
+{include header.htm 1}
+<form action="{:FormToSelf}" method="post" name="form1" id="form1">
+  <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF">查看/修改试题 <a href="shiti_main.php?tiku={:tiku}">试题管理</a></td>
+    </tr>
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF"> [{:type|GetShitiType @}]</td>
+    </tr>
+	{if}
+	{:element_exam_shiti.upid} > 0
+	{/if}
+    <tr>
+      <td height="24" colspan="2" bgcolor="#FFFFFF">这个题目是 <strong><a href="shiti_view.php?id={:up_shiti.id}&amp;tiku={:up_shiti.tikus|GetTopTikuFromS @}" target="_blank">{:up_shiti.title|strip_tags @|cn_substr @,250}</a></strong> 的子题目 </td>
+    </tr>
+    {/endif}
+	{if}
+	{:element_exam_shiti.author}
+	{/if}
+	<tr>
+	  <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>这个题目由会员提交 <a href="{:rtc.passport_root}admin/user_view.php?id={:element_exam_shiti.author}">Uid:{:element_exam_shiti.author}</a> </strong></td>
+    </tr>
+	{if}{:element_exam_shiti.unuse}{/if}
+	<tr>
+	  <td height="24" bgcolor="#FFFFFF">这个试题由会员提交并需要审核</td>
+	  <td bgcolor="#FFFFFF">审核
+	    <input name="shenhe" type="checkbox" id="shenhe" value="1" checked="checked" />
+	    <label>
+	    <input name="jiafen" type="radio" value="1" checked="checked" />
+是</label>
+        <label>
+        <input type="radio" name="jiafen" value="0" />
+否给予积分奖励</label>
+ {:base_config.exam_pushmoney_num} +
+<input name="moneyadd" type="text" id="moneyadd" size="4" />
+{:base_config.exam_pushmoney|GetMoneyName @}
+      <strong>核实之后给予奖励或者惩罚</strong></td>
+    </tr>{/endif}
+	{/endif}
+	<tr>
+      <td width="180" height="24" bgcolor="#FFFFFF">命题:</td>
+      <td bgcolor="#FFFFFF">{if}{:base_config.exam_use_editor}{/if}
+	  <!--
+	  调用编辑器方法说明
+	  element_exam_shiti.title 初始值，见模板引擎变量调用标签
+	  shiti[title] 表单名
+	  @	引用前面的初始值
+	  [:editor_higth]	编辑器高度	可以换成具体的数值，如100
+	  [:editor_width]	编辑器宽度	可以换成具体的数值，如100%
+	  [:editor_toolbar]	编辑器工具栏	可以换成具体的toolbar 如PPframe,PPBasic，必须在fckconfig.js里面有定义。请查阅fckeditor相关文档。
+	  上面3个分别是调用的3个变量。在{} 内可以使用[]作为界定符来调用变量。
+	  -->
+	  {:element_exam_shiti.title|CreateExamFCKEditor shiti[title],@,[:editor_higth],[:editor_width],[:editor_toolbar]}
+	  {/endif}{else}
+      <textarea name="shiti[title]" cols="40" rows="4" id="shiti[title]">{:element_exam_shiti.title}</textarea>{/else}</td>
+    </tr>
+	{if}
+	{:type|GetTxBaseType @} != 3 && {:type|GetTxBaseType @} != 7
+	{/if}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">选项:</td>
+      <td bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="1" cellpadding="3">
+        {foreach element_exam_shiti.xx k v}
+		<tr>
+          <td>
+            <textarea name="shiti[xx][{:k}][xx]" cols="40" id="shiti[xx][{:k}][xx]">{:v.xx}</textarea>
+			<!--{:v.xx|CreateExamFCKEditor shiti[xx][[:k]][xx],@,100,50%}-->
+           {if}{:type|GetTxBaseType @}==4{/if} 分值:
+            <input name="shiti[xx][{:k}][fen]" type="text" id="shiti[xx][{:k}][fen]" value="{:v.fen}" size="6"> 
+            {/endif}
+            {if}{:type|GetTxBaseType @}==2{/if}设为答案
+			<input name="shiti[da][]" type="checkbox" id="shiti[da][]" value="{:k}" {:checked.daan.[:k]}>
+			{/endif}
+            {if}{:type|GetTxBaseType @}==1 {/if}设为答案
+			<input name="shiti[da]" type="radio" value="{:k}" {if}{:element_exam_shiti.daan} == {:k}{/if}checked{/endif}>
+			{/endif}</td>
+        </tr>
+		{/foreach}
+		<tr>
+          <td>
+            <textarea name="shiti[xx][{:k|PlusPlus @}][xx]" cols="40" id="shiti[xx][{:k|PlusPlus @}][xx]"></textarea>
+           {if}{:type|GetTxBaseType @}==4{/if} 分值:
+            <input name="shiti[xx][{:k|PlusPlus @}][fen]" type="text" id="shiti[xx][{:k|PlusPlus @}][fen]" size="6"> 
+            {/endif}
+            {if}{:type|GetTxBaseType @}==2{/if}设为答案
+			<input name="shiti[da][]" type="checkbox" id="shiti[da][]" value="{:k|PlusPlus @}">
+			{/endif}
+            {if}{:type|GetTxBaseType @}==1 {/if}设为答案
+			<input name="shiti[da]" type="radio" value="{:k|PlusPlus @}" >
+			{/endif}</td>
+        </tr>
+      </table>      </td>
+    </tr>
+	{/endif}
+	{if}
+	{:type|GetTxBaseType @}==3
+	{/if}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">答案:</td>
+      <td bgcolor="#FFFFFF"><textarea name="shiti[daan]" cols="40" rows="4" id="shiti[daan]">{:element_exam_shiti.daan}</textarea></td>
+    </tr>
+	{/endif}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">解答:</td>
+      <td bgcolor="#FFFFFF"><textarea name="shiti[jieda]" cols="40" rows="4" id="shiti[jieda]">{:element_exam_shiti.jieda}</textarea></td>
+    </tr>
+	{if}
+	{:type|GetTxBaseType @} != 7
+	{/if}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">分值:</td>
+      <td bgcolor="#FFFFFF"><input name="shiti[fen]" type="text" id="shiti[fen]" value="{:element_exam_shiti.fen}"></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">答错扣分：</td>
+      <td bgcolor="#FFFFFF"><input name="shiti[kf]" type="text" id="shiti[kf]" value="{:element_exam_shiti.kf}" /></td>
+    </tr>
+	{/endif}
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">加入题库:</td>
+      <td align="center" bgcolor="#FFFFFF"><table width="98%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+		{foreach tiku_lister k v}
+		{if}
+		'{:k}' == '{:tiku}'
+		{/if}
+          <tr>
+            <td align="left" bgcolor="#FFFFFF"><input name="shiti[tiku][top]" type="radio" id="shiti[tiku][top]" value="{:k}" checked>
+              {:v.name}<br>
+             {foreach v.sun kk vv}
+			  <input name="shiti[tiku][{:k}][]" type="checkbox" id="shiti[tiku][{:k}][]" value="{:vv.id}" {:checked.tiku.[:vv.id]}>
+			  {:vv.name}
+              
+			  {/foreach}			  </td>
+          </tr>
+		  {/endif}
+		  {/foreach}
+      </table></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">试题分级:</td>
+      <td bgcolor="#FFFFFF"><input name="shiti[level]" type="text" id="shiti[level]" value="{:element_exam_shiti.level}"></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">标签:</td>
+      <td bgcolor="#FFFFFF"><input name="shiti[tag]" type="text" id="shiti[tag]" value="{:element_exam_shiti.tag|trim @}"></td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">排序值：</td>
+      <td bgcolor="#FFFFFF"><input name="shiti[orderkey]" type="text" id="shiti[orderkey]" value="{:element_exam_shiti.orderkey}" />
+越大越排前</td>
+    </tr>
+    <tr>
+      <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+      <td bgcolor="#FFFFFF"><input type="submit" name="Submit" value="提交" />
+        <input name="Submit" type="hidden" id="Submit" value="1">
+        <input name="id" type="hidden" id="id" value="{:id}">
+      <input name="tiku" type="hidden" id="tiku" value="{:tiku}"></td>
+    </tr>
+  </table>
+</form>
+{include footer.htm 1}

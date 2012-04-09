@@ -1,0 +1,43 @@
+{include exam_header.htm 1}
+<style type="text/css">
+#display_sec{ color:#FF0000
+}
+</style>
+<table width="100%" border="0" cellpadding="3" cellspacing="1">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="200" align="center" valign="middle">
+	<p>正在为您选题</p>
+    <p><img src="images/{:rtc.style|GetStyle}/process.gif"/></p>
+    <p>请耐心等待 <strong><span id="display_sec"></span></strong> 秒</p>
+	</td>
+  </tr>
+  <tr>
+    <td><form id="form1" name="form1" method="post" action="{:FormToSelf}">
+      <input name="Submit" type="hidden" id="Submit" value="1" />
+            <input name="id" type="hidden" id="id" value="{:id}" />
+            <input name="name" type="hidden" id="name" value="{:name}" />
+    </form>    </td>
+  </tr>
+</table>
+<script language="javascript">
+var num = parseInt(Math.random() * {:base_config.exam_select_waittime}) + 2;
+
+function $(id) {
+	return document.getElementById(id);
+}
+$('display_sec').innerHTML = num;
+setTimeout('wait();',1000);
+
+function wait() {
+	-- num;
+	$('display_sec').innerHTML = num;
+	if(num == 0) {
+		document.form1.submit();
+	}
+	setTimeout('wait();',1000);
+}
+</script>
+{include exam_footer.htm 1}

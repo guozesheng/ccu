@@ -1,0 +1,57 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF">自助修改资料</td>
+  </tr><form name="form1" method="post" action="?">
+  <tr>
+    <td width="200" bgcolor="#FFFFFF">用户名</td>
+    <td bgcolor="#FFFFFF">
+      {:view_adminuser.userid}    </td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">姓名</td>
+    <td bgcolor="#FFFFFF"><input name="input[name]" type="text" id="input[name]" value="{:view_adminuser.name}"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">原密码</td>
+    <td bgcolor="#FFFFFF"><input name="input[old_password]" type="password" id="input[old_password]">
+    需要更新密码需填写原密码，修改密码后需重新登录</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">密码</td>
+    <td bgcolor="#FFFFFF"><input name="input[password]" type="password" id="input[password]"> </td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">密码重复</td>
+    <td bgcolor="#FFFFFF"><input name="input[password2]" type="password" id="input[password2]"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">电话</td>
+    <td bgcolor="#FFFFFF"><p>
+      <label></label>
+      <input name="input[telphone]" type="text" id="input[telphone]" value="{:view_adminuser.telphone}">
+    </p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">手机</td>
+    <td bgcolor="#FFFFFF"><input name="input[ceilphone]" type="text" id="input[ceilphone]" value="{:view_adminuser.ceilphone}"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">email</td>
+    <td bgcolor="#FFFFFF"><input name="input[email]" type="text" id="input[email]" value="{:view_adminuser.email}">
+    不检测Email地址合法性</td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF"><strong>个人展示/介绍</strong> 到考试模块修改自己的展示 </td>
+  </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF">{:view_adminuser.u_discript}</td>
+    </tr>
+  <tr>
+    <td colspan="2" bgcolor="#FFFFFF"><input type="submit" value="修改用户">
+      <input name="Submit" type="hidden" id="Submit" value="1"></td>
+    </tr>
+  </form>
+</table>
+{include footer.htm}

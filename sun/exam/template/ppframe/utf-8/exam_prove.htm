@@ -1,0 +1,21 @@
+{include exam_header.htm 1}
+<div class="box"><table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+  <tr class="h">
+    <td valign="top">考试成绩证明！</td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><p>本站会员<strong><font color="#FF0000">{:view.username}</font></strong>参加<a href="shijuan_view.php?id={:view.shijuan}">{:view.sjtitle}</a>考试</p>
+      <p>获得{:view.sorce|UseFenSize @,[:view.fensize],2}/{:view.totalsorce|UseFenSize @,[:view.fensize],2}的成绩</p>
+      <p>特此证明</p></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top">{:base_config.exam_title}承认此考试成绩！</td>
+  </tr>
+  {if}{:view.cjbm}{/if}
+  <tr>
+    <td align="center" valign="top">提示 此份试卷成绩保密，只有你本人能够看到这份证明！</td>
+  </tr>
+  {/endif}
+</table>
+</div>
+{include exam_footer.htm 1}

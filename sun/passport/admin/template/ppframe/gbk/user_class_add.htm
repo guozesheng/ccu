@@ -1,0 +1,61 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>添加班级</strong> <a href="user_class_main.php">班级管理</a></td>
+  </tr>
+  <form name="form1" action="{:FormToSelf}">
+  <tr>
+    <td width="125" height="24" bgcolor="#FFFFFF">班级名称</td>
+    <td width="660" bgcolor="#FFFFFF"><input name="input[classname]" type="text" id="input[classname]">
+      (后面不用加 “班” 字) </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">年级</td>
+    <td bgcolor="#FFFFFF"><select name="input[grade]" id="input[grade]">
+      <option value="">请选择年级</option>
+	  {foreach grades k v}
+      <option value="{:v}" {if}'{:v}'=='{:grade}'{/if}selected{/endif}>{:v}级</option>
+	{/foreach}
+    </select>
+      (自然班必须从属于一个年级)</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">院系</td>
+    <td bgcolor="#FFFFFF">{:a|GetCollegesLister|GetTreeSelect @,input[cid],,id,name,请选择院系} <a href="college_main.php">院系管理</a>(自然班必须从属于一个院系)</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">属性</td>
+    <td bgcolor="#FFFFFF"><label>
+      <input name="input[ctype]" type="radio" value="0">
+自然班</label>
+      <label>
+      <input type="radio" name="input[ctype]" value="1">
+课程班 (一个用户只能加入一个自然班，可以加入多个课程班）</label></td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">允许用户申请加入</td>
+    <td bgcolor="#FFFFFF"><input name="input[allowapply]" type="checkbox" id="input[allowapply]" value="1">
+      是</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">加入需要花费</td>
+    <td bgcolor="#FFFFFF"><input name="input[apmoney]" type="text" id="input[apmoney]" size="10">
+      <select name="input[apmtype]" id="input[apmtype]">
+	  {foreach rtc.passport_money k v}
+        <option value="{:v}">{:money_types.[:v]}|{:v|GetMoneyName @}</option>
+	   {/foreach}
+      </select>      </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">加入审核</td>
+    <td bgcolor="#FFFFFF"><input name="input[applysh]" type="checkbox" id="input[applysh]" value="1">
+      需要</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">&nbsp;</td>
+    <td bgcolor="#FFFFFF"><input type="submit" value="添加">
+      <input name="Submit" type="hidden" id="Submit" value="1"></td>
+  </tr>
+  </form>
+</table>
+{include footer.htm}

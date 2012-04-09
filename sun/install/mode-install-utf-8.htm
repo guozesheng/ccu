@@ -1,0 +1,98 @@
+<?php
+if (!defined('install_safe')) {
+	exit('Forbidden');
+}
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>PPFrame 安装</title>
+<style type="text/css">
+body{ font-size:12px;}
+.input { width:300px;}
+
+</style>
+</head>
+<body>
+<table width="100%" border="0" cellspacing="1" cellpadding="3">
+  <tr>
+    <td align="center"><strong>PPFrame <?php echo $mode;?>模块 智能安装程序 </strong></td>
+  </tr>
+</table>
+<?php 
+if(!$install_mode_version){	//未安装模块
+?>
+<table width="100%" border="0" cellspacing="1" cellpadding="3">
+  <tr>
+    <td>您还未安装<?php echo $mode;?>模块现在开始<?php echo $mode;?>模块安装</td>
+  </tr>
+  <tr>
+    <td>正在安装的<?php echo $mode;?>模块版本:<?php echo $mode_version;?></td>
+  </tr>
+  <tr>
+    <td>
+	<?php
+	if(is_array($wcd)){
+	foreach($wcd as $k => $v) {
+	?>
+	<?php echo $k;?>......<?php echo $v ? '<font color=green>可写</font>' : '<font color=red>不可写,请修改!</font>'?><br />
+	<?php
+	}}
+	?>	<br />
+	如果有文件写权限问题，请更改确保安装成功</td>
+  </tr>
+  <form id="form2" name="form2" method="post" action="">
+  <tr>
+    <td><strong>基础配置系统会自动识别</strong>(高级配置请进入后台设置)</td>
+  </tr>
+  <tr>
+    <td><input type="submit" value="安装<?php echo $mode;?>模块" />
+      <input name="installmode" type="hidden" id="installmode" value="install" />
+      <input name="do" type="hidden" id="do" value="<?php echo $do;?>" />
+      <input name="mode" type="hidden" id="mode" value="<?php echo $mode;?>" /></td>
+  </tr>
+</form>
+</table>
+
+<?php
+}else if($install_mode_version < $mode_version) {	//模块需要升级
+?>
+
+<table width="100%" border="0" cellspacing="1" cellpadding="3">
+  <tr>
+    <td>模块<?php echo $mode;?>需要升级</td>
+  </tr>
+  <tr>
+    <td>可升级的<?php echo $mode;?>模块版本:<?php echo $mode_version;?> 已安装<?php echo $mode;?>模块版本: <?php echo $install_mode_version;?></td>
+  </tr>
+  
+  <tr>
+    <td><form id="form2" name="form2" method="get" action="">
+      <input type="submit" value="升级<?php echo $mode;?>模块" />
+      <input name="installmode" type="hidden" id="installmode" value="update" />
+      <input name="do" type="hidden" id="do" value="<?php echo $do;?>" />
+      <input name="mode" type="hidden" id="mode" value="<?php echo $mode;?>" />
+    </form></td>
+  </tr>
+  
+</table>
+<?php
+  }else {
+  ?>
+<table width="100%" border="0" cellspacing="1" cellpadding="3">
+  <tr>
+    <td><font color="#008000">模块<?php echo $mode;?>已经正确安装 请勿重复安装 </font> <br />
+	已安装版本<font color="#FF0000"><?php echo $install_mode_version;?></font>正想安装的版本:<font color="#FF0000"><?php echo $mode_version;?></font><br />
+	需要强制重新安装请删除文件<br />
+	<font color="#FF0000"><?php echo ROOT.$mode.'/config/install_config.php'?></font>
+ </td>
+  </tr>
+</table>
+  
+  <?php
+  }
+  ?>
+  
+</body>
+</html>

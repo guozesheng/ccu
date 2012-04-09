@@ -1,0 +1,57 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><strong>班级管理</strong></td>
+  </tr>
+  <tr>
+    <td width="300" height="24" bgcolor="#FFFFFF">班级名(ID)</td>
+    <td width="200" bgcolor="#FFFFFF">年级</td>
+    <td width="200" bgcolor="#FFFFFF">属性</td>
+    <td width="100" bgcolor="#FFFFFF">操作</td>
+  </tr>
+ {foreach lister_class fk fv}
+  <tr>
+    <td height="24" bgcolor="#FFFFFF"> <a href="user_class_view.php?id={:fv.id}">{:fv.classname}</a>({:fv.id})</td>
+    <td bgcolor="#FFFFFF">{:fv.grade}</td>
+    <td bgcolor="#FFFFFF"><!--{if}{:fv.ctype}==0{/if}-->自然班<!--{/endif}{else}-->课程班<!--{/else}--></td>
+    <td bgcolor="#FFFFFF"><a href="user_class_del.php?id={:fv.id}" onClick="if(!confirm('确定删除？不可恢复')) return false;">删除</a> <a href="user_class_view.php?id={:fv.id}">查看</a></td>
+  </tr>{/foreach}
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">{:pagelink}</td>
+  </tr>
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><a href="user_class_add.php">添加班级</a></td>
+  </tr>
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><strong>搜索</strong></td>
+  </tr><form name="form1" action="{:FormToSelf}">
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">班级名：
+      <input name="classname" type="text" id="classname" value="{:classname}">
+      <input name="jq" type="checkbox" id="jq" value="1">
+      精确匹配 </td>
+  </tr>
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">年级
+      <select name="grade" id="grade">
+	  <option value="">请选择年级</option>
+	  {foreach grades k v}
+        <option value="{:v}" {if}'{:v}'=='{:grade}'{/if}selected{/endif}>{:v}级</option>
+	{/foreach}
+      </select>
+      <label>
+        <input name="ctype" type="radio" value="0" {if}'{:ctype}'=='0'{/if}checked{/endif}>
+        自然班</label>
+        <label>
+        <input type="radio" name="ctype" value="1" {if}{:ctype}{/if}checked{/endif}>
+        课程班</label>      </td>
+  </tr>
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF">院系 {:a|GetCollegesLister|GetTreeSelect @,cid,[:cid],id,name,请选择院系}</td>
+  </tr>
+  <tr>
+    <td height="24" colspan="4" bgcolor="#FFFFFF"><input type="submit" value="搜索" /></td>
+  </tr>
+  </form>
+</table>
+{include footer.htm}

@@ -1,0 +1,13 @@
+一、独立运行的PPFrame
+1、将ppframe文件夹中的文件拷贝到网站主文档目录
+2、运行yourdomain/install.php 比如：http://www.ppframe.com/install.php
+3、按照提示安装主框架
+4、安装通行证模块，这是必选模块，一键安装！
+5、安装需要的模块，比如考试系统，一键安装！
+
+二、安装为UCenter应用程序（如果不需要运行在UC下请忽略）
+1、完成上面的步骤
+2、在后台通行证模块填写UC相关信息并开启UC整合。
+
+三、PPFrame的升级
+PPFrame的升级是非常平稳的，你只需要用最新的程序覆盖后，运行yourdomain/install.php按提示操作即可。跟安装一摸一样！

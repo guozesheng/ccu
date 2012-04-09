@@ -1,0 +1,65 @@
+{include header.htm 1}
+<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#000000">
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF"><strong>订单管理</strong></td>
+  </tr>
+  <tr>
+    <td width="100" height="24" bgcolor="#FFFFFF">订单号</td>
+    <td width="700" bgcolor="#FFFFFF"> {:view.orderno} </td>
+  </tr>
+  
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">用户ID</td>
+    <td bgcolor="#FFFFFF"> {:view.uid} </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">货币种类 </td>
+    <td bgcolor="#FFFFFF">{:view.mtype|GetMoneyName @} </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">充值数量 </td>
+    <td bgcolor="#FFFFFF">{:view.num} </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">支付金额 </td>
+    <td bgcolor="#FFFFFF">{:view.fee} </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">请求时间</td>
+    <td bgcolor="#FFFFFF"> {:view.time|GetMyDate Y-m-d H:i:s,@} </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">状态 </td>
+    <td bgcolor="#FFFFFF">{if}{:view.state}==0{/if}充值中{/endif}{if}{:view.state}==1{/if}支付中{/endif}{if}{:view.state}==2{/if}已充值{/endif}</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">描述 </td>
+    <td bgcolor="#FFFFFF">{:view.descrip} </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">商品  </td>
+    <td bgcolor="#FFFFFF">{:view.title}</td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">支付工具</td>
+    <td bgcolor="#FFFFFF"> {:view.tool} </td>
+  </tr>
+  <tr>
+    <td height="24" bgcolor="#FFFFFF">支付Email </td>
+    <td bgcolor="#FFFFFF">{:view.payer} </td>
+  </tr>
+  {if}{:view.state}!=2{/if}
+  <form name="form1" action="{:FormToSelf}">
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF">备注：
+      <textarea name="bz" cols="40" rows="4" id="bz"></textarea></td>
+    </tr>
+  <tr>
+    <td height="24" colspan="2" bgcolor="#FFFFFF"><input type="submit" value="直接给与充值">
+      <input name="Submit" type="hidden" id="Submit" value="1">
+      <input name="id" type="hidden" id="id" value="{:id}"></td>
+    </tr>
+  </form>
+  {/endif}
+</table>
+{include footer.htm}
