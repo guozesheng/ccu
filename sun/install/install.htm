@@ -17,29 +17,19 @@ body{ font-size:12px;}
 <body>
 <table width="100%" border="0" cellspacing="1" cellpadding="3">
   <tr>
-    <td align="center"><strong>PPFrame 全智能安装升级程序 </strong></td>
+    <td align="center"><strong>安装程序</strong></td>
   </tr>
 </table>
 <?php
-if(!$do) {
+//if(!$do) {
 ?>
+<!--
 <table width="100%" border="0" cellspacing="1" cellpadding="3">
   <tr>
     <td><strong>使用协议</strong></td>
   </tr>
   <tr>
-    <td><p>1、不得利用该程序从事任何违反国家法律的事情，否则造成的任何法律后果由使用者本人承担。 <br />
-      2、任何个人非商业和非盈利为目的的用途可以自由使用和修改本程序的界面包括版权标志无需为此支付任何费用！对于商业用途的定义请看第5、6条。 <br />
-      3、无论何种用途严禁修改powered by ppframe.com 为powered by xxx。 <br />
-      4、商业用途 除非得到PPFrame特许 请务必保留ppframe.com 版权标志和链接，除此之外目前无需支付任何费用。 <br />
-      5、凡是使用PPFrame积分功能，院系、专业模型等对PPExam考试功能进行用户访问限制的，一律视为商业用途，除非系统完全免费开放。<br />
-      6、以提高工作效率，减小人力成本为目的，使用PPExam组织内部员工、学员测试的，同样视为商业用途。 <br />
-      7、不得从PPExam发展和分发任何派生版本（插件除外）。<br />
-      8、用户对系统产生的所有数据具有完全的所有权，并对此承担所有责任 <br />
-      9、使用任何程序都有风险，不当使用此程序造成的数据丢失风险用户自担。 <br />
-      10、一经开始安装和使用PPExam，即视为完全同意此协议。<br />
-      11、ppframe.com保留对此协议的所有解释权以及后续版本随时修改的权利<br />
-      12、更详细使用协议请到 <a href="http://bbs.ppframe.com/read-tid-80.html" target="_blank">http://bbs.ppframe.com</a> 查询</p>
+    <td><p>欢迎使用</p>
     </td>
   </tr>
   <tr>
@@ -50,16 +40,15 @@ if(!$do) {
     </form>    </td>
   </tr>
 </table>
+-->
 
 <?php 
-}else if(!$install_frame_version){	//未安装基础框架
+//}else if(!$install_frame_version){	//未安装基础框架
+if(!$install_frame_version){	//未安装基础框架
 ?>
 <table width="100%" border="0" cellspacing="1" cellpadding="3">
   <tr>
-    <td colspan="2">您还未安装基础框架现在开始基础框架安装</td>
-  </tr>
-  <tr>
-    <td colspan="2">正在安装的PPFrame框架版本:<?php echo $frame_version;?></td>
+    <td colspan="2"><b>框架版本:<?php echo $frame_version;?></b></td>
   </tr>
   <tr>
     <td colspan="2">
@@ -71,10 +60,7 @@ if(!$do) {
 	    <?php echo $k;?>......<?php echo $v ? '<font color=green>可写</font>' : '<font color=red>不可写,请修改!</font>'?><br />
 	    <?php
 	}}
-	?>	
-	    <br />
-	    如果有文件写权限问题，请更改确保安装成功<br />
-	
+	?>
 	</p>    </td>
   </tr>
   <form id="form2" name="form2" method="post" action="">
@@ -85,7 +71,7 @@ if(!$do) {
 	if(!function_exists('mysql_connect')){
 	?>
   <tr>
-    <td colspan="2"><strong><font color="#FF0000">系统检测到您的服务器不支持MySQL 请确认PHP加载了MySQL扩展!</font></strong></td>
+    <td colspan="2"><strong><font color="#FF0000">MSQ数据库连接失败！</font></strong></td>
   </tr>
   <?php
   }
@@ -107,7 +93,7 @@ if(!$do) {
   </tr>
   <tr>
     <td>数据库名称:</td>
-    <td><input name="dbname" type="text" class="input" id="dbname" value="ppframe" /></td>
+    <td><input name="dbname" type="text" class="input" id="dbname" value="sunexam" /></td>
   </tr>
   <tr>
     <td>数据库字符集:(4.1以上版本)</td>
@@ -117,12 +103,6 @@ if(!$do) {
         GBK</label>
       (简体中文)
       <label>
-        <input type="radio" name="dbcharset" value="utf8" <?php if($language!='utf-8'){?>disabled="disabled"<?php }else {?> checked="checked" <?php }?> />
-        UTF8</label>
-      (简繁均可)
-      <label>
-        <input type="radio" name="dbcharset" value="big5"  <?php if($language!='big5'){?>disabled="disabled"<?php }else {?> checked="checked" <?php }?> />
-        BIG5(繁体中文)</label>
       <label>
       <input name="dbcharset" type="radio" value="" /> 
       latain1</label>
@@ -131,24 +111,10 @@ if(!$do) {
 
   <tr>
     <td>数据库表前缀:</td>
-    <td><input name="dbpre" type="text" class="input" id="dbpre" value="pp_" /></td>
+    <td><input name="dbpre" type="text" class="input" id="dbpre" value="sun_" /></td>
   </tr>
   <tr>
-    <td>是否持久链接:</td>
-    <td><p>
-        <label>
-          <input type="radio" name="dbpconnect" value="1" />
-          是</label>
-        <label>
-          <input name="dbpconnect" type="radio" value="0" checked="checked" />
-          否</label>
-      </p></td>
-  </tr>
-  <tr>
-    <td colspan="2"><strong>基础配置安装文件可以自动识别</strong>，如需定制，请进入后台修改</td>
-  </tr>
-  <tr>
-    <td colspan="2">管理员项</td>
+    <td colspan="2"><b>管理员项</b></td>
     </tr>
   <tr>
     <td>管理员用户名：</td>
@@ -163,8 +129,9 @@ if(!$do) {
     <td><input name="admin_pass2" type="password" class="input" id="admin_pass2" /></td>
   </tr>
   <tr>
-    <td colspan="2"><input type="submit" value="安装PPF基础框架" />
+    <td colspan="2"><input type="submit" value="安装基础框架" />
       <input name="install" type="hidden" id="install" value="install" />
+      <input name="dbpconnect" type="hidden" value="0" /><!-- 数据库持久连接 -->
       <input name="do" type="hidden" id="do" value="<?php echo $do;?>" /></td>
   </tr>
 </form>
@@ -197,7 +164,7 @@ if(!$do) {
     <td>框架已正确安装 现有以下模块可以安装</td>
   </tr>
   <tr>
-    <td>已安装的PPFrame框架版本:<?php echo $install_frame_version;?> <a href="<?php echo $host?>admin/" target="_blank">进入后台</a></td>
+    <td>已安装的框架版本:<?php echo $install_frame_version;?> <a href="<?php echo $host?>admin/" target="_blank">进入后台</a></td>
   </tr>
   <form action="" method="get" name="form3" target="installFrame" id="form3">
   <tr>
@@ -205,7 +172,7 @@ if(!$do) {
         <label>
           <input name="mode" type="radio" value="passport" checked="checked" />
           通行证</label>
-        （其他模块都依赖此模块来做访问控制，主服务器必须安装.PPF可以跨服务器运行！）<br />
+        （其他模块都依赖此模块来做访问控制，主服务器必须安装.可以跨服务器运行！）<br />
         <label>
           <input type="radio" name="mode" value="exam" />
           考试系统</label>
@@ -235,9 +202,5 @@ if(!$do) {
 <?php
 }
 ?> 
-<div style="display:none">
-<script language="javascript" type="text/javascript" src="http://js.users.51.la/1879739.js"></script>
-<noscript><a href="http://www.51.la/?1879739" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/1879739.asp" style="border:none" /></a></noscript>
-</div>
 </body>
 </html>

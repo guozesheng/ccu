@@ -21,8 +21,8 @@ if(!$isregGlobals){
 	if(!empty($_SESSION)) @extract($_SESSION);
 }
 
+$language = 'gbk';
 if (!in_array($language,array('gbk','utf-8','big5'))) {
-	include('install/language_select.htm');
 	exit;
 }else {
 	setcookie('language',$language);
@@ -33,10 +33,9 @@ if (!in_array($language,array('gbk','utf-8','big5'))) {
 @include(ROOT.'config/config_db.php');
 
 define('install_safe',1);
-
 $timestamp = time();
 //框架版本号,升级框架用
-$frame_version = '1.2.9.090101';
+$frame_version = '1.0.0.0';
 
 //允许的模块
 $alreadymode = array('passport','pplog','exam','cms','paper');
