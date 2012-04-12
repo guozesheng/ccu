@@ -19,7 +19,6 @@ $return = $return ? $return : ($forward ? $forward : ($_SERVER['HTTP_REFERER'] ?
 //if ($rtc['uc_use']) {
 //	ShowMessage('',GetLoginurl(),0,0);
 //}
-
 if (isset($Submit)) {
 	$username = trim($username);
 	if ($rtc['login_gdcode']) {
