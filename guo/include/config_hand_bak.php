@@ -1,8 +1,8 @@
 <?php
-$cfg_webname = '我的进销存';
+$cfg_webname = '实验室管理系统';
 $cfg_basehost = 'http://localhost';
 $cfg_cmspath = '';
-$cfg_cookie_encode = 'UvNCr8348F';
+$cfg_cookie_encode = 'HeZYo7048K';
 $cfg_indexurl = '/';
 $cfg_adminemail = 'admin@yourmail.com';
 $cfg_backup_dir = 'backup_data';

@@ -5,7 +5,7 @@ require_once(dirname(__FILE__)."/include/config_base.php");
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>Viooma进销存Web版</title>
+<title>实验室管理系统</title>
 <style type="text/css">
 body {font:normal 12px Arial;background:#3179bd url(images/right_bg.gif) repeat-x top;}
 #main_table {background:url(images/top_bg.gif) no-repeat left top;}
