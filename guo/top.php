@@ -26,6 +26,7 @@ var preID = 0;
 
 function OpenMenu(cid,lurl,rurl,bid){
    if($Nav()=='IE'){
+	   alert("ie");
      if(rurl!='') top.document.frames.main.location = rurl;
      if(cid > -1) top.document.frames.menu.location = 'menu.php?c='+cid;
      else if(lurl!='') top.document.frames.menu.location = lurl;
@@ -33,7 +34,8 @@ function OpenMenu(cid,lurl,rurl,bid){
      if(preID>0 && preID!=bid) document.getElementById("d"+preID).className = '';
      preID = bid;
    }else{
-     if(rurl!='') top.document.getElementById("main").src = rurl;
+	   
+     if(rurl != '') top.document.getElementById("main").src = rurl;
      if(cid > -1) top.document.getElementById("menu").src = 'menu.php?c='+cid;
      else if(lurl!='') top.document.getElementById("menu").src = lurl;
      if(bid>0) document.getElementById("d"+bid).className = 'thisclass';
