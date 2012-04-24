@@ -61,12 +61,12 @@ function showHide(objname){
 if($c=='')$c=1;
 $endmenus = "
 <dl>
-    <dt><a href='###' onclick=showHide('items20') target='_self' class='top'>进销存系统帮助</a></dt>
+    <dt><a href='###' onclick=showHide('items20') target='_self' class='top'>系统帮助</a></dt>
     <dd id='items20' style='display:block;'>
 			<ul>
-<li><a href='http://www.viooma.com/help/install_faq.html' target='main'>安装说明</a></li>
-<li><a href='http://bbs.viooma.com/' target='_blank'>官方论坛</a></li>
-<li><a href='#' target='_self'>技术支持QQ:12612019</a></li>
+<li><a href='./install_faq.html' target='main'>安装说明</a></li>
+<li><a href='#' target='_blank'>作者介绍</a></li>
+<li><a href='mailto:guozesheng@gmail.com' target='_self'>guozesheng@gmail.com</a></li>
   			</ul>
 		</dd>
 	</dl>

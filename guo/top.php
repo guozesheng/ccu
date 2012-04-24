@@ -34,7 +34,6 @@ function OpenMenu(cid,lurl,rurl,bid){
      if(preID>0 && preID!=bid) document.getElementById("d"+preID).className = '';
      preID = bid;
    }else{
-	   
      if(rurl != '') top.document.getElementById("main").src = rurl;
      if(cid > -1) top.document.getElementById("menu").src = 'menu.php?c='+cid;
      else if(lurl!='') top.document.getElementById("menu").src = lurl;
@@ -84,6 +83,7 @@ function resetBT(){
 	  <tr>
 	   <td width="10"></td>
 	   <td id="top_menu"><a href="javascript:OpenMenu(2,'','system_basic.php',1)">系统设置</a></td>
+	   <td id="top_menu"><a href="javascript:OpenMenu(9,'','equip_manag.php',1)">仪器管理</a></td>
 	   <td id="top_menu"><a href="javascript:OpenMenu(3,'','system_rk.php',2)">入库管理</a></td>
 	   <td id="top_menu"><a href="javascript:OpenMenu(4,'','sale.php',1)">销售管理</a></td>
 	   <td id="top_menu"><a href="javascript:OpenMenu(5,'','system_kc.php',1)">库存管理</a></td>
