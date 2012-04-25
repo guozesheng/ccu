@@ -264,3 +264,9 @@ CREATE TABLE `#@__bank` (
 `bank_default` SMALLINT( 6 ) NOT NULL ,
 `bank_text` TEXT NOT NULL 
 ) ENGINE=MyISAM DEFAULT CHARSET=#~lang~#; 
+
+DROP TABLE IF EXISTS `#@__topmenu`;
+CREATE TABLE `#@__topmenu` (
+`id` INT( 10 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+`name` VARCHAR( 100 ) CHARACTER SET gbk COLLATE gbk_chinese_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=#~lang~#; 

@@ -482,60 +482,58 @@ INSERT INTO `#@__area` VALUES (32, '香港区', 0, 0);
 INSERT INTO `#@__area` VALUES (33, '澳门区', 0, 0);
 INSERT INTO `#@__area` VALUES (35, '台湾省', 0, 0);
 
-INSERT INTO `#@__menu` VALUES (1, '快捷操作菜单', '',0, '');
-INSERT INTO `#@__menu` VALUES (9, '系统变量设置', 'system_basic.php',1, '');
-INSERT INTO `#@__menu` VALUES (10, '财户管理', 'system_bank.php',1, '');
-INSERT INTO `#@__menu` VALUES (11, '产品入库', 'system_rk.php',1, '');
-INSERT INTO `#@__menu` VALUES (12, '库存查询', 'system_kc.php',1, '');
-INSERT INTO `#@__menu` VALUES (13, '产品销售前台', 'sale.php',1, '');
-INSERT INTO `#@__menu` VALUES (14, '客户管理', 'system_guest.php',1, '');
-INSERT INTO `#@__menu` VALUES (15, '帐务查询', 'system_account.php',1, '');
+INSERT INTO `#@__menu` VALUES (null, '系统变量设置', 'system_basic.php',1, '');
+INSERT INTO `#@__menu` VALUES (null, '财户管理', 'system_bank.php',1, '');
+INSERT INTO `#@__menu` VALUES (null, '产品入库', 'system_rk.php',1, '');
+INSERT INTO `#@__menu` VALUES (null, '库存查询', 'system_kc.php',1, '');
+INSERT INTO `#@__menu` VALUES (null, '产品销售前台', 'sale.php',1, '');
+INSERT INTO `#@__menu` VALUES (null, '客户管理', 'system_guest.php',1, '');
+INSERT INTO `#@__menu` VALUES (null, '帐务查询', 'system_account.php',1, '');
 
-INSERT INTO `#@__menu` VALUES (2, '系统设置', '',0, '');
-INSERT INTO `#@__menu` VALUES (16, '系统变量设置', 'system_basic.php',2, '');
-INSERT INTO `#@__menu` VALUES (17, '产品基本信息', 'system_basic_cp.php',2, '');
-INSERT INTO `#@__menu` VALUES (18, '产品分类管理', 'system_class.php',2, '');
-INSERT INTO `#@__menu` VALUES (19, '产品计量单位管理', 'system_dw.php',2, '');
-INSERT INTO `#@__menu` VALUES (20, '供应商管理', 'system_gys.php',2, '');
-INSERT INTO `#@__menu` VALUES (21, '员工管理', 'system_worker.php',2, '');
-INSERT INTO `#@__menu` VALUES (22, '仓库管理', 'system_lab.php',2, '');
+INSERT INTO `#@__menu` VALUES (null, '系统变量设置', 'system_basic.php',2, '');
+INSERT INTO `#@__menu` VALUES (null, '产品基本信息', 'system_basic_cp.php',2, '');
+INSERT INTO `#@__menu` VALUES (null, '产品分类管理', 'system_class.php',2, '');
+INSERT INTO `#@__menu` VALUES (null, '产品计量单位管理', 'system_dw.php',2, '');
+INSERT INTO `#@__menu` VALUES (null, '供应商管理', 'system_gys.php',2, '');
+INSERT INTO `#@__menu` VALUES (null, '员工管理', 'system_worker.php',2, '');
+INSERT INTO `#@__menu` VALUES (null, '仓库管理', 'system_lab.php',2, '');
 
-INSERT INTO `#@__menu` VALUES (3, '入库管理', '',0, '');
-INSERT INTO `#@__menu` VALUES (23, '产品入库', 'system_rk.php',3, '');
-INSERT INTO `#@__menu` VALUES (24, '入库记录查询', 'system_rk.php?action=seek',3, '');
-INSERT INTO `#@__menu` VALUES (25, '退回供应商', 'system_gys_back.php',3, '');
-INSERT INTO `#@__menu` VALUES (26, '退回供应商查询', 'system_gys_back.php?action=seek',3, '');
+INSERT INTO `#@__menu` VALUES (null, '产品入库', 'system_rk.php',3, '');
+INSERT INTO `#@__menu` VALUES (null, '入库记录查询', 'system_rk.php?action=seek',3, '');
+INSERT INTO `#@__menu` VALUES (null, '退回供应商', 'system_gys_back.php',3, '');
+INSERT INTO `#@__menu` VALUES (null, '退回供应商查询', 'system_gys_back.php?action=seek',3, '');
 
-INSERT INTO `#@__menu` VALUES (4, '销售管理', '',0, '');
-INSERT INTO `#@__menu` VALUES (27, '产品销售平台', 'sale.php',4, '');
-INSERT INTO `#@__menu` VALUES (28, '销售记录查询', 'sale.php?action=seek',4, '');
-INSERT INTO `#@__menu` VALUES (29, '客户退货管理', 'sale_back.php',4, '');
-INSERT INTO `#@__menu` VALUES (30, '退货记录', 'sale_back.php?action=seek',4, '');
-INSERT INTO `#@__menu` VALUES (31, '报废产品', 'product_destory.php',4, '');
+INSERT INTO `#@__menu` VALUES (null, '产品销售平台', 'sale.php',4, '');
+INSERT INTO `#@__menu` VALUES (null, '销售记录查询', 'sale.php?action=seek',4, '');
+INSERT INTO `#@__menu` VALUES (null, '客户退货管理', 'sale_back.php',4, '');
+INSERT INTO `#@__menu` VALUES (null, '退货记录', 'sale_back.php?action=seek',4, '');
+INSERT INTO `#@__menu` VALUES (null, '报废产品', 'product_destory.php',4, '');
 
-INSERT INTO `#@__menu` VALUES (5, '库存管理', '',0, '');
-INSERT INTO `#@__menu` VALUES (32, '库存情况查询', 'system_kc.php',5, '');
-INSERT INTO `#@__menu` VALUES (33, '仓库调拔', 'system_switch.php',5, '');
-INSERT INTO `#@__menu` VALUES (34, '调拨记录查询', 'system_switch.php?type=query',5, '');
-INSERT INTO `#@__menu` VALUES (35, '库存缺货查询', 'system_kc_lost.php',5, '');
+INSERT INTO `#@__menu` VALUES (null, '库存情况查询', 'system_kc.php',5, '');
+INSERT INTO `#@__menu` VALUES (null, '仓库调拔', 'system_switch.php',5, '');
+INSERT INTO `#@__menu` VALUES (null, '调拨记录查询', 'system_switch.php?type=query',5, '');
+INSERT INTO `#@__menu` VALUES (null, '库存缺货查询', 'system_kc_lost.php',5, '');
 
 
-INSERT INTO `#@__menu` VALUES (6, '客户管理', '',0, '');
-INSERT INTO `#@__menu` VALUES (36, '添加新客户', 'system_guest.php?action=new',6, '');
-INSERT INTO `#@__menu` VALUES (37, '客户列表', 'system_guest.php',6, '');
-INSERT INTO `#@__menu` VALUES (38, '客户分组', 'guest_group.php',6, '');
+INSERT INTO `#@__menu` VALUES (null, '添加新客户', 'system_guest.php?action=new',6, '');
+INSERT INTO `#@__menu` VALUES (null, '客户列表', 'system_guest.php',6, '');
+INSERT INTO `#@__menu` VALUES (null, '客户分组', 'guest_group.php',6, '');
 
-INSERT INTO `#@__menu` VALUES (7, '统计报表', '',0, '');
-INSERT INTO `#@__menu` VALUES (39, '入库报表', 'report_rk.php',7, '');
-INSERT INTO `#@__menu` VALUES (40, '销售报表', 'report_sale.php',7, '');
-INSERT INTO `#@__menu` VALUES (41, '退回供应商报表', 'report_b_gys.php',7, '');
-INSERT INTO `#@__menu` VALUES (42, '退货报表', 'report_s_back.php',7, '');
-INSERT INTO `#@__menu` VALUES (43, '作废报表', 'report_none.php',7, '');
-INSERT INTO `#@__menu` VALUES (44, '员工工资报表', 'report_worker.php',7, '');
+INSERT INTO `#@__menu` VALUES (null, '入库报表', 'report_rk.php',7, '');
+INSERT INTO `#@__menu` VALUES (null, '销售报表', 'report_sale.php',7, '');
+INSERT INTO `#@__menu` VALUES (null, '退回供应商报表', 'report_b_gys.php',7, '');
+INSERT INTO `#@__menu` VALUES (null, '退货报表', 'report_s_back.php',7, '');
+INSERT INTO `#@__menu` VALUES (null, '作废报表', 'report_none.php',7, '');
+INSERT INTO `#@__menu` VALUES (null, '员工工资报表', 'report_worker.php',7, '');
 
-INSERT INTO `#@__menu` VALUES (8, '财务管理', '',0, '');
-INSERT INTO `#@__menu` VALUES (45, '帐户管理', 'bank.php',8, '');
-INSERT INTO `#@__menu` VALUES (46, '帐务分类', 'cate.php',8, '');
-INSERT INTO `#@__menu` VALUES (47, '手动添加帐务', 'add_money.php',8, '');
-INSERT INTO `#@__menu` VALUES (48, '帐务查询', 'system_money.php',8, '');
+INSERT INTO `#@__menu` VALUES (null, '帐户管理', 'bank.php',8, '');
+INSERT INTO `#@__menu` VALUES (null, '帐务分类', 'cate.php',8, '');
+INSERT INTO `#@__menu` VALUES (null, '手动添加帐务', 'add_money.php',8, '');
+INSERT INTO `#@__menu` VALUES (null, '帐务查询', 'system_money.php',8, '');
 
+INSERT INTO `#@__menu` VALUES (null, '仪器入库', 'equip_add.php',9, '');
+INSERT INTO `#@__menu` VALUES (null, '仪器查询', 'equip_select.php',9, '');
+INSERT INTO `#@__menu` VALUES (null, '仪器借用', 'equip_bo.php',9, '');
+INSERT INTO `#@__menu` VALUES (null, '仪器维修', 'equip_fix.php',9, '');
+INSERT INTO `#@__menu` VALUES (null, '仪器报废', 'equip_del.php',9, '');
+INSERT INTO `#@__menu` VALUES (null, '仪器统计', 'equip_sta.php',9, '');

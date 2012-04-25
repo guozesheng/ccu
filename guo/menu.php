@@ -72,7 +72,7 @@ $endmenus = "
 	</dl>
 ";
 $msql=new Dedesql(false);
-$query="select name from #@__menu where id='$c'";
+$query="select name from #@__topmenu where id='$c'";
 $menuinfo=$msql->GetOne($query);
 $menus="
 <dl>

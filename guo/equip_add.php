@@ -8,9 +8,10 @@ require(dirname(__FILE__)."/include/page.php");
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <link href="style/main.css" rel="stylesheet" type="text/css" />
-<script language="javascript" src="include/calendar.js"></script>
+<!--<script language="javascript" src="include/calendar.js"></script>-->
 <script language="javascript" src="include/py.js"></script>
-<title>产品基本信息录入</title>
+<script language="javascript" type="text/javascript" src="include/WdatePicker.js"></script>
+<title>仪器基本信息录入</title>
 <script language = "JavaScript">
 var onecount; 
 onecount = 0; 
@@ -60,12 +61,12 @@ end function
 </head>
 <?php
 if ($action=='save'){
- if($cp_name=='') echo "<script language='javascript'>alert('请输入产品的名称!');history.go(-1)</script>";
- if($cp_gg=='') echo "<script language='javascript'>alert('请输入产品的规格!');history.go(-1)</script>";
- if($cp_categories=='') echo "<script language='javascript'>alert('请输入产品的分类!');history.go(-1)</script>";
- if($cp_categories_down=='') echo "<script language='javascript'>alert('请输入产品的子分类!');history.go(-1)</script>";
- if($cp_dwname=='') echo "<script language='javascript'>alert('请输入产品的基本单位!');history.go(-1)</script>";
- if($cp_jj=='' || $cp_sale=='') echo "<script language='javascript'>alert('产品进价与建议零售价为必填项!');history.go(-1)</script>";
+ if($cp_name=='') echo "<script language='javascript'>alert('请输入仪器的名称!');history.go(-1)</script>";
+ if($cp_gg=='') echo "<script language='javascript'>alert('请输入仪器的规格!');history.go(-1)</script>";
+ if($cp_categories=='') echo "<script language='javascript'>alert('请输入仪器的分类!');history.go(-1)</script>";
+ if($cp_categories_down=='') echo "<script language='javascript'>alert('请输入仪器的子分类!');history.go(-1)</script>";
+ if($cp_dwname=='') echo "<script language='javascript'>alert('请输入仪器的基本单位!');history.go(-1)</script>";
+ if($cp_jj=='' || $cp_sale=='') echo "<script language='javascript'>alert('仪器进价与建议零售价为必填项!');history.go(-1)</script>";
  if(!(is_numeric($cp_jj) && is_numeric($cp_sale) )) echo "<script language='javascript'>alert('价格必须为数字!');history.go(-1)</script>";
  if($cp_jj>$cp_sale) echo "<script language='javascript'>alert('零售价不能小于进价!');history.go(-1)</script>";
 $bsql=New Dedesql(false);
@@ -74,17 +75,17 @@ $bsql->SetQuery($query);
 $bsql->Execute();
 $rowcount=$bsql->GetTotalRow();
 if ($rowcount>=1){
- ShowMsg('此产品名称和规格在数据库里已经存在,请检查或区分!','-1');
+ ShowMsg('此仪器名称和规格在数据库里已经存在,请检查或区分!','-1');
  exit();
 }
 else{
 $addquery="insert into #@__basic(cp_number,cp_tm,cp_name,cp_gg,cp_categories,cp_categories_down,cp_dwname,cp_jj,cp_sale,cp_saleall,cp_sdate,cp_edate,cp_gys,cp_helpword,cp_bz) values('$cp_number','$cp_tm','$cp_name','$cp_gg','$cp_categories','$cp_categories_down','$cp_dwname','$cp_jj','$cp_sale','$cp_saleall','$cp_sdate','$cp_edate','$cp_gys','$cp_helpword','$cp_bz')";
 $bsql->ExecuteNoneQuery($addquery);
-ShowMsg('成功写入一条产品基本信息.','system_basic_cp.php');
+ShowMsg('成功写入一条仪器基本信息.','system_basic_cp.php');
  $loginip=getip();
  $logindate=getdatetimemk(time());
  $username=str_replace($cfg_cookie_encode,'',$_COOKIE['VioomaUserID']);
- WriteNote('添加产品基本信息'.$cp_name.' 成功',$logindate,$loginip,$username);
+ WriteNote('添加仪器基本信息'.$cp_name.' 成功',$logindate,$loginip,$username);
 $bsql->close();
 exit();
     }
@@ -102,7 +103,7 @@ else if($action=='seek'){ //列表
     <td>
 	<table width="100%" border="0" cellpadding="0" cellspacing="2">
      <tr>
-      <td><strong>&nbsp;产品基本信息管理</strong>(注:橙色背景为必填选项)&nbsp;&nbsp;- <a href="system_basic_cp.php">新产品登记</a> - <a href="system_basic_cp.php?action=seek">产品基本信息查询</a></td>
+      <td><strong>&nbsp;仪器基本信息管理</strong>(注:橙色背景为必填选项)&nbsp;&nbsp;- <a href="system_basic_cp.php">新仪器登记</a> - <a href="system_basic_cp.php?action=seek">仪器基本信息查询</a></td>
      </tr><form action="system_basic_cp.php?action=save" method="post" name="form1">
      <tr>
       <td bgcolor="#FFFFFF">
@@ -145,29 +146,29 @@ $dlist->SetSource($query);
     <td>
 	<table width="100%" border="0" cellpadding="0" cellspacing="2">
      <tr>
-      <td><strong>&nbsp;产品基本信息管理</strong>(注:橙色背景为必填选项)&nbsp;&nbsp;- <a href="system_basic_cp.php">新产品登记</a> - <a href="system_basic_cp.php?action=seek">产品基本信息查询</a></td>
+      <td><strong>&nbsp;仪器基本信息管理</strong>(注:橙色背景为必填选项)&nbsp;&nbsp;- <a href="system_basic_cp.php">新仪器登记</a> - <a href="system_basic_cp.php?action=seek">仪器基本信息查询</a></td>
      </tr><form action="system_basic_cp.php?action=save" method="post" name="form1">
      <tr>
       <td bgcolor="#FFFFFF">
  <table width="100%" border="0" cellspacing="0" cellpadding="0" id="table_border">
    <tr>
-    <td class="cellcolor">产品货号:</td>
+    <td class="cellcolor">仪器ID:</td>
     <td>&nbsp;<input type="text" name="cp_number" value="<?php echo GetMkTime(time()) ?>" style="background:transparent;border:0px;color:red;font-weight:bold;font-family:Verdana, Arial, Helvetica, sans-serif;" readonly></td>
   </tr>
   <tr>
-    <td class="cellcolor" width="30%">产品条形码:<br>(如有条码扫描仪可直接扫描)</td>
-    <td>&nbsp;<input type="text" name="cp_tm">&nbsp;如使用条形码,销售时可直接使用</td>
+    <td class="cellcolor" width="30%">仪器条形码:<br>(如有条码扫描仪可直接扫描)</td>
+    <td>&nbsp;<input type="text" name="cp_tm"></td>
   </tr>  
   <tr>
-    <td class="cellcolor" width="30%">产品名称:</td>
+    <td class="cellcolor" width="30%">仪器名称:</td>
     <td>&nbsp;<input type="text" name="cp_name" id="need" onblur="pinyin(this.value)"></td>
   </tr>
   <tr>
-    <td class="cellcolor">产品规格:</td>
+    <td class="cellcolor">仪器规格:</td>
     <td>&nbsp;<input type="text" name="cp_gg" id="need"></td>
   </tr>
   <tr>
-    <td class="cellcolor">产品所属分类:</td>
+    <td class="cellcolor">仪器所属分类:</td>
     <td>&nbsp;
 	<?php
     getcategories(0,'');
@@ -178,7 +179,7 @@ $dlist->SetSource($query);
     <td>&nbsp;<?php getdw() ?></td>
   </tr>
   <tr>
-    <td class="cellcolor">进货价格:</td>
+    <td class="cellcolor">仪器价格:</td>
     <td>&nbsp;<input type="text" name="cp_jj" id="need"></td>
   </tr>
   <tr>
@@ -191,30 +192,29 @@ $dlist->SetSource($query);
   </tr>
   <tr>
     <td class="cellcolor">生产日期:</td>
-    <td>&nbsp;<input type="text" name="cp_sdate" onclick="setday(this)">
+    <td>&nbsp;<input class="Wdate" type="text" name="cp_sdate" onclick="WdatePicker()">
 	&nbsp;单击输入框选择时间	</td>
   </tr>
   <tr>
     <td class="cellcolor">作废日期:</td>
-    <td>&nbsp;<input type="text" name="cp_edate" onclick="setday(this)">&nbsp;单击输入框选择时间</td>
+    <td>&nbsp;<input class="Wdate" type="text" name="cp_edate" onclick="WdatePicker()">&nbsp;单击输入框选择时间</td>
   </tr>
   <tr>
     <td class="cellcolor">供应商:</td>
-    <td>&nbsp;<input type="text" name="cp_gys" readonly>&nbsp;<img src="images/up.gif" border="0" align="absmiddle" style="cursor:hand;" onclick="window.open('select_gys.php?form=form1&field=cp_gys','selected','directorys=no,toolbar=no,status=no,menubar=no,resizable=no,width=250,height=270,top=200,left=520')" />点击选择供应商</td>
+    <td>&nbsp;<input class="SeOem" type="text" name="cp_gys" onclick="window.open('select_gys.php?form=form1&field=cp_gys','selected','directorys=no,toolbar=no,status=no,menubar=no,resizable=no,width=250,height=270,top=200,left=520')" readonly>&nbsp;<!--<img src="images/up.gif" border="0" align="absmiddle" style="cursor:hand;" onclick="window.open('select_gys.php?form=form1&field=cp_gys','selected','directorys=no,toolbar=no,status=no,menubar=no,resizable=no,width=250,height=270,top=200,left=520')" />-->点击选择供应商</td>
   </tr>
 
   <tr>
     <td class="cellcolor">助记词:</td>
-    <td>&nbsp;<input type="text" name="cp_helpword">&nbsp;(用于快速搜寻产品用,如不输入则按拼间首字字母记录)</td>
+    <td>&nbsp;<input type="text" name="cp_helpword">&nbsp;(用于快速搜寻仪器用,如不输入则按拼间首字字母记录)</td>
   </tr>    
   <tr>
     <td class="cellcolor">备注:</td>
-    <td>&nbsp;
-      <textarea rows="5" cols="30" name="cp_bz"></textarea></td>
+    <td>&nbsp;<textarea rows="5" cols="30" name="cp_bz"></textarea></td>
   </tr>
   <tr>
     <td class="cellcolor">&nbsp;</td>
-    <td>&nbsp;<input type="submit" value=" 登记新产品 "></td>
+    <td>&nbsp;<input type="submit" value=" 登记新仪器 "></td>
   </tr></form>
 </table>
     </td>

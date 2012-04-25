@@ -86,7 +86,7 @@ class DedeSql
 		//处理错误，成功连接则选择数据库
 		if(!$this->linkID){
 			//echo $this->GetError();
-			$this->DisplayError("ViooMA错误警告：<font color='red'>连接数据库失败，可能数据库密码不对或数据库服务器出错，如未安装本系统，请先运行安装程序，如果已经安装，请检查MySQL服务或修改include/config_base.php的配置！</font>");
+			$this->DisplayError("错误警告：<font color='red'>连接数据库失败，可能数据库密码不对或数据库服务器出错，如未安装本系统，请先运行安装程序，如果已经安装，请检查MySQL服务或修改include/config_base.php的配置！</font>");
 			exit();
 		}
 		@mysql_select_db($this->dbName);

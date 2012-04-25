@@ -1,9 +1,9 @@
 <?php 
 $cfg_au_isopen = '1';
-$cfg_au_company = 'ViooMA网络';
-$cfg_au_name = '马洪利(ViooMA) QQ:12612019';
-$cfg_au_homepage = 'http://www.viooma.com';
-$cfg_au_bbsurl = 'http://bbs.viooma.com/';
-$cfg_au_regurl = 'http://bbs.viooma.com/register.php';
-$cfg_au_version = 'ViooMA进销存 2008(WEB版)';
+$cfg_au_company = 'GuoZSH';
+$cfg_au_name = '郭泽生(GZS) E-mail:guozesheng@gmail.com';
+$cfg_au_homepage = 'https://github.com/guozesheng/ccu';
+$cfg_au_bbsurl = 'https://github.com/guozesheng/ccu';
+$cfg_au_regurl = 'https://github.com/guozesheng/ccu';
+$cfg_au_version = '实验室管理系统 2012(WEB版)';
 ?>

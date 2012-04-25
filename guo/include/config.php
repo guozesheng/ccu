@@ -2,7 +2,7 @@
 require(dirname(__FILE__)."/config_passport.php");
 
 Function CopyRight(){
-echo "<div id='copyright'>Powered By ViooMA网络 &copy; 2008~2009,<strong>ViooMA进销存 2008(WEB版)</strong></div>";
+echo "<div id='copyright'>Powered By GuoZSH &copy; 2012,<strong>实验室管理系统 2012(WEB版)</strong></div>";
 }
 
 Function WriteNote($msg,$date,$ip,$user){

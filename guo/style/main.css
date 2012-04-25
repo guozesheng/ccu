@@ -96,3 +96,8 @@ border:1px solid #ECECEC;
 padding:2px;
 }
 /*∑÷“≥ Ù–‘*/
+.SeOem{
+	border:#999 1px solid;
+	height:20px;
+	background:#fff url(../images/up.gif) no-repeat right;
+}
