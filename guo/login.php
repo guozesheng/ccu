@@ -1,8 +1,8 @@
 <HTML>
 <HEAD>
-<TITLE>ViooMA进销存系统登录</TITLE>
+<TITLE>实验室管理系统-登录</TITLE>
 <META http-equiv=Content-Type content="text/html; charset=gbk">
-<LINK href="/css/webcss.css" type=text/css rel=stylesheet>
+<LINK href="style/webcss.css" type=text/css rel=stylesheet>
 <STYLE type=text/css>
 body,td {font-size:12px;}
 </STYLE>
@@ -78,12 +78,18 @@ if ($action=='login')
   }
   else
   {//可以正常登陆，写登陆数据
-  $message="正常登入进销存系统！";
+  $message="正常登入实验室管理系统！";
   setcookie('VioomaUserID',$username.$cfg_cookie_encode,time()+$cfg_keeptime*3600);
   WriteNote($message,$logindate,$loginip,$username);
   $loginsql=str_replace('#@__',$cfg_dbprefix,"update #@__boss set logindate='$logindate',loginip='$loginip' where boss='$username'");
   mysql_query($loginsql);
-  header("Location:index.php");
+//  header("Location:index.php");
+  ?>
+  	<script language="JavaScript">
+		window.location="index2.php";
+	</script>
+ <?php
+  exit();
   }
     mysql_close();
   }
@@ -104,9 +110,6 @@ else
       <TABLE width=720 border=0>
         <TBODY>
         <TR>
-          <TD align=middle width=214>
-            <P><IMG height=140 src="images/dt01.jpg" width=197></P>
-            <P><IMG height=194 src="images/dt02.jpg" width=195></P></TD>
           <TD align=left width=496>
             <TABLE height=337 cellSpacing=0 cellPadding=0 width=491 
             background=images/bsdt.gif border=0>
@@ -145,7 +148,7 @@ else
                 <TD width=39>&nbsp;</TD></TR>
               <TR align=middle>
                 <TD colSpan=3>
-            CopyRights &copy;2008~2009 Powered By <a href="http://www.viooma.com" target="_blank">www.ViooMA.com</a> Web进销存 2008版
+            CopyRights &copy; 2012 Powered By <a href="mailto:guozesheng@gmail.com" target="_blank">郭泽生</a> 实验室仪器管理系统
 </TD></TR></TBODY></TABLE></TD></TR>
         <TR>
           <TD>&nbsp;</TD>

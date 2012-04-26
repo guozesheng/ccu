@@ -18,7 +18,7 @@ if($action=='save'){
  $asql->ExecuteNoneQuery($addsql);
  $asql->close();
  WriteNote($message,$logindate,$loginip,$username);
- showmsg('成功添加产品分类','system_class.php');
+ showmsg('成功添加仪器分类','system_class.php');
  exit();
 }
 ?>
@@ -41,7 +41,7 @@ if($action=='save'){
     <td>
 	<table width="100%" border="0" cellpadding="0" cellspacing="2">
      <tr>
-      <td><strong>&nbsp;产品分类设置</strong>&nbsp;&nbsp;<a href="system_class.php?action=new">添加顶级分类</a> | <a href="system_class.php">查看产品分类列表</a>&nbsp;<font color=red>注：删除顶级分类时将连同子分类一并删除</font></td>
+      <td><strong>&nbsp;仪器分类设置</strong>&nbsp;&nbsp;<a href="system_class.php?action=new">添加顶级分类</a> | <a href="system_class.php">查看仪器分类列表</a>&nbsp;<font color=red>注：删除顶级分类时将连同子分类一并删除</font></td>
      </tr>
 	 <form action="system_class.php?action=save" method="post">
      <tr>
