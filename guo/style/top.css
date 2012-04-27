@@ -1,0 +1,6 @@
+body {font:normal 12px Arial;background:#3179bd url(../images/right_bg.gif) repeat-x top;}
+#main_table {background:url(../images/top_bg.gif) no-repeat left top;}
+#top_menu {background:url(../images/menu02.gif) no-repeat bottom center;text-align:center;padding-top:5px;}
+a:link,a:visited {font:normal 12px Verdana, Arial, Helvetica, sans-serif;color:#000;text-decoration:none;}
+a:hover {font:normal 12px Verdana, Arial, Helvetica, sans-serif;color:#F00;text-decoration:none;}
+#menu_big{font:bold 13px Arial;color:#FFF;padding-left:10px;}
