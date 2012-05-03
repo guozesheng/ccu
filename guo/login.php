@@ -1,3 +1,7 @@
+<?php
+require_once(dirname(__FILE__)."/include/config_base.php");
+require_once(dirname(__FILE__)."/include/config_rglobals.php");
+?>
 <HTML>
 <HEAD>
 <TITLE>实验室管理系统-登录</TITLE>
@@ -57,8 +61,6 @@ return true;
 <META content="MSHTML 6.00.2900.5583" name=GENERATOR></HEAD>
 <BODY leftMargin=0 topMargin=0 onload=document.form1.username.focus() MARGINHEIGHT="0" MARGINWIDTH="0">
 <?php
-require_once(dirname(__FILE__)."/include/config_rglobals.php");
-require_once(dirname(__FILE__)."/include/config_base.php");
 if ($action=='login')
 {
  if (GetCkVdValue()==$code)
@@ -79,14 +81,26 @@ if ($action=='login')
   else
   {//可以正常登陆，写登陆数据
   $message="正常登入实验室管理系统！";
+  $row=$lsql->GetArray();
   setcookie('VioomaUserID',$username.$cfg_cookie_encode,time()+$cfg_keeptime*3600);
+  $_SESSION['boss']=$username;
+  $_SESSION['level']=$row['rank'];
   WriteNote($message,$logindate,$loginip,$username);
   $loginsql=str_replace('#@__',$cfg_dbprefix,"update #@__boss set logindate='$logindate',loginip='$loginip' where boss='$username'");
   mysql_query($loginsql);
+  if ($_SESSION['level']==1)
+  {
+	  $path = "index2.php";
+  }
+  else 
+  {
+	  $path = "user/";
+  }
 //  header("Location:index.php");
   ?>
   	<script language="JavaScript">
-		window.location="index2.php";
+		//window.location="index2.php";
+		window.location="<?=$path?>";
 	</script>
  <?php
   exit();
@@ -101,6 +115,8 @@ if ($action=='login')
   }
 else
 {
+  $_SESSION['boss']="";
+  $_SESSION['level']=100;
 ?>
 <FORM name="form1" onSubmit="return login()" action="login.php" method="post">
 <TABLE height="86%" cellSpacing=0 cellPadding=0 width="100%" border=0>

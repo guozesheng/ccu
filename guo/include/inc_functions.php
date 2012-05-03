@@ -208,7 +208,7 @@ function ShowMsg($msg,$gourl,$onlymsg=0,$limittime=0)
 {
 	  global $dsql,$cfg_ver_lang;
 	  if( eregi("^gb",$cfg_ver_lang) ) $cfg_ver_lang = 'gb2312';
-		$htmlhead  = "<html>\r\n<head>\r\n<title>ViooMA进销存提示您</title>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset={$cfg_ver_lang}\" />\r\n";
+		$htmlhead  = "<html>\r\n<head>\r\n<title>实验室管理系统提示您</title>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset={$cfg_ver_lang}\" />\r\n";
 		$htmlhead .= "<base target='_self'/>\r\n</head>\r\n<body leftmargin='0' topmargin='0'>\r\n<center>\r\n<script>\r\n";
 		$htmlfoot  = "</script>\r\n</center>\r\n</body>\r\n</html>\r\n";
 
@@ -228,7 +228,7 @@ function ShowMsg($msg,$gourl,$onlymsg=0,$limittime=0)
         if(pgo==0){ location='$gourl'; pgo=1; }
       }\r\n";
 			$rmsg = $func;
-			$rmsg .= "document.write(\"<br/><div style='width:400px;padding-top:4px;height:24;font-size:10pt;border-left:1px solid #547ac7;border-top:1px solid #547ac7;border-right:1px solid #547ac7;background-color:#668cd8;'>ViooMA进销存提示信息：</div>\");\r\n";
+			$rmsg .= "document.write(\"<br/><div style='width:400px;padding-top:4px;height:24;font-size:10pt;border-left:1px solid #547ac7;border-top:1px solid #547ac7;border-right:1px solid #547ac7;background-color:#668cd8;'>实验室管理系统提示信息：</div>\");\r\n";
 			$rmsg .= "document.write(\"<div style='width:400px;height:100;font-size:10pt;border:1px solid #547ac7;background-color:#f3f3fc'><br/><br/>\");\r\n";
 			$rmsg .= "document.write(\"".str_replace("\"","“",$msg)."\");\r\n";
 			$rmsg .= "document.write(\"";

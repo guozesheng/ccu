@@ -59,6 +59,10 @@ height:30px;
 text-align:center;
 font-weight:bold;
 }
+.row_content{
+background-color:#FFF;
+text-align:center;
+}
 .row1_color_head{
 background-color:#EBF1F6;
 height:27px;

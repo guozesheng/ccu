@@ -1,8 +1,8 @@
 <?php
 //启动会话，将产生的验证码保存到会话变量中
 //Session保存路径
-$sessSavePath = dirname(__FILE__)."/../data/sessions/";
-if(is_writeable($sessSavePath) && is_readable($sessSavePath)){ session_save_path($sessSavePath); }
+//$sessSavePath = dirname(__FILE__)."/../data/sessions/";
+//if(is_writeable($sessSavePath) && is_readable($sessSavePath)){ session_save_path($sessSavePath); }
 session_start();//
 function getrandom ($length,$mode)
 { 

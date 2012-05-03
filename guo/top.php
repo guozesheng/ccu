@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__)."/include/config_base.php");
+	require_once(dirname(__FILE__)."/include/config_base.php");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -111,7 +111,7 @@ function resetBT(){
        <tr>
         <td width="15"><img src="images/arrow.gif"></td>
 		<td width="500"></td>
-        <td align="right">&nbsp;<?php echo str_replace($cfg_cookie_encode,'',$_COOKIE["VioomaUserID"])."(".getusertype(1,0).")";?>&nbsp;|&nbsp;<a href="http://www.viooma.com" target="_blank">官方首页</a>&nbsp;|&nbsp;<a href="">修改密码</a>&nbsp;|&nbsp;<a href="">安全退出</a></td>
+        <td align="right">&nbsp;<?php echo "(".getusertype($_SESSION['level'],0).")";?>&nbsp;|&nbsp;<a href="#" target="_blank">官方首页</a>&nbsp;|&nbsp;<a href="">修改密码</a>&nbsp;|&nbsp;<a href="">安全退出</a></td>
        </tr>
       </table>
 	 </td>

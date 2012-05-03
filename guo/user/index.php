@@ -1,3 +1,7 @@
+<?php
+require_once(dirname(__FILE__)."/../include/config_base.php");
+require_once(dirname(__FILE__)."/include/checklogin.php");
+?>
 <title>实验室管理系统</title>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <frameset rows="90,*" cols="*" frameborder="0" framespacing="0">

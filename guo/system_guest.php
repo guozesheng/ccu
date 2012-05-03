@@ -54,7 +54,7 @@ exit();
         <tr>
         <td id="row_style">&nbsp;工号:</td>
         <td width="180">
-        	&nbsp;<input type="text" name="g_jobnum" onfocus="checkuser(12)" />
+        	&nbsp;<input type="text" name="g_jobnum" onblur="checkuser(this.value)" />
         </td>
         <td align="left" id="jobnumchk">&nbsp;</td>
         </tr>
@@ -89,17 +89,17 @@ exit();
 	    } 
 		else
 		{
-       echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" id=\"table_border\">";
+       echo "<table align=\"center\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" id=\"table_border\">";
        $csql=New Dedesql(false);
-	   $csql->SetQuery("select * from #@__guest");
+	   $csql->SetQuery("select * from #@__boss");
 	   $csql->Execute();
 	   $rowcount=$csql->GetTotalRow();
 	   if($rowcount==0)
 	   echo "<tr><td>&nbsp;没有任何用户,请先<a href=system_guest.php?action=new>添加用户</a>。</td></tr>";
 	   else{
-	   echo "<tr class='row_color_head'><td>ID</td><td>姓名</td><td>性别</td><td>联系地址</td><td>联系电话</td><td>QQ/MSN</td><td>生日</td><td>用户卡号</td><td>分组</td><td>操作员</td><td>入会时间</td><td>操作</td></tr>";
+	   echo "<tr class='row_color_head'><td>ID</td><td>姓名</td><td>工号</td><td>性别</td><td>联系电话</td><td>上次登录日期</td><td>登录IP</td><td>级别</td><td>操作</td></tr>";
 	   while($row=$csql->GetArray()){
-	   echo "<tr><td>".$row['id']."</td><td>&nbsp;".$row['g_name']."</td><td>".$row['g_sex']."</td><td>&nbsp;".$row['g_address']."</td><td>&nbsp;".$row['g_phone']."</td><td>".$row['g_qq']."</td><td>&nbsp;".$row['g_birthday']."</td><td>&nbsp;".$row['g_card']."</td><td>&nbsp;".getgroup($row['g_group'],'group')."</td><td>".$row['g_people']."</td><td>".$row['g_dtime']."</td><td><a href=guest_edit.php?id=".$row['id'].">改</a> | <a href=guest_del.php?id=".$row['id'].">删</a></td></tr>";
+	   echo "<tr class='row_content'><td>".$row['id']."</td><td>&nbsp;".$row['name']."</td><td>".$row['boss']."</td><td>&nbsp;".$row['sex']."</td><td>&nbsp;".$row['phone']."</td><td>".$row['logindate']."</td><td>&nbsp;".$row['loginip']."</td><td>&nbsp;".$row['rank']."</td><td><a href=guest_edit.php?id=".$row['id'].">改</a> | <a href=guest_del.php?id=".$row['id'].">删</a></td></tr>";
 	   }
 	   }
 	   echo "</table>";

@@ -2,6 +2,7 @@
 /*************************************************
 本文件的信息不建议用户自行更改，否则发生意外自行负责
 **************************************************/
+session_start();
 error_reporting(E_ALL || ~E_NOTICE);
 
 define('VIOOMAINC',dirname(__FILE__));
@@ -35,8 +36,8 @@ if(PHP_VERSION > '5.1') {
 
 
 //Session保存路径
-$sessSavePath = VIOOMAINC."/../data/sessions/";
-if(is_writeable($sessSavePath) && is_readable($sessSavePath)){ session_save_path($sessSavePath); }
+//$sessSavePath = VIOOMAINC."/../data/sessions/";
+//if(is_writeable($sessSavePath) && is_readable($sessSavePath)){ session_save_path($sessSavePath); }
 
 //数据库连接信息
 $cfg_dbhost = 'localhost';
