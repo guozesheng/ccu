@@ -1,3 +1,7 @@
+<?php
+require_once(dirname(__FILE__)."/include/config_base.php");
+require_once(dirname(__FILE__)."/include/config_rglobals.php");
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -6,8 +10,6 @@
 </head>
 <body>
 <?php
-require_once(dirname(__FILE__)."/include/config_base.php");
-require_once(dirname(__FILE__)."/include/config_rglobals.php");
 if($id=='')ShowMsg('非法的执行操作','system_guest.php');
 //检测分类的等级
 $username=str_replace($cfg_cookie_encode,'',$_COOKIE["VioomaUserID"]);

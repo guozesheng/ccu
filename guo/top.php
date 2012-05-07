@@ -82,14 +82,16 @@ function resetBT(){
 	 <table width="100%" height="27" cellspacing="0" cellpadding="0" border="0">
 	  <tr>
 	   <td width="10"></td>
-	   <td id="top_menu"><a href="javascript:OpenMenu(2,'','system_basic.php',1)">系统设置</a></td>
-	   <td id="top_menu"><a href="javascript:OpenMenu(9,'','equip_add.php',1)">仪器管理</a></td>
-	   <td id="top_menu"><a href="javascript:OpenMenu(3,'','system_rk.php',2)">入库管理</a></td>
-	   <td id="top_menu"><a href="javascript:OpenMenu(4,'','sale.php',1)">销售管理</a></td>
-	   <td id="top_menu"><a href="javascript:OpenMenu(5,'','system_kc.php',1)">库存管理</a></td>
-	   <td id="top_menu"><a href="javascript:OpenMenu(6,'','system_guest.php',1)">客户管理</a></td>
-	   <td id="top_menu"><a href="javascript:OpenMenu(7,'','report.php',1)">统计报表</a></td>
-	   <td id="top_menu"><a href="javascript:OpenMenu(8,'','system_money.php',1)">财务管理</a></td>
+       <?php
+			$sql = "select * from #@__topmenu where permission='$_SESSION[level]'";
+			$msql=new Dedesql(false);
+			$msql->Setquery($sql);
+			$msql->Execute();
+			while ($row=$msql->GetArray())
+			{
+	   ?>
+	   <td id="top_menu"><a href="javascript:OpenMenu(<?=$row['id']?>,'','<?=$row['url']?>',<?=$row['flag']?>)"><?=$row['name']?></a></td>
+       <?php } ?>
 	   <td id="top_menu"><a href="system_note.php" target="main">系统日志</a></td>
 	   <td id="top_menu"><a href="javascript:OpenMenu(1,'','main.php',1)">显示桌面</a></td>
 	   <td width="15%">&nbsp;</td>
@@ -111,7 +113,7 @@ function resetBT(){
        <tr>
         <td width="15"><img src="images/arrow.gif"></td>
 		<td width="500"></td>
-        <td align="right">&nbsp;<?php echo "(".getusertype($_SESSION['level'],0).")";?>&nbsp;|&nbsp;<a href="#" target="_blank">官方首页</a>&nbsp;|&nbsp;<a href="">修改密码</a>&nbsp;|&nbsp;<a href="">安全退出</a></td>
+        <td align="right">&nbsp;<?php echo "(".getusertype($_SESSION['level'],0).")";?>&nbsp;|&nbsp;<a href="#" target="_blank">官方首页</a>&nbsp;|&nbsp;<a href="">修改密码</a>&nbsp;|&nbsp;<a href="login.php" target="_parent">安全退出</a></td>
        </tr>
       </table>
 	 </td>
