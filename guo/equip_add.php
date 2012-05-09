@@ -81,7 +81,7 @@ if ($rowcount>=1){
 else{
 $addquery="insert into #@__basic(cp_number,cp_tm,cp_name,cp_gg,cp_categories,cp_categories_down,cp_dwname,cp_jj,cp_sale,cp_saleall,cp_sdate,cp_edate,cp_gys,cp_helpword,cp_bz) values('$cp_number','$cp_tm','$cp_name','$cp_gg','$cp_categories','$cp_categories_down','$cp_dwname','$cp_jj','$cp_sale','$cp_saleall','$cp_sdate','$cp_edate','$cp_gys','$cp_helpword','$cp_bz')";
 $bsql->ExecuteNoneQuery($addquery);
-ShowMsg('成功写入一条仪器基本信息.','system_basic_cp.php');
+ShowMsg('成功写入一条仪器基本信息.','equip_add.php');
  $loginip=getip();
  $logindate=getdatetimemk(time());
  $username=str_replace($cfg_cookie_encode,'',$_COOKIE['VioomaUserID']);
@@ -103,8 +103,8 @@ else if($action=='seek'){ //列表
     <td>
 	<table width="100%" border="0" cellpadding="0" cellspacing="2">
      <tr>
-      <td><strong>&nbsp;仪器基本信息管理</strong>(注:橙色背景为必填选项)&nbsp;&nbsp;- <a href="system_basic_cp.php">新仪器登记</a> - <a href="system_basic_cp.php?action=seek">仪器基本信息查询</a></td>
-     </tr><form action="system_basic_cp.php?action=save" method="post" name="form1">
+      <td><strong>&nbsp;仪器基本信息管理</strong>(注:橙色背景为必填选项)&nbsp;&nbsp;- <a href="equip_add.php">新仪器登记</a> - <a href="equip_add.php?action=seek">仪器基本信息查询</a></td>
+     </tr><form action="equip_add.php?action=save" method="post" name="form1">
      <tr>
       <td bgcolor="#FFFFFF">
 <?php
@@ -119,7 +119,7 @@ $dlist->SetSource($query);
 	   echo "<tr class='row_color_head'><td>ID</td><td>名称</td><td>规格</td><td>分类</td><td>单位</td><td>进价</td><td>供应商</td><td>助记词</td><td>操作</td></tr>";
 	   $mylist = $dlist->GetDataList();
        while($row = $mylist->GetArray('dm')){
-	   echo "<tr><td>ID号:".$row['id']."</td><td>&nbsp;".$row['cp_name']."</td><td>&nbsp;".$row['cp_gg']."</td><td>&nbsp;".get_name($row['cp_categories'],'categories').">".get_name($row['cp_categories_down'],'categories')."</td><td>&nbsp;".get_name($row['cp_dwname'],'dw')."</td><td>&nbsp;￥".$row['cp_jj']."</td><td>".$row['cp_gys']."</td><td>".$row['cp_helpword']."</td><td><a href=system_basic_edit.php?id=".$row['id'].">修改</a> | <a href=system_basic_del.php?id=".$row['id'].">删除</a></td></tr>";
+	   echo "<tr class='row_content'><td>".$row['id']."</td><td>&nbsp;".$row['cp_name']."</td><td>&nbsp;".$row['cp_gg']."</td><td>&nbsp;".get_name($row['cp_categories'],'categories').">".get_name($row['cp_categories_down'],'categories')."</td><td>&nbsp;".get_name($row['cp_dwname'],'dw')."</td><td>&nbsp;￥".$row['cp_jj']."</td><td>".$row['cp_gys']."</td><td>".$row['cp_helpword']."</td><td><a href=system_basic_edit.php?id=".$row['id'].">修改</a> | <a href=system_basic_del.php?id=".$row['id'].">删除</a></td></tr>";
 	   }
 	   echo "<tr><td colspan='8'>&nbsp;".$dlist->GetPageList($cfg_record)."</td></tr></table>";
 	  
@@ -146,8 +146,8 @@ $dlist->SetSource($query);
     <td>
 	<table width="100%" border="0" cellpadding="0" cellspacing="2">
      <tr>
-      <td><strong>&nbsp;仪器基本信息管理</strong>(注:橙色背景为必填选项)&nbsp;&nbsp;- <a href="system_basic_cp.php">新仪器登记</a> - <a href="system_basic_cp.php?action=seek">仪器基本信息查询</a></td>
-     </tr><form action="system_basic_cp.php?action=save" method="post" name="form1">
+      <td><strong>&nbsp;仪器基本信息管理</strong>(注:橙色背景为必填选项)&nbsp;&nbsp;- <a href="equip_add.php">新仪器登记</a> - <a href="equip_add.php?action=seek">仪器基本信息查询</a></td>
+     </tr><form action="equip_add.php?action=save" method="post" name="form1">
      <tr>
       <td bgcolor="#FFFFFF">
  <table width="100%" border="0" cellspacing="0" cellpadding="0" id="table_border">
@@ -172,23 +172,19 @@ $dlist->SetSource($query);
     <td>&nbsp;
 	<?php
     getcategories(0,'');
-	?>	</td>
+	?>&nbsp;<a href="system_class.php"><font color="#0000FF">管理仪器分类</font></a></td>
+  </tr>
+  <tr>
+    <td class="cellcolor">仪器数量</td>
+    <td>&nbsp;<input type="text" name="cp_sale" id="need"></td>
   </tr>
   <tr>
     <td class="cellcolor">单位:</td>
-    <td>&nbsp;<?php getdw() ?></td>
+    <td>&nbsp;<?php getdw() ?><a href="system_dw.php"><font color="#0000FF">管理仪器单位</font></a></td>
   </tr>
   <tr>
     <td class="cellcolor">仪器价格:</td>
     <td>&nbsp;<input type="text" name="cp_jj" id="need"></td>
-  </tr>
-  <tr>
-    <td class="cellcolor">建议零售价格:</td>
-    <td>&nbsp;<input type="text" name="cp_sale" id="need"></td>
-  </tr>
-  <tr>
-    <td class="cellcolor">建议批发价格:</td>
-    <td>&nbsp;<input type="text" name="cp_saleall"></td>
   </tr>
   <tr>
     <td class="cellcolor">生产日期:</td>
@@ -201,7 +197,7 @@ $dlist->SetSource($query);
   </tr>
   <tr>
     <td class="cellcolor">供应商:</td>
-    <td>&nbsp;<input class="SeOem" type="text" name="cp_gys" onclick="window.open('select_gys.php?form=form1&field=cp_gys','selected','directorys=no,toolbar=no,status=no,menubar=no,resizable=no,width=250,height=270,top=200,left=520')" readonly>&nbsp;<!--<img src="images/up.gif" border="0" align="absmiddle" style="cursor:hand;" onclick="window.open('select_gys.php?form=form1&field=cp_gys','selected','directorys=no,toolbar=no,status=no,menubar=no,resizable=no,width=250,height=270,top=200,left=520')" />-->点击选择供应商</td>
+    <td>&nbsp;<input class="SeOem" type="text" name="cp_gys" onclick="window.open('select_gys.php?form=form1&field=cp_gys','selected','directorys=no,toolbar=no,status=no,menubar=no,resizable=no,width=250,height=270,top=200,left=520')" readonly>&nbsp;<a href="system_gys.php"><font color="#0000FF">管理供应商</font></a></td>
   </tr>
 
   <tr>
@@ -210,7 +206,7 @@ $dlist->SetSource($query);
   </tr>    
   <tr>
     <td class="cellcolor">备注:</td>
-    <td>&nbsp;<textarea rows="5" cols="30" name="cp_bz"></textarea></td>
+    <td>&nbsp;<textarea rows="5" cols="30" name="cp_bz"></textarea><input type="hidden" name="cp_saleall" value="0" /></td>
   </tr>
   <tr>
     <td class="cellcolor">&nbsp;</td>

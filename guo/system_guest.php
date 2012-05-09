@@ -40,7 +40,7 @@ exit();
     <td>
 	<table width="100%" border="0" cellpadding="0" cellspacing="2">
      <tr>
-      <td><strong>&nbsp;客户管理</strong>&nbsp;&nbsp;<a href="system_guest.php?action=new">添加用户</a> | <a href="system_guest.php">查看用户</a></td>
+      <td><strong>&nbsp;用户管理</strong>&nbsp;&nbsp;<a href="system_guest.php?action=new">添加用户</a> | <a href="system_guest.php">查看用户</a></td>
      </tr>
      <tr>
       <td bgcolor="#FFFFFF">
