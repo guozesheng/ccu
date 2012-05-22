@@ -74,7 +74,7 @@ if($action=='save'){
 	   else{
 	   echo "<tr class='row_color_head'><td>ID</td><td>Ãû³Æ</td><td>²Ù×÷</td></tr>";
 	   while($row=$csql->GetArray()){
-	   echo "<tr><td>IDºÅ:".$row['id']."</td><td><img src=images/cate.gif align=absmiddle>&nbsp;".$row['dwname']."</td><td><a href=system_dw_edit.php?id=".$row['id'].">ÐÞ¸Ä</a> | <a href=system_dw_del.php?id=".$row['id'].">É¾³ý</a></td></tr>";
+	   echo "<tr class='row_color_gray'><td>".$row['id']."</td><td><img src=images/cate.gif align=absmiddle>&nbsp;".$row['dwname']."</td><td><a href=system_dw_edit.php?id=".$row['id'].">ÐÞ¸Ä</a> | <a href=system_dw_del.php?id=".$row['id'].">É¾³ý</a></td></tr>";
 	     $csql1=New Dedesql(false);
 	     $csql1->SetQuery("select * from #@__dw where reid='".$row['id']."'");
 		 $csql1->Execute();

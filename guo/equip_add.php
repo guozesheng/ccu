@@ -66,9 +66,8 @@ if ($action=='save'){
  if($cp_categories=='') echo "<script language='javascript'>alert('请输入仪器的分类!');history.go(-1)</script>";
  if($cp_categories_down=='') echo "<script language='javascript'>alert('请输入仪器的子分类!');history.go(-1)</script>";
  if($cp_dwname=='') echo "<script language='javascript'>alert('请输入仪器的基本单位!');history.go(-1)</script>";
- if($cp_jj=='' || $cp_sale=='') echo "<script language='javascript'>alert('仪器进价与建议零售价为必填项!');history.go(-1)</script>";
+ if($cp_jj=='' || $cp_sale=='') echo "<script language='javascript'>alert('仪器进价为必填项!');history.go(-1)</script>";
  if(!(is_numeric($cp_jj) && is_numeric($cp_sale) )) echo "<script language='javascript'>alert('价格必须为数字!');history.go(-1)</script>";
- if($cp_jj>$cp_sale) echo "<script language='javascript'>alert('零售价不能小于进价!');history.go(-1)</script>";
 $bsql=New Dedesql(false);
 $query="select * from #@__basic where cp_name='$cp_name' and cp_gg='$cp_gg'";
 $bsql->SetQuery($query);

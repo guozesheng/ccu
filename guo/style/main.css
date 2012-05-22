@@ -70,6 +70,7 @@ text-align:left;
 font-weight:normal;
 }
 .row_color_gray{
+/*text-align:center;*/
 background-color:#EBF1F6;
 height:30px;
 }

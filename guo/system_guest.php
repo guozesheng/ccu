@@ -10,7 +10,7 @@ exit();
  $logindate=getdatetimemk(time());
  $username=str_replace($cfg_cookie_encode,'',$_COOKIE['VioomaUserID']);
  $passwd=md5($g_jobnum);
- $addsql = "insert into #@__boss(`id` ,`boss` ,`password` ,`sex` ,`phone` ,`logindate` ,`loginip` ,`errnumber` ,`rank`) values (NULL ,  '$g_jobnum',  '$passwd',  '$g_sex',  '$g_phone',  '$g_time',  '0.0.0.0',  '1',  '$g_level')";
+ $addsql = "insert into #@__boss(`id` ,`boss` ,`password` , `name` ,`sex` ,`phone` ,`logindate` ,`loginip` ,`errnumber` ,`rank`) values (NULL ,  '$g_jobnum',  '$passwd',  '$g_name',  '$g_sex',  '$g_phone',  '$g_time',  '0.0.0.0',  '1',  '$g_level')";
  $message="添加用户".$g_name."成功";
  $asql=New Dedesql(false);
  $asql->ExecuteNoneQuery($addsql);
@@ -76,9 +76,9 @@ exit();
 	    </tr>	
 		<tr>
 		  <td id="row_style">&nbsp;操作时间:</td>
-		  <td colspan="2">
-		    &nbsp;<input type="text" name="g_time" value="<?php echo getDatetimeMk(time()); ?>" readonly="readonly" />
-		    </td>
+            <td colspan="2">
+            	&nbsp;<?=getDatetimeMk(time());?>
+            </td>
 		  </tr>									
 		<tr>
 		 <td id="row_style">&nbsp;</td>

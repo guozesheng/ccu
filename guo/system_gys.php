@@ -91,7 +91,7 @@ exit();
 	   else{
 	   echo "<tr class='row_color_head'><td>ID</td><td>名称</td><td>联系人</td><td>联系地址</td><td>联系电话</td><td>QQ</td><td>操作</td></tr>";
 	   while($row=$csql->GetArray()){
-	   echo "<tr><td>ID号:".$row['id']."</td><td>&nbsp;".$row['g_name']."</td><td>&nbsp;".$row['g_people']."</td><td>&nbsp;".$row['g_address']."</td><td>&nbsp;".$row['g_phone']."</td><td>&nbsp;".$row['g_qq']."</td><td><a href=system_gys_edit.php?id=".$row['id'].">修改</a> | <a href=system_gys_del.php?id=".$row['id'].">删除</a></td></tr>";
+	   echo "<tr class='row_color_gray'><td>ID号:".$row['id']."</td><td>&nbsp;".$row['g_name']."</td><td>&nbsp;".$row['g_people']."</td><td>&nbsp;".$row['g_address']."</td><td>&nbsp;".$row['g_phone']."</td><td>&nbsp;".$row['g_qq']."</td><td><a href=system_gys_edit.php?id=".$row['id'].">修改</a> | <a href=system_gys_del.php?id=".$row['id'].">删除</a></td></tr>";
 	   }
 	   }
 	   echo "</table>";

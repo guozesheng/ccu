@@ -73,12 +73,12 @@ if($action=='save'){
 	   else{
 	   echo "<tr class='row_color_head'><td>ID</td><td>名称</td><td>操作</td></tr>";
 	   while($row=$csql->GetArray()){
-	   echo "<tr><td>ID号:".$row['id']."</td><td><img src=images/cate.gif align=absmiddle>&nbsp;".$row['categories']."</td><td><a href=system_cate_edit.php?id=".$row['id'].">修改</a> | <a href=system_cate_del.php?id=".$row['id'].">删除</a> | <a href=system_class.php?action=new&reid=".$row['id'].">添子类</a></td></tr>";
+	   echo "<tr class='row_color_gray'><td>".$row['id']."</td><td><img src=images/cate.gif align=absmiddle>&nbsp;".$row['categories']."</td><td><a href=system_cate_edit.php?id=".$row['id'].">修改</a> | <a href=system_cate_del.php?id=".$row['id'].">删除</a> | <a href=system_class.php?action=new&reid=".$row['id'].">添子类</a></td></tr>";
 	     $csql1=New Dedesql(false);
 	     $csql1->SetQuery("select * from #@__categories where reid='".$row['id']."'");
 		 $csql1->Execute();
 		 while($row1=$csql1->GetArray()){
-		 echo "<tr class='row_color_gray'><td>&nbsp;&nbsp;ID号:".$row1['id']."</td><td> ├ ".$row1['categories']."</td><td><a href=system_cate_edit.php?id=".$row1['id'].">修改</a> | <a href=system_cate_del.php?id=".$row1['id'].">删除</a></td></tr>";
+		 echo "<tr class='row_color_gray'><td>&nbsp;&nbsp;".$row1['id']."</td><td> ├ ".$row1['categories']."</td><td><a href=system_cate_edit.php?id=".$row1['id'].">修改</a> | <a href=system_cate_del.php?id=".$row1['id'].">删除</a></td></tr>";
 		 } $csql1->close();
 	   }
 	   }
