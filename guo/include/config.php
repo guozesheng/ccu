@@ -12,6 +12,67 @@ $nsql->ExecuteNoneQuery($notesql);
 $nsql->close();
 }
 
+Function viewcategories($id,$reid){
+	/*
+	$dsql=New Dedesql(false);
+	$query="select * from #@__categories where id=$id";
+	$dsql->SetQuery($query);
+	$dsql->Execute();
+	$rowcount=$dsql->GetTotalRow();
+	if ($rowcount==0)
+	{
+		echo "-";
+	}
+	else 
+	{
+		$row=$dsql->GetArray();
+	}
+	// */
+	//*
+	$dsql=New Dedesql(false);
+	$query="select * from #@__categories where reid=0";
+	$dsql->SetQuery($query);
+	$dsql->Execute();
+	$rowcount=$dsql->GetTotalRow();
+	if ($rowcount==0) {
+		echo "-";}
+	else{
+		$i=1;
+		while ($row=$dsql->GetArray())
+		{
+			if($reid==''){
+				if($i==1)$initid=$row['id'];}
+			else
+				$initid=$id;
+			if ($id==$row['id'])
+			{
+				echo $row['categories'];
+				break;
+			}
+			$i++;
+		}
+		$dsql->close();
+		//读取子分类
+		$esql=New Dedesql(false);
+		$esql->SetQuery("select * from #@__categories where reid='$initid'");
+		$esql->Execute();
+		echo " -> ";
+		if($esql->GetTotalRow()!=0)
+		{
+			while ($row1=$esql->GetArray())
+			{
+		    	if($row1['id']==$reid)
+				{
+		  			echo $row1['categories'];
+					break;
+				}
+	 		}
+	 	}
+	 $esql->close();
+	}
+	// */
+}
+
 Function getcategories($id,$reid){
 	$dsql=New Dedesql(false);
 	$query="select * from #@__categories where reid=0";
@@ -75,6 +136,26 @@ else
   $gsql->close();
 }
 
+Function viewdw($id){
+	$dw=New Dedesql(false);
+	$query1="select * from #@__dw";
+	$dw->SetQuery($query1);
+	$dw->Execute();
+	$rowcount=$dw->GetTotalRow();
+	if ($rowcount==0) 
+	echo "-";
+	else{
+	while ($row1=$dw->GetArray()){
+	if($id!='' && $row1['id']==$id)
+	{
+		echo $row1['dwname'];
+		break;
+	}
+	}
+	}
+	$dw->close();
+}
+
 Function getdw($id){
 	$dw=New Dedesql(false);
 	$query1="select * from #@__dw";
@@ -94,6 +175,28 @@ Function getdw($id){
 	echo "</select>";
 	}
 	$dw->close();
+ }
+ 
+ Function viewamout($id,$total){
+	 $dw=New Dedesql(false);
+	 $sql="select * from #@__borrow where basic_id='$id'";
+	 $dw->SetQuery($sql);
+	 $dw->Execute();
+	 $rowcount=$dw->GetTotalRow();
+	 if ($rowcount==0)
+	 {
+		 echo $total." / ".$total;
+	 }
+	 else 
+	 {
+		 $hasb=0;
+		 while ($row=$dw->GetArray())
+		 {
+			 $hasb+=$row['amount'];
+		 }
+		 echo $total-$hasb." / ".$total;
+	 }
+	 $dw->close();
  }
  
  Function getgroup($id,$type=""){

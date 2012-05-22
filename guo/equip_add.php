@@ -186,7 +186,7 @@ $dlist->SetSource($query);
     <td>&nbsp;<input type="text" name="cp_jj" id="need"></td>
   </tr>
   <tr>
-    <td class="cellcolor">生产日期:</td>
+    <td class="cellcolor">购买日期:</td>
     <td>&nbsp;<input class="Wdate" type="text" name="cp_sdate" onclick="WdatePicker()">
 	&nbsp;单击输入框选择时间	</td>
   </tr>
