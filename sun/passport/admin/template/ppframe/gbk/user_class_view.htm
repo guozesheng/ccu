@@ -34,15 +34,6 @@
       不允许 </td>
   </tr>
   <tr>
-    <td height="24" bgcolor="#FFFFFF">加入需要花费</td>
-    <td bgcolor="#FFFFFF"><input name="input[apmoney]" type="text" id="input[apmoney]" value="{:E.apmoney}" size="10">
-      <select name="input[apmtype]" id="input[apmtype]">
-	  {foreach rtc.passport_money k v}
-        <option value="{:v}" {if}'{:v}'=='{:E.apmtype}'{/if}selected{/endif}>{:money_types.[:v]}|{:v|GetMoneyName @}</option>
-	   {/foreach}
-      </select>      </td>
-  </tr>
-  <tr>
     <td height="24" bgcolor="#FFFFFF">加入审核</td>
     <td bgcolor="#FFFFFF"><input name="input[applysh]" type="radio" value="1" {if}{:E.applysh}==1{/if}checked{/endif}>
       需要 

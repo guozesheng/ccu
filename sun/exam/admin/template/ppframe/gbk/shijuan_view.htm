@@ -63,37 +63,6 @@
 <input name="input[useend]" type="checkbox" id="input[useend]" value="1" {:edit.useend} /></td>
     </tr>
     <tr>
-      <td height="24" bgcolor="#FFFFFF">
-	  <span class="help" onMouseOver="help('设置了货币之后，参加考试需要支付相应货币！');" onmouseout="closeDiv();">
-	  花费货币</span>
-        <input name="input[money]" type="text" id="input[money]" value="{:edit.money}" size="10" />
-        <select name="input[mtype]" id="input[mtype]">
-          
-	  {foreach rtc.passport_money k v}
-          
-          <option value="{:v}"  {if}'{:edit.mtype}'=='{:v}'{/if}selected{/endif}>{:money_types.[:v]}|{:v|GetMoneyName @}</option>
-          
-	   {/foreach}
-        
-        </select>
-        <span class="help" onMouseOver="help('得分/总分是正确率');" onmouseout="closeDiv();">
-正确率达到</span>
-        <input name="input[jrate]" type="text" id="input[jrate]" value="{:edit.jrate}" size="6" />
-% 
-		<span class="help" onMouseOver="help('与花费相反，符合条件后奖励');" onmouseout="closeDiv();">奖励</span>
-<input name="input[jnum]" type="text" id="input[jnum]" value="{:edit.jnum}" size="6" />
-<select name="input[jmtype]" id="input[jmtype]">
-  
-	  {foreach rtc.passport_money k v}
-        
-  <option value="{:v}" {if}'{:edit.jmtype}'=='{:v}'{/if}selected{/endif}>{:money_types.[:v]}|{:v|GetMoneyName @}</option>
-  
-	   {/foreach}
-      
-</select>
-</td>
-      </tr>
-    <tr>
       <td height="24" bgcolor="#FFFFFF"><span class="help" onmouseover="help('最长答题时间');" onmouseout="closeDiv();">完成时间</span>
         <input name="input[dotime]" type="text" id="input[dotime]" value="{:edit.dotime}" size="10" />
 分钟 <span class="help" onmouseover="help('在最短答题时间内，不允许交卷！');" onmouseout="closeDiv();">最低答题</span>
