@@ -73,7 +73,7 @@
     array (
     ),
   ),
-  'site_name' => 'PPFrame',
+  'site_name' => 'SUNFrame',
   'uc_use' => '0',
   'passport_uc_return' => 'forward',
   'passport_grade_start' => '2000',
