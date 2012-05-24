@@ -9,10 +9,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <link href="style/main.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="include/ajax.js"></script>
-<title>仪器借用申请审批</title>
+<title>仪器借用详细信息</title>
 </head>
 <body>
 <?php
+/*
 	if ($_GET['ac'] == "dis")
 	{
        $sql=New Dedesql(false);
@@ -63,22 +64,30 @@
 		showmsg($msg,'borrow_ask.php');
 		exit();
 	}
-	else if ($_GET['ac'] == "allow")
+	else if ($_GET['ac'] == "show")
+	// */
+	if ($_GET['ac'] == "show")
 	{
+		$bsql = New Dedesql(false);
+		$bsql->SetQuery("SELECT * FROM  #@__borrow WHERE  `id` = '$_GET[id]' LIMIT 1");
+		$bsql->Execute();
+		$brow = $bsql->GetArray();
+		$bsql->close();
+		
 		$asksql = New Dedesql(false);
-		$asksql->SetQuery("SELECT * FROM  #@__borrow_ask WHERE  `id` = '$_GET[id]' LIMIT 1");
+		$asksql->SetQuery("SELECT * FROM  #@__borrow_ask WHERE  `id` = '$brow[askid]' LIMIT 1");
 		$asksql->Execute();
 		$askrow = $asksql->GetArray();
 		$asksql->close();
 		
 		$basicsql = New Dedesql(false);
-		$basicsql->SetQuery("select * from #@__basic where id = '$askrow[basic_id]' LIMIT 1");
+		$basicsql->SetQuery("select * from #@__basic where id = '$brow[basic_id]' LIMIT 1");
 		$basicsql->Execute();
 		$basicrow = $basicsql->GetArray();
 		$basicsql->close();
 		
 		$bossql = New Dedesql(false);
-		$bossql->SetQuery("select * from #@__boss where boss = '$askrow[boss_id]' LIMIT 1");
+		$bossql->SetQuery("select * from #@__boss where boss = '$brow[boss_id]' LIMIT 1");
 		$bossql->Execute();
 		$bossrow = $bossql->GetArray();
 		$bossql->close();
@@ -149,30 +158,28 @@
     </td>
   </tr>
   <tr>
-  	<td class="cellcolor">仪器剩余</td>
-    <td>&nbsp;
-    <?php
-		getrestmount($askrow[basic_id], $basicrow['cp_sale']);
-	?>
-    </td>
-  </tr>
-  <tr>
   	<td class="cellcolor">借用数量:</td>
-    <td>&nbsp;<input type="text" name="borrow_num" value="<?=$askrow['amount']?>" /><input type="hidden" name="borrow_reset" value="<?php getrestmount($askrow[basic_id], $basicrow['cp_sale']); ?>" />
-    </td>
+    <td>&nbsp;<?=$askrow['amount']?></td>
   </tr>
   <tr>
     <td class="cellcolor">使用日期:</td>
-    <td>&nbsp;<input type="text" name="cp_edate" value="<?=$askrow['asktime']?>" readonly="readonly" />——<input type="text" name="re_date" value="<?=$askrow['retime']?>" readonly="readonly" /></td>
+    <td>&nbsp;<?=$brow['borrow_t']?>——<?=$brow['return_t']?></td>
   </tr>
   <tr>
-  	<td class="cellcolor">操作</td>
-    <td>批准<input type="radio" name="baction" checked="checked" value="1" />&nbsp;拒绝<input type="radio" name="baction" value="0" /></td>
+  	<td class="cellcolor">申请日期</td>
+    <td>&nbsp;<?=$askrow['askdate']?></td>
+  </tr>
+  <tr>
+  	<td class="cellcolor">确认日期</td>
+    <td>&nbsp;<?=$askrow['allowtime']?></td>
+  </tr>
+  <tr>
+  	<td class="cellcolor">状态</td>
+    <td>&nbsp;<?php if ($brow['is_return'] == 0) echo "未归还"; else echo "已归还"; ?></td>
   </tr>
   <tr>
     <td class="cellcolor">备注:</td>
-    <td>&nbsp;
-      <textarea rows="5" cols="80" name="cp_bz"></textarea></td>
+    <td>&nbsp;<p><?=$brow['comment']?></p></td>
   </tr>
   <tr>
     <td class="cellcolor">&nbsp;</td>
