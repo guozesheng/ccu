@@ -17,8 +17,24 @@ require(dirname(__FILE__)."/../include/page.php");
 <?php
 if ($action=='save')
 {
-	echo "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-	exit();
+	if ($borrow_num > $borrow_reset || $borrow_num < 0)
+	{
+		Showmsg('产品数量不足，请核对','equip.php?action=seek');
+		exit();
+	}
+	else if ($cp_edate == 0)
+	{
+		Showmsg('日期不能为空','equip.php?action=seek');
+		exit();
+	}
+	$today=date("Y-m-d");
+	$sql = "insert into #@__borrow_ask(`id` ,`basic_id` ,`boss_id` , `amount`, `askdate` ,`asktime`, `retime` ,`isallow` ,`allowtime` ,`comment`) values (NULL ,  '$id',  '$_SESSION[boss]',  '$borrow_num', '$today',  '$cp_edate', '$re_date',  '0',  '0',  '$cp_bz')";
+ $asql=New Dedesql(false);
+ $asql->ExecuteNoneQuery($sql);
+ $asql->close();
+ $msg="申请已提交！";
+ showmsg($msg,'equip.php?action=seek');
+ exit();
 }
 
 $seekrs=New Dedesql(falsh);
@@ -87,7 +103,7 @@ $seekrs->close();
     <td>&nbsp;<?php viewdw($row['cp_dwname']) ?></td>
   </tr>
   <tr>
-  	<td class="cellcolor">数量:</td>
+  	<td class="cellcolor">仪器数量:</td>
     <td>
     <?php
 	viewamout($id, $row['cp_sale']);
@@ -95,12 +111,21 @@ $seekrs->close();
     </td>
   </tr>
   <tr>
+  	<td class="cellcolor">仪器剩余</td>
+    <td>&nbsp;
+    <?php
+		getrestmount($id, $row['cp_sale']);
+	?>
+    </td>
+  </tr>
+  <tr>
   	<td class="cellcolor">借用数量:</td>
-    <td>&nbsp;<input type="text" name="borrow_num" /></td>
+    <td>&nbsp;<input type="text" name="borrow_num" /><input type="hidden" name="borrow_reset" value="<?php getrestmount($id, $row['cp_sale']); ?>" />
+    </td>
   </tr>
   <tr>
     <td class="cellcolor">使用日期:</td>
-    <td>&nbsp;<input type="text" name="cp_edate" onclick="WdatePicker()" />&nbsp;单击输入框选择时间</td>
+    <td>&nbsp;<input type="text" name="cp_edate" onclick="WdatePicker()" />——<input type="text" name="re_date" onclick="WdatePicker()" /></td>
   </tr>
   <tr>
     <td class="cellcolor">备注:</td>

@@ -183,6 +183,7 @@ Function getdw($id){
 	 $dw->SetQuery($sql);
 	 $dw->Execute();
 	 $rowcount=$dw->GetTotalRow();
+	 $reset = 0;
 	 if ($rowcount==0)
 	 {
 		 echo $total." / ".$total;
@@ -194,7 +195,33 @@ Function getdw($id){
 		 {
 			 $hasb+=$row['amount'];
 		 }
-		 echo $total-$hasb." / ".$total;
+		 $reset = $total-$hasb;
+		 echo $reset." / ".$total;
+	 }
+	 $dw->close();
+ }
+ 
+ Function getrestmount($id, $total){
+	 
+	 $dw=New Dedesql(false);
+	 $sql="select * from #@__borrow where basic_id='$id'";
+	 $dw->SetQuery($sql);
+	 $dw->Execute();
+	 $rowcount=$dw->GetTotalRow();
+	 $reset = 0;
+	 if ($rowcount==0)
+	 {
+		 echo $total;
+	 }
+	 else 
+	 {
+		 $hasb=0;
+		 while ($row=$dw->GetArray())
+		 {
+			 $hasb+=$row['amount'];
+		 }
+		 $reset = $total-$hasb;
+		 echo $reset;
 	 }
 	 $dw->close();
  }
