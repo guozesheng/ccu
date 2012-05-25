@@ -108,7 +108,7 @@ else if($action=='seek'){ //ап╠М
       <td bgcolor="#FFFFFF">
 <?php
        echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" id=\"table_border\">";
-$query="select * from #@__basic";
+$query="select * from #@__basic where cp_isdrop != 1";
 $csql=New Dedesql(false);
 $dlist = new DataList();
 $dlist->pageSize = $cfg_record;
