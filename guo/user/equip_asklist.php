@@ -1,13 +1,13 @@
 <?php
-require(dirname(__FILE__)."/include/config_base.php");
-require(dirname(__FILE__)."/include/config_rglobals.php");
+require(dirname(__FILE__)."/../include/config_base.php");
+require(dirname(__FILE__)."/../include/config_rglobals.php");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<link href="style/main.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="include/ajax.js"></script>
+<link href="../style/main.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../include/ajax.js"></script>
 <title>仪器未还列表</title>
 </head>
 <body>
@@ -22,7 +22,7 @@ require(dirname(__FILE__)."/include/config_rglobals.php");
     <td>
 	<table width="100%" border="0" cellpadding="0" cellspacing="2">
      <tr>
-      <td><strong>&nbsp;仪器未还列表</strong>&nbsp;&nbsp;<a href="equip_asklist.php">仪器申请</a> | <a href="borrow_re.php">借用历史</a></td>
+      <td><strong>&nbsp;仪器未还列表</strong>&nbsp;&nbsp;<a href="equip_bolist.php?ac=noreturn">已借仪器</a> | <a href="equip_bolist.php">借用历史</a></td>
      </tr>
      <tr>
       <td bgcolor="#FFFFFF">
@@ -31,25 +31,24 @@ require(dirname(__FILE__)."/include/config_rglobals.php");
        $csql=New Dedesql(false);
 	   if ($_GET['ac'] == "noreturn")
 	   {
-	       $csql->SetQuery("select * from #@__borrow where is_return = 0");
+		   $csql->SetQuery("select * from #@__borrow where boss_id = '$_SESSION[boss]' and is_return = 0 ");
 	   }
 	   else 
 	   {
-		   $csql->SetQuery("select * from #@__borrow");
+		   $csql->SetQuery("select * from #@__borrow_ask where boss_id = '$_SESSION[boss]' ");
 	   }
 	   $csql->Execute();
 	   $rowcount=$csql->GetTotalRow();
 	   if($rowcount==0)
-	   echo "<tr><td>&nbsp;没有任何借用。</td></tr>";
+	   echo "<tr><td>&nbsp;没有任何借用申请。</td></tr>";
 	   else{	?>
        <tr class="row_color_head">
        	<td>ID</td>
         <td>仪器名称</td>
         <td>借用者</td>
-        <td>借用数量</td>
-        <td>借用时间</td>
-        <td>归还时间</td>
-        <td>是否归还</td>
+        <td>申请数量</td>
+        <td>申请时间</td>
+        <td>是否批准</td>
         <td>操作</td>
        </tr>
        <?php
@@ -70,10 +69,9 @@ require(dirname(__FILE__)."/include/config_rglobals.php");
         	<td>&nbsp;<?=$basicrow['cp_name']?></td>
         	<td>&nbsp;<?=$bossrow['name']?></td>
         	<td>&nbsp;<?=$row['amount']?></td>
-        	<td>&nbsp;<?=$row['borrow_t']?></td>
-            <td>&nbsp;<?=$row['return_t']?></td>
-            <td>&nbsp;<?php if ($row['is_return'] == 0) echo "<font color=\"#FF0000\">未归还</font>"; else echo "已归还"; ?></td>
-        	<td>&nbsp;<a href="borrow_show.php?id=<?=$row['id']?>&ac=show">详细</a></td>
+        	<td>&nbsp;<?=$row['askdate']?></td>
+            <td>&nbsp;<?php if ($row['isallow'] == 0) echo "<font color=\"#0000FF\">未批准</font>"; else if ($row['isallow'] == 1) echo "已同意"; else if ($row['isallow'] == 2) echo "<font color=\"#FF0000\">已拒绝</font>"; ?></td>
+        	<td>&nbsp;<a href="equip_askshow.php?id=<?=$row['id']?>&ac=show">详细</a></td>
         </tr>
        <?php
 	   $basicsql->close();

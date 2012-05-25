@@ -1,49 +1,16 @@
 <?php
-require(dirname(__FILE__)."/../include/config_rglobals.php");
 require(dirname(__FILE__)."/../include/config_base.php");
-require(dirname(__FILE__)."/../include/page.php");
+require(dirname(__FILE__)."/../include/config_rglobals.php");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <link href="../style/main.css" rel="stylesheet" type="text/css" />
-<!--<script language="javascript" src="include/calendar.js"></script>-->
-<script language="javascript" src="include/py.js"></script>
-<script language="javascript" type="text/javascript" src="include/WdatePicker.js"></script>
-<title>仪器基本信息录入</title>
-<script language = "JavaScript">
-var onecount; 
-onecount = 0; 
-subcat = new Array();
-<?php
-$count=0;
-$rsql=New Dedesql(false);
-$rsql->SetQuery("select * from #@__categories where reid!=0");
-$rsql->Execute();
-while($rs=$rsql->GetArray()){
-?>
-subcat[<?php echo $count;?>] = new Array("<?php echo $rs['categories'];?>","<?php echo $rs['reid'];?>","<?php echo $rs['id'];?>");
-<?php 
-    $count++;
-}
-$rsql->close();
-?>
-onecount=<?php echo $count?>; 
-</script>
-<script type="text/vbscript"> 
-function vbChr(c) 
-vbChr = chr(c) 
-end function 
-
-function vbAsc(n) 
-vbAsc = asc(n) 
-end function 
-</script> 
+<script type="text/javascript" src="../include/ajax.js"></script>
+<title>仪器未还列表</title>
 </head>
-<?php
-if($action=='seek'){ //列表
-?>
+<body>
 <table width="100%" border="0" id="table_style_all" cellpadding="0" cellspacing="0">
   <tr>
     <td id="table_style" class="l_t">&nbsp;</td>
@@ -55,35 +22,79 @@ if($action=='seek'){ //列表
     <td>
 	<table width="100%" border="0" cellpadding="0" cellspacing="2">
      <tr>
-      <td><strong>&nbsp;仪器基本信息管理</strong>&nbsp;&nbsp;- <a href="equip_bolist.php">已借仪器查询</a> - <a href="equip.php?action=seek">仪器基本信息查询</a></td>
+      <td><strong>&nbsp;仪器未还列表</strong>&nbsp;&nbsp;<a href="equip_bolist.php">借用历史</a> | <a href="equip_asklist.php">借用申请</a></td>
+     </tr>
      <tr>
       <td bgcolor="#FFFFFF">
-<?php
-       echo "<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" id=\"table_border\">";
-$query="select * from #@__basic";
-$csql=New Dedesql(false);
-$dlist = new DataList();
-$dlist->pageSize = $cfg_record;
-//$dlist->SetParameter("form",$form);
-//$dlist->SetParameter("field",$field);//设置GET参数表
-$dlist->SetSource($query);
-	   echo "<tr class='row_color_head'><td>ID</td><td>名称</td><td>规格</td><td>分类</td><td>单位</td><td>进价</td><td>供应商</td><td>助记词</td><td>操作</td></tr>";
-	   $mylist = $dlist->GetDataList();
-       while($row = $mylist->GetArray('dm')){
-	   echo "<tr class='row_content'><td>".$row['id']."</td><td>&nbsp;".$row['cp_name']."</td><td>&nbsp;".$row['cp_gg']."</td><td>&nbsp;".get_name($row['cp_categories'],'categories').">".get_name($row['cp_categories_down'],'categories')."</td><td>&nbsp;".get_name($row['cp_dwname'],'dw')."</td><td>&nbsp;￥".$row['cp_jj']."</td><td>".$row['cp_gys']."</td><td>".$row['cp_helpword']."</td><td><a href=equip_borrow.php?id=".$row['id'].">借用</a></td></tr>";
+	   <?php
+       echo "<table align=\"center\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" id=\"table_border\">";
+       $csql=New Dedesql(false);
+	   if ($_GET['ac'] == "noreturn")
+	   {
+		   $csql->SetQuery("select * from #@__borrow where boss_id = '$_SESSION[boss]' and is_return = 0 ");
 	   }
-	   echo "<tr><td colspan='8'>&nbsp;".$dlist->GetPageList($cfg_record)."</td></tr></table>";
+	   else 
+	   {
+		   $csql->SetQuery("select * from #@__borrow where boss_id = '$_SESSION[boss]' ");
+	   }
+	   $csql->Execute();
+	   $rowcount=$csql->GetTotalRow();
+	   if($rowcount==0)
+	   echo "<tr><td>&nbsp;没有任何借用申请。</td></tr>";
+	   else{	?>
+       <tr class="row_color_head">
+       	<td>ID</td>
+        <td>仪器名称</td>
+        <td>借用者</td>
+        <td>借用数量</td>
+        <td>借用时间</td>
+        <td>归还时间</td>
+        <td>是否归还</td>
+        <td>操作</td>
+       </tr>
+       <?php
+	   	while ($row=$csql->GetArray())
+		{
+			$basicsql=New Dedesql(false);
+	   		$basicsql->SetQuery("select * from #@__basic where id = '$row[basic_id]'");
+	   		$basicsql->Execute();
+			$basicrow=$basicsql->GetArray();
+			
+			$bosssql=New Dedesql(false);
+	   		$bosssql->SetQuery("select * from #@__boss where boss = '$row[boss_id]'");
+	   		$bosssql->Execute();
+			$bossrow=$bosssql->GetArray();
+	   ?>
+       	<tr class='row_content'>
+        	<td>&nbsp;<?=$row['id']?></td>
+        	<td>&nbsp;<?=$basicrow['cp_name']?></td>
+        	<td>&nbsp;<?=$bossrow['name']?></td>
+        	<td>&nbsp;<?=$row['amount']?></td>
+        	<td>&nbsp;<?=$row['borrow_t']?></td>
+            <td>&nbsp;<?=$row['return_t']?></td>
+            <td>&nbsp;<?php if ($row['is_return'] == 0) echo "<font color=\"#FF0000\">未归还</font>"; else echo "已归还"; ?></td>
+        	<td>&nbsp;<a href="borrow_show.php?id=<?=$row['id']?>&ac=show">详细</a></td>
+        </tr>
+       <?php
+	   $basicsql->close();
+	   $bosssql->close();
+	   }
+	   }
+	   echo "</table>";
 	  
 	   $csql->close();
-   echo " </td></tr></table>
- </td></tr><tr>
-    <td id=\"table_style\" class=\"l_b\">&nbsp;</td>
+	   ?>
+	  </td>
+     </tr>
+    </table>
+	</td>
     <td>&nbsp;</td>
-    <td id=\"table_style\" class=\"r_b\">&nbsp;</td>
   </tr>
-</table>";
- }
-?>
+  <tr>
+    <td id="table_style" class="l_b">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td id="table_style" class="r_b">&nbsp;</td>
+  </tr>
 </table>
 <?php
 copyright();

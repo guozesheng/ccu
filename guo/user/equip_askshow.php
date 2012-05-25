@@ -1,93 +1,59 @@
 <?php
-	require(dirname(__FILE__)."/include/config_base.php");
-	require(dirname(__FILE__)."/include/config_rglobals.php");
+	require(dirname(__FILE__)."/../include/config_base.php");
+	require(dirname(__FILE__)."/../include/config_rglobals.php");
 	require(dirname(__FILE__)."/include/checklogin.php");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<link href="style/main.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="include/ajax.js"></script>
-<title>仪器借用详细信息</title>
+<link href="../style/main.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../include/ajax.js"></script>
+<title>仪器借用申请审批</title>
 </head>
 <body>
 <?php
-/*
-	if ($_GET['ac'] == "dis")
+	if ($_GET['ac'] == "delete")
 	{
-       $sql=New Dedesql(false);
-	   $mysql = "UPDATE  #@__borrow_ask SET  `isallow` =  '2' WHERE  `id` = '$_GET[id]' LIMIT 1";
-	   $sql->SetQuery($mysql);
-	   $sql->Execute();
-	   $sql->close();
-	   $msg="已拒绝！";
-	   showmsg($msg,'borrow_ask.php');
-	   exit();
+		$asksql = New Dedesql(false);
+		$asksql->SetQuery("SELECT * FROM  #@__borrow_ask WHERE  `id` = '$_GET[id]' LIMIT 1");
+		$asksql->Execute();
+		$askrow = $asksql->GetArray();
+		
+		if ($askrow['isallow'] == 1)
+		{
+			$asksql->close();
+			showmsg("该申请已被管理员同意！", 'equip_asklist.php');
+			exit();
+		}
+		
+		
+		$asksql->SetQuery("DELETE FROM `#@__borrow_ask` WHERE `id` = '$_GET[id]' LIMIT 1");
+		$asksql->Execute();
+		$asksql->close();
+		showmsg("该申请已取消！", 'equip_asklist.php');
+		exit();
 	}
 	else if ($_GET['ac'] == "save")
 	{
-		if ($baction == 0)
-		{
-			echo $showtime=date("Y-m-d");
-			$sql=New Dedesql(false);
-			$mysql = "UPDATE  #@__borrow_ask SET  `isallow` =  '2' WHERE  `id` = '$_GET[id]' LIMIT 1";
-			$sql->SetQuery($mysql);
-			$sql->Execute();
-			$sql->close();
-			$msg="已拒绝！";
-			showmsg($msg,'borrow_ask.php');
-			exit();
-		}
-		
-		if ($borrow_num > $borrow_reset || $borrow_num < 0)
-		{
-			Showmsg('产品数量不足，请核对','equip.php?action=seek');
-			exit();
-		}
-		
-		$today=date("Y-m-d");
+		exit();
+	}
+	else if ($_GET['ac'] == "show")
+	{
 		$asksql = New Dedesql(false);
-		$asksql->SetQuery("UPDATE  #@__borrow_ask SET `isallow` =  '1', `allowtime` = '$today' WHERE `id` = '$_GET[id]' LIMIT 1");
-		$asksql->Execute();
 		$asksql->SetQuery("SELECT * FROM  #@__borrow_ask WHERE  `id` = '$_GET[id]' LIMIT 1");
 		$asksql->Execute();
 		$askrow = $asksql->GetArray();
 		$asksql->close();
 		
-		$bowsql = New Dedesql(false);
-		$bowsql->SetQuery("INSERT INTO  #@__borrow (`id`, `askid` ,`basic_id` ,`boss_id` ,`amount` ,`borrow_t` ,`return_t` ,`is_return` ,`comment`)VALUES (NULL, '$_GET[id]',  '$askrow[basic_id]',  '$askrow[boss_id]',  '$borrow_num',  '$cp_edate',  '$re_date',  '0',  '$cp_bz')");
-		$bowsql->Execute();
-		$bowsql->close();
-		
-		$msg="已批准！";
-		showmsg($msg,'borrow_ask.php');
-		exit();
-	}
-	else if ($_GET['ac'] == "show")
-	// */
-	if ($_GET['ac'] == "show")
-	{
-		$bsql = New Dedesql(false);
-		$bsql->SetQuery("SELECT * FROM  #@__borrow WHERE  `id` = '$_GET[id]' LIMIT 1");
-		$bsql->Execute();
-		$brow = $bsql->GetArray();
-		$bsql->close();
-		
-		$asksql = New Dedesql(false);
-		$asksql->SetQuery("SELECT * FROM  #@__borrow_ask WHERE  `id` = '$brow[askid]' LIMIT 1");
-		$asksql->Execute();
-		$askrow = $asksql->GetArray();
-		$asksql->close();
-		
 		$basicsql = New Dedesql(false);
-		$basicsql->SetQuery("select * from #@__basic where id = '$brow[basic_id]' LIMIT 1");
+		$basicsql->SetQuery("select * from #@__basic where id = '$askrow[basic_id]' LIMIT 1");
 		$basicsql->Execute();
 		$basicrow = $basicsql->GetArray();
 		$basicsql->close();
 		
 		$bossql = New Dedesql(false);
-		$bossql->SetQuery("select * from #@__boss where boss = '$brow[boss_id]' LIMIT 1");
+		$bossql->SetQuery("select * from #@__boss where boss = '$askrow[boss_id]' LIMIT 1");
 		$bossql->Execute();
 		$bossrow = $bossql->GetArray();
 		$bossql->close();
@@ -103,8 +69,9 @@
     <td>
 	<table width="100%" border="0" cellpadding="0" cellspacing="2">
      <tr>
-      <td><strong>&nbsp;借用审批</strong>&nbsp;&nbsp;<a href="borrow_ask.php">申请待批</a> | <a href="borrow_list.php">已借查询</a></td>
+      <td><strong>&nbsp;借用审批</strong>&nbsp;&nbsp;<a href="equip_asklist.php">借用申请</a> | <a href="equip_bolist.php?ac=noreturn">已借查询</a></td>
      </tr>
+     <form action="?id=<?=$_GET['id']?>&ac=delete" method="post" name="myform">
      <tr>
       <td bgcolor="#FFFFFF">
  <table width="100%" border="0" cellspacing="0" cellpadding="0" id="table_border">
@@ -157,29 +124,54 @@
     </td>
   </tr>
   <tr>
+  	<td class="cellcolor">仪器剩余</td>
+    <td>&nbsp;
+    <?php
+		getrestmount($askrow[basic_id], $basicrow['cp_sale']);
+	?>
+    </td>
+  </tr>
+  <tr>
   	<td class="cellcolor">借用数量:</td>
     <td>&nbsp;<?=$askrow['amount']?></td>
   </tr>
   <tr>
     <td class="cellcolor">使用日期:</td>
-    <td>&nbsp;<?=$brow['borrow_t']?>——<?=$brow['return_t']?></td>
+    <td>&nbsp;<?=$askrow['asktime']?>——<?=$askrow['retime']?></td>
   </tr>
   <tr>
-  	<td class="cellcolor">申请日期</td>
-    <td>&nbsp;<?=$askrow['askdate']?></td>
-  </tr>
-  <tr>
-  	<td class="cellcolor">确认日期</td>
-    <td>&nbsp;<?=$askrow['allowtime']?></td>
-  </tr>
-  <tr>
-  	<td class="cellcolor">状态</td>
-    <td>&nbsp;<?php if ($brow['is_return'] == 0) echo "未归还"; else echo "已归还"; ?></td>
+  	<td class="cellcolor">申请结果</td>
+    <td>&nbsp;
+    <?php
+		if ($askrow['isallow'] == 0)
+		{
+			echo "<font color=\"#0000FF\">未批准</font>";
+		}
+		else if ($askrow['isallow'] == 2)
+		{
+			echo "<font color=\"#FF0000\">已拒绝</font>";
+		}
+		else 
+		{
+			echo $askrow['allowtime'];
+		}
+	?>
+    </td>
   </tr>
   <tr>
     <td class="cellcolor">备注:</td>
-    <td>&nbsp;<p><?=$brow['comment']?></p></td>
+    <td>&nbsp;<?=$comment?></td>
   </tr>
+  <?php
+  	if ($askrow['isallow'] != 1)
+	{
+  ?>
+  <tr>
+    <td class="cellcolor">&nbsp;</td>
+    <td>&nbsp;<input type="submit" value=" 取消申请 "></td>
+  </tr>
+  <?php } ?>
+  </form>
 </table>
     </td>
      </tr>
