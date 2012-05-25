@@ -24,11 +24,11 @@ require(dirname(__FILE__)."/include/config.php");
      </tr>
      <tr>
       <td id="row_style">
-	  <a href="system_basic_cp.php"><img src="images/normal_1.gif" border="0"></a>
+	  <a href="http://localhost/sun/ccu/guo/equip_add.php?action=seek"><img src="images/normal_1.gif" border="0"></a>
 	  <img src="images/arrow_to.gif" border="0">
-	  <a href="system_rk.php"><img src="images/normal_2.gif" border="0"></a>
+	  <a href="equip_add.php"><img src="images/normal_2.gif" border="0"></a>
 	  <img src="images/arrow_to.gif" border="0">
-	  <a href="system_kc.php"><img src="images/normal_4.gif" border="0"></a>
+	  <a href="borrow_ask.php"><img src="images/normal_4.gif" border="0"></a>
 	  </td>
      </tr>
      <tr>
