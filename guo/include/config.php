@@ -325,6 +325,7 @@ Function getdw($id){
  }
  
  Function getusertype($rank,$type=0){
+	 //*
 	$dw=New Dedesql(false);
 	if($rank=='')
 	$query1="select distinct * from #@__usertype where rank!=1 order by rank";
@@ -360,6 +361,7 @@ Function getdw($id){
 	}
 	}
 	$dw->close();
+	// */
  }
  
 function getjj($id){

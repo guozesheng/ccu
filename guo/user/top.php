@@ -104,7 +104,7 @@ function resetBT(){
        <tr>
         <td width="15"><img src="../images/arrow.gif"></td>
 		<td width="500"></td>
-        <td align="right">&nbsp;<?php echo "(".getusertype($_SESSION['level'],0).")";?>&nbsp;|&nbsp;<a href="#">官方首页</a>&nbsp;|&nbsp;<a href="">修改密码</a>&nbsp;|&nbsp;<a href="">安全退出</a></td>
+        <td align="right">&nbsp;(<?php echo getusertype($_SESSION['level'],0);?>)&nbsp;|&nbsp;<a href="#">官方首页</a>&nbsp;|&nbsp;<a href="">修改密码</a>&nbsp;|&nbsp;<a href="">安全退出</a></td>
        </tr>
       </table>
 	 </td>
