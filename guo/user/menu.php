@@ -93,7 +93,7 @@ $iteminfo=$iteminfo."
 ";
 }
 $menus=str_replace("~Item~",$iteminfo,$menus);
-echo $menus.$endmenus;
+echo $menus;
 $msql->close();
 ?>
 </div>

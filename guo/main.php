@@ -33,17 +33,17 @@ require(dirname(__FILE__)."/include/config.php");
      </tr>
      <tr>
       <td id="row_style">
-	  <a href="sale.php"><img src="images/normal_3.gif" border="0"></a>
+	  <a href="equip_dropask.php"><img src="images/normal_3.gif" border="0"></a>
 	  <img src="images/arrow_to.gif" border="0">
-	  <a href="system_money.php"><img src="images/normal_5.gif" border="0"></a>
+	  <a href="equip_repair.php?action=do.php"><img src="images/normal_5.gif" border="0"></a>
 	  <img src="images/arrow_to.gif" border="0">
-	  <a href="report.php"><img src="images/normal_6.gif" border="0"></a>	  </td>
+	  <a href="system_note.php"><img src="images/normal_6.gif" border="0"></a>	  </td>
      </tr>
 	 <tr>
 	  <td>
 	  <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
         <tr>
-         <td colspan="2" style="height:35px;background-color:#4176BF;font:bold 13px Arial;">&nbsp;<?php echo $cfg_au_version;?>开发团队</td>
+         <td colspan="2" style="height:35px;background-color:#4176BF;font:bold 13px Arial;">&nbsp;<?php echo $cfg_au_version;?>开发</td>
         </tr>
         <tr class="row_color_normal">
          <td width="30%">&nbsp;&nbsp;版权所有</td>
