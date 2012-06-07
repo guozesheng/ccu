@@ -1,10 +1,10 @@
 <?php
-$cfg_webname = '实验室管理系统';
+$cfg_webname = '长春大学实验仪器管理系统';
 $cfg_basehost = 'http://localhost';
 $cfg_cmspath = '';
-$cfg_cookie_encode = 'HeZYo7048K';
+$cfg_cookie_encode = 'JqHVm8202B';
 $cfg_indexurl = '/';
-$cfg_adminemail = 'admin@yourmail.com';
+$cfg_adminemail = 'guozesheng@gmail.com';
 $cfg_backup_dir = 'backup_data';
 $cfg_keeptime = '2';
 $cfg_address = '';

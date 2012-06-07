@@ -1,5 +1,8 @@
-<?php
+<?php 
 session_start();
+/*************************************************
+本文件的信息不建议用户自行更改，否则发生意外自行负责
+**************************************************/
 error_reporting(E_ALL || ~E_NOTICE);
 
 define('VIOOMAINC',dirname(__FILE__));
@@ -33,15 +36,15 @@ if(PHP_VERSION > '5.1') {
 
 
 //Session保存路径
-//$sessSavePath = VIOOMAINC."/../data/sessions/";
-//if(is_writeable($sessSavePath) && is_readable($sessSavePath)){ session_save_path($sessSavePath); }
+$sessSavePath = VIOOMAINC."/../data/sessions/";
+if(is_writeable($sessSavePath) && is_readable($sessSavePath)){ session_save_path($sessSavePath); }
 
 //数据库连接信息
 $cfg_dbhost = 'localhost';
-$cfg_dbname = 'viooma2008';
+$cfg_dbname = 'guozs';
 $cfg_dbuser = 'root';
 $cfg_dbpwd = 'vertrigo';
-$cfg_dbprefix = 'viooma_';
+$cfg_dbprefix = 'guo_';
 $cfg_db_language = 'gbk';
 
 //软件摘要信息，****请不要删除本项**** 否则系统无法正确接收系统漏洞或升级信息

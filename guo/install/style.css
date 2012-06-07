@@ -37,9 +37,9 @@ a:hover{
 /*------------------------------------------------*/
 .top{
 	width:760px;
-	height:31px;
-	line-height:30px;
-	background:url(images/toplogo.gif) left center no-repeat;
+	height:51px;
+	line-height:50px;
+	background:url(images/toplogo.png) left center no-repeat;
 	text-indent:280px;
 	color:#888;
 }

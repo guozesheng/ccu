@@ -1,8 +1,4 @@
 <?php
-//########################################################################
-//Web版进销存安装程序
-//程序开发：马鬼团队
-//联系QQ：12612019
 //#########################################################################
 /*------------------------
 初始化系统环境
@@ -155,7 +151,7 @@ else if($step==5)
      $mysql_version = $mysql_versions[0].".".$mysql_versions[1];
 	 $adminpwd=md5($adminpwd);
      $admindatas = "
-          INSERT INTO `#@__boss` VALUES (10, '{$adminuser}', '{$adminpwd}',  '2008-08-18 20:35:28', '127.0.0.1','0','1');
+          INSERT INTO `#@__boss` VALUES (null, '{$adminuser}', '{$adminpwd}', '{$adminuser}', '无', '0',  '2012-05-06 20:35:28', '127.0.0.1','0','1');
           INSERT INTO `#@__config` VALUES (1, 'cfg_webname', '公司名称', '{$webname}', 'string', 8);
           INSERT INTO `#@__config` VALUES (2, 'cfg_basehost', '站点根网址', '{$weburl}', 'string', 8);
           INSERT INTO `#@__config` VALUES (3, 'cfg_cmspath', '安装目录', '{$path}', 'string', 8);
@@ -164,19 +160,11 @@ else if($step==5)
           INSERT INTO `#@__config` VALUES (6, 'cfg_adminemail', '站长EMAIL', '{$adminmail}', 'string', 8);
 		  INSERT INTO `#@__config` VALUES (7, 'cfg_backup_dir', '数据备份目录', 'backup_data', 'string', 30);
 		  INSERT INTO `#@__config` VALUES (8, 'cfg_keeptime', 'Cookie保持时间', '2', 'smallint', 6);
-		  INSERT INTO `#@__config` VALUES (9, 'cfg_address', '公司地址', '', 'string', 200);
 		  INSERT INTO `#@__config` VALUES (10, 'cfg_conact', '联系人', '', 'string', 10);
 		  INSERT INTO `#@__config` VALUES (11, 'cfg_phone', '联系电话', '', 'string', 15);
-		  INSERT INTO `#@__config` VALUES (12, 'cfg_islevel', '是否启用会员等级', '0', 'smallint', 6);
-		  INSERT INTO `#@__config` VALUES (13, 'cfg_isdiscount', '是否按等级打折', '0', 'smallint', 6);
-		  INSERT INTO `#@__config` VALUES (14, 'cfg_isalarm', '库存报警', '1', 'smallint', 6);
-		  INSERT INTO `#@__config` VALUES (15, 'cfg_isshow', '报表里是否显示详细信息', '1', 'smallint', 6);
 		  INSERT INTO `#@__config` VALUES (16, 'cfg_record', '显示记录数', '10', 'smallint', 6);
-		  INSERT INTO `#@__config` VALUES (17, 'cfg_way', '员工业务提成', '1', 'smallint', 6);
 		  INSERT INTO #@__usertype VALUES (1,'超级管理员','1','admin_AllowAll');
-		  INSERT INTO #@__usertype VALUES (5,'仓库管理员','1','c_ACClab');
-		  INSERT INTO #@__usertype VALUES (10,'销售管理员','1','s_ACCsale');
-		  INSERT INTO #@__usertype VALUES (20,'财务管理员','1','s_ACCmon');
+		  INSERT INTO #@__usertype VALUES (2,'普通教师','1','c_ACClab');
      ";
      if($mysql_version < 4.1) $fp = fopen(VIOOMAROOT."/install/setup40.sql","r");
      else $fp = fopen(VIOOMAROOT."/install/setup41.sql","r");
